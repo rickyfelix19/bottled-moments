@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "concurrently": "^8.0.1",
+    "storybook-addon-designs": "^6.3.1"
+  }
+}
