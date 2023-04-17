@@ -1,11 +1,18 @@
 {
-  "name": "resolume_receiver",
+  "name": "p5js-resolume-base",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server" : "node server.js"
   },
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "mqtt": "^4.3.7"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "express": "^4.18.2",
+    "got": "^12.6.0",
+    "osc": "^2.4.4",
+    "socket.io": "^4.6.1"
+  }
 }
