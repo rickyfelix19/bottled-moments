@@ -1,0 +1,20 @@
+{
+  "name": "osc-base",
+  "version": "1.0.0",
+  "description": "To test OSC between p5 and Resolume",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sender-server": "lorem ipsum",
+    "receiver-server": "lorem ipsum",
+    "all-server": "lorem ipsum",
+    "sender-node": "lorem ipsum",
+    "receiver-node": "lorem ipsum",
+    "all-node": "lorem ipsum"
+  },
+  "devDependencies": {
+  "concurrently": "^8.0.1"
+},
+  "author": "Ricky Felix",
+  "license": "UNLICENSED"
+}
