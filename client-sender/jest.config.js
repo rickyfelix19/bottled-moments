@@ -3,4 +3,7 @@ const config = {
   verbose: true,
 };
 
-module.exports = config;
+module.exports = {
+  runner: "prettier",
+  preset: "jest-runner-prettier"
+}
