@@ -1,0 +1,66 @@
+{
+  "masterPicture": "./bottled-moments-logo.svg",
+  "iconsPath": "/",
+  "design": {
+    "ios": {
+      "pictureAspect": "backgroundAndMargin",
+      "backgroundColor": "#9fe5ef",
+      "margin": "0%",
+      "assets": {
+        "ios6AndPriorIcons": false,
+        "ios7AndLaterIcons": false,
+        "precomposedIcons": true,
+        "declareOnlyDefaultIcon": true
+      },
+      "appName": "Bottled Moments"
+    },
+    "desktopBrowser": {
+      "design": "background",
+      "backgroundColor": "#9fe5ef",
+      "backgroundRadius": 0.45,
+      "imageScale": 1
+    },
+    "windows": {
+      "pictureAspect": "noChange",
+      "backgroundColor": "#9fe5ef",
+      "onConflict": "override",
+      "assets": {
+        "windows80Ie10Tile": false,
+        "windows10Ie11EdgeTiles": {
+          "small": false,
+          "medium": true,
+          "big": false,
+          "rectangle": false
+        }
+      },
+      "appName": "Bottled Moments"
+    },
+    "androidChrome": {
+      "pictureAspect": "shadow",
+      "themeColor": "#9fe5ef",
+      "manifest": {
+        "name": "Bottled Moments",
+        "display": "standalone",
+        "orientation": "notSet",
+        "onConflict": "override",
+        "declared": true
+      },
+      "assets": {
+        "legacyIcon": false,
+        "lowResolutionIcons": false
+      }
+    },
+    "safariPinnedTab": {
+      "pictureAspect": "silhouette",
+      "themeColor": "#8f8ccf"
+    }
+  },
+  "settings": {
+    "compression": 1,
+    "scalingAlgorithm": "Mitchell",
+    "errorOnImageTooSmall": false,
+    "readmeFile": true,
+    "htmlCodeFile": true,
+    "usePathAsIs": false
+  }
+}
