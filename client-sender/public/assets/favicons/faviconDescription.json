@@ -1,6 +1,6 @@
 {
   "masterPicture": "./bottled-moments-logo.svg",
-  "iconsPath": "/",
+  "iconsPath": "/outputDir",
   "design": {
     "ios": {
       "pictureAspect": "backgroundAndMargin",
