@@ -1,5 +1,10 @@
 {
+  "name": "bottled-moments",
+  "author": "Ricky Felixi",
   "devDependencies": {
     "concurrently": "^8.0.1"
-  }
+  },
+ "script": {
+  
+ }
 }
