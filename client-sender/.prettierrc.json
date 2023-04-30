@@ -1,5 +1,5 @@
 {
   "module.exports": {
-    "plugins": ["prettier-plugin-tailwindcss", "jest-runner-prettier"]
+    "plugins": ["prettier-plugin-tailwindcss"]
   }
 }
