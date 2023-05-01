@@ -16,9 +16,11 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 
-
-// Create an osc.js UDP Port listening on port 57121.
-// Credit: https://www.npmjs.com/package/osc
+/*
+    Create an osc.js UDP Port listening on port 57121.
+    Credit: https://www.npmjs.com/package/osc
+    * this is outgoing address and port
+*/
 var osc = require("osc");
 var udpPort = new osc.UDPPort({
     localAddress: "0.0.0.0",
@@ -40,7 +42,11 @@ app.post('/sendMessage', function(request, response) {
 });
 
 
-// Send OSC messages
+/*
+    Send OSC messages
+    * Incoming Port
+   * 127.0.0.1 is localhost
+*/
 function sendOSC(address, value, type) {
     // console.log('OSC message sent: address: ' + address + ', value: ' + value);
     udpPort.send({
