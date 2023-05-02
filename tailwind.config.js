@@ -7,7 +7,11 @@ module.exports = {
     "./public/pages/*",
     "./public/index.html",
     "./public/**/*.{js,html}",
-    "node_modules/preline/dist/*.js",
+    "./pages/*",
+    "./pages/index.html",
+    "./pages/**/*.{js,html}",
+    "./index.html",
+    "../node_modules/preline/dist/*.js",
   ],
   theme: {
     extend: {},

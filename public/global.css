@@ -1,11 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* @import url("https://fonts.googleapis.com/css?family=Quicksand:400"); */
 
-a {
-  @apply text-blue-500 transition-all hover:text-blue-400 hover:underline;
-}
+@import url("https://fonts.googleapis.com/css?family=Quicksand:400");
 
 html {
   font-size: 137.5%;
@@ -58,4 +55,8 @@ h5 {
 small,
 .text_small {
   font-size: 0.75rem;
+}
+
+a {
+  @apply text-blue-500 transition-all hover:text-blue-400 hover:underline;
 }
