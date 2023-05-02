@@ -1,37 +1,32 @@
 {
-    "artifact": {
-        "artifactID": 1,
-        "name": "shield",
-        "category": "",
-        "description":"",
-        "color": ""
+  "artifact": [
+    {
+      "artifactID": 1,
+      "name": "shield",
+      "category": "",
+      "description": "",
+      "color": ""
     },
     {
-        "artifactID": 2,
-        "name": "shield",
-        "category": "",
-        "description":"",
-        "color": ""
+      "artifactID": 2,
+      "name": "rose",
+      "category": "",
+      "description": "",
+      "color": ""
     },
     {
-        "artifactID": 3,
-        "name": "shield",
-        "category": "",
-        "description":"",
-        "color": ""
+      "artifactID": 3,
+      "name": "carpet",
+      "category": "",
+      "description": "",
+      "color": ""
     },
     {
-        "artifactID": 4,
-        "name": "shield",
-        "category": "",
-        "description":"",
-        "color": ""
-    },
-    {
-        "artifactID": 5,
-        "name": "shield",
-        "category": "",
-        "description":"",
-        "color": ""
+      "artifactID": 4,
+      "name": "flower",
+      "category": "",
+      "description": "",
+      "color": ""
     }
+  ]
 }
