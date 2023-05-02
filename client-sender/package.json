@@ -1,7 +1,6 @@
 {
   "name": "client-sender",
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "dev": "cross-env TAILWIND_MODE=watch vite",
     "build": "cross-env TAILWIND_MODE=build vite build",
@@ -38,6 +37,6 @@
     "socket.io": "^4.6.1"
   },
   "cypress-cucumber-preprocessor": {
-        "nonGlobalStepDefinitions": true
-      }
+    "nonGlobalStepDefinitions": true
+  }
 }

@@ -1,5 +1,5 @@
 // Port for the Express web server
-var WEB_SERVER_PORT = 3000;
+var WEB_SERVER_PORT = 3200;
 var OSC_PORT_IN = 12000;
 
 
