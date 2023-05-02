@@ -1,46 +1,49 @@
 # Bottled Moments
 
-## Table of Contents
+- **template of:** vite + vanilaJS
+- **vitawind:** 2.0.0,
+- **tailwindcss:** v3.3.1
 
-- [About](#about)
-- [Getting Started](#getting_started)
-- [Usage](#usage)
-- [Contributing](../CONTRIBUTING.md)
+### With addition of:
 
-## About <a name = "about"></a>
+- **p5js-wrapper:** 1.2.3,
+- **jest:** v29.5.0
+- **cypress:** v12.9.0
+- **prettier**
+- **vercel**
 
-Write about 1-2 paragraphs describing the purpose of your project.
+  ***
 
-## Getting Started <a name = "getting_started"></a>
+## Documentation
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+- <a href="https://vitejs.dev/guide/features.html" target="_blank">Vite Documentation</a>
+- <a href="https://tailwindcomponents.com/cheatsheet/" target="_blank">Tailwind Documentation</a>
+- <a href="https://jestjs.io/docs/getting-started" target="_blank">Jest Documentation</a>
+- <a href="https://docs.cypress.io/guides/end-to-end-testing/writing-your-first-end-to-end-test" target="_blank">Cypress E2E Documentation</a>
 
-### Prerequisites
+## Started
 
-What things you need to install the software and how to install them.
-
-```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running.
-
-Say what the step will be
-
-```
-Give the example
+```bash
+yarn
+# or `npm install`
 ```
 
-And repeat
+---
 
+## Develop
+
+```bash
+yarn dev
+# or `npm run dev`
 ```
-until finished
+
+---
+
+## Build
+
+```bash
+yarn build
+# or `npm run build`
 ```
 
-End with an example of getting some data out of the system or using it for a little demo.
-
-## Usage <a name = "usage"></a>
-
-Add notes about how to use the system.
+---
