@@ -5,3 +5,8 @@ const cucumber = require("cypress-cucumber-preprocessor").default;
 module.exports = (on, config) => {
   on("file: preprocessor", cucumber());
 };
+
+// light mode-dark mode switch
+function lightMode() {
+  console.log("light mode");
+}
