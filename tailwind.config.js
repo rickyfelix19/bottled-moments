@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-const colors = require("tailwindcss/colors");
+// const colors = require("tailwindcss/colors");
 
 module.exports = {
+  darkMode: "media", // or 'class'
   content: [
     "./*/*.html",
     "./public/pages/*",
@@ -14,7 +15,11 @@ module.exports = {
     "../node_modules/preline/dist/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        poppins: ["Quicksand", "sans-serif"],
+      },
+    },
   },
   plugins: [require("preline/plugin")],
 };
