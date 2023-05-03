@@ -7,13 +7,13 @@
 <html lang="EN">
   <head>
     <!-- Page Title -->
-    <title>Bottled Moments</title>
+    <title>Bottled Moments | EDIT THIS 📌</title>
 
     <!-- Link -->
     <link
       rel="icon"
       type="image/svg+xml"
-      href="./assets/favicons/outputDir/favicon.ico"
+      href="../assets/favicons/outputDir/favicon.ico"
     />
 
     <!-- Responsiveness -->
@@ -22,13 +22,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="" />
 
+    <!-- Author -->
+    <link rel="author" href="./humans.txt" />
+
+    <!-- p5.js Default Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.min.js"></script>
+
+    <!-- p5.js Add-Ons: 
+      * p5 experience: https://github.com/loneboarder/p5.experience.js
+      * p5 touchGUI: https://github.com/L05/p5.touchgui
+      * shape5.js: https://github.com/pfe1223/Shape5js
+    -->
+    <script src="../../libraries/p5.experience.js"></script>
+    <script src="https://unpkg.com/p5.touchgui@0.5.2/lib/p5.touchgui.js"></script>
+    <script src="../../libraries/shape5.js"></script>
+
     <!-- Tailwind and Preline UI via CDN-->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@preline/preline@1.0/dist/hs-ui.bundle.min.js"></script>
-
-    <!-- p5.js Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.min.js"></script>
 
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="./global.css" />
@@ -36,29 +48,23 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="./pages/1_welcome/welcome.css" />
-
-    <!-- Author -->
-    <link rel="author" href="./humans.txt" />
   </head>
 
   <body>
     <main>
       <!-- Write below here -->
-      <div>
-        <h1>Bottled Moments</h1>
-        <h5>Journey through Companionship</h5>
-      </div>
+      <div>Hello World</div>
 
       <!-- By default, p5.js will run after everything inside p5.js -->
     </main>
 
     <!-- JavaScript files -->
     <script src="./main.js"></script>
-    <script src="./pages/1_welcome/welcome.js"></script> 
+    <script src="./pages/1_welcome/welcome.js"></script>
 
     <!-- Tailwind and Preline UI via NPM ; can't use using server.js -->
     <script src="./assets/vendor/preline/dist/preline.js"></script>
     <script src="../node_modules/preline/dist/preline.js"></script>
-    <script src="./tailwindcss.config.js"></script>
+    <script src="../tailwindcss.config.js"></script>
   </body>
 </html>
