@@ -54,23 +54,37 @@ h5 {
   line-height: 200px;
 }
 
+.title-1 {
+  margin-top: 0;
+  font-size: 7.361rem;
+  font-weight: 700;
+}
+
+.title-2 {
+  margin-top: 0;
+  font-size: 5.535rem;
+  font-weight: 700;
+}
+
 h1 {
   margin-top: 0;
   font-size: 4.162rem;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 h2 {
   font-size: 3.129rem;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 h3 {
   font-size: 2.353rem;
+  font-weight: 500;
 }
 
 h4 {
   font-size: 1.769rem;
+  font-weight: 500;
 }
 
 h5 {
@@ -80,19 +94,23 @@ h5 {
 p,
 .p-text {
   font-size: 1rem;
+  font-weight: 500;
 }
 
 p,
 .p-paragraph {
   font-size: 0.818rem;
+  font-weight: 400;
 }
 
 small,
 .text_overline_1 {
   font-size: 0.752rem;
+  font-weight: 500;
 }
 
 small,
 .text_overline_2 {
   font-size: 0.565rem;
+  font-weight: 600;
 }
