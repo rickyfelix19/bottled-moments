@@ -1,12 +1,18 @@
 {
   "name": "p5",
   "version": "0.0.0",
+  "type": "module",
+  "main": "./src/index.js",
   "scripts": {
-    "dev": "cross-env TAILWIND_MODE=watch vite",
     "build": "cross-env TAILWIND_MODE=build vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "dev:frontend": "cross-env TAILWIND_MODE=watch vite",
+    "dev:backend": "nodemon server/index.js",
+    "dev": "concurrently 'npm:dev:frontend' 'npm:dev:backend'"
   },
   "devDependencies": {
+    "concurrently": "^8.0.1",
+    "nodemon": "^2.0.22",
     "preline": "^1.8.0",
     "prettier": "^2.5.1",
     "prettier-plugin-tailwindcss": "^0.1.5",
