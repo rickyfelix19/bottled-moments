@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 /* @import url("https://fonts.googleapis.com/css?family=Quicksand:400"); */
 
-/* =========================== Default CSS =========================== */
+/* =========================== Default p5.js =========================== */
 
 html,
 body {
@@ -11,11 +11,15 @@ body {
   padding: 0;
 }
 
-body {
-  line-height: 1.75;
-  font-family: "Quicksand", sans-serif;
+canvas {
+  display: block;
+  margin: auto; /* centers the canvas */
+}
 
-  /* background gradient */
+/* =========================== Gradient =========================== */
+
+body, .light-mode {
+  /* sunrise */
   height: 100%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -23,18 +27,37 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background: linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
-  background: -webkit-linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
   background: -moz-linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
-  background: -ms-linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
+  background: -webkit-linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
   background: -o-linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
+  background: -ms-linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
+}
+
+body, .dark-mode {
+
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background: linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
+  background: -webkit-linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
+  background: -moz-linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
+  background: -ms-linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
+  background: -o-linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
+}
+
+/* =========================== Font Stylings =========================== */
+
+body {
+  line-height: 1.75;
+  font-family: "Quicksand", sans-serif;
 }
 
 p {
   margin-bottom: 1rem;
 }
-
-
-/* =========================== Font Stylings =========================== */
 
 .title-1 {
   margin-top: 0;
@@ -84,7 +107,7 @@ p,
   font-weight: 400;
 }
 
-small,
+button,
 .button {
   font-size: 0.727rem;
   font-weight: 500;
@@ -102,7 +125,24 @@ small,
   font-weight: 600;
 }
 
-canvas {
-  display: block;
-  margin: auto; /* centers the canvas */
+/* =========================== Font Colors =========================== */
+
+.text-black {
+  color: #262626;
+}
+
+.text-cream {
+  color: #FBF4E9;
+}
+
+.text-white {
+  color: #F8F8F8;
+}
+
+.text-overlay-light {
+  color: #A0A0A0;
+}
+
+.text-overlay-black {
+  color: #383838;
 }
