@@ -2,27 +2,29 @@
     things to add:
     
     - font ✅
-    - background 
-    -- background color ✅
-    -- waves -> sin ✅
+    - messageBox
+
+    - background ✅
+    -- background color
+    -- waves -> sin 
     -- productCircle
     
-    color palettes
-
-    - buttons:  -> library ✅
+    - color palettes
+    -- light mode
+    -- dark mode 
+    
+    
+    - buttons:  -> library
     -- primary
     -- secondary
     -- outline
 
-    advanced UI:
+    Advanced UI:
     - carousel
     - stepperUI
     - container
-    - messageBox
-
-    then extra layers of:
-    - light first then dark
-    - microanimations
+    
+    - Micro-animations
 
 */
 
@@ -66,7 +68,6 @@ function preload () {
 
 /* --------------- UI Component starts here  --------------- */
 
-
 class Font {
     constructor(xPos, yPos, fontColor, fontWeight, fontDescription, fontSizes) {
         this.xPos = xPos;
@@ -90,7 +91,8 @@ class Background {
         this.amount = amount; //
     }
     showGradient() {
-        lerpColor(rgba1, rgba2, amount);
+        //   background: linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
+        lerpColor('#CCEAFF', '#FFFFFF', 0.54);
     }
 
     showWaves() {

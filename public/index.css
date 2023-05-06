@@ -1,47 +1,71 @@
+/* =========================== Register font =========================== */
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 /* @import url("https://fonts.googleapis.com/css?family=Quicksand:400"); */
 
-/* =========================== Tailwind fonts =========================== */
-
-@layer base {
-  html {
-    font-family: Quicksand, sans-serif;
     /* 
       * Font weight: ( https://fonts.google.com/specimen/Quicksand )
-      * - Light 300
-      * - Regular 400
-      * - Medium 500 
-      * - SemiBold 600
-      * - Bold 700  
+      * Light - 300
+      * Regular - 400
+      * Medium - 500 
+      * SemiBold - 600
+      * Bold - 700  
     */
-  }
+
+/* =========================== Default p5.js =========================== */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
 
-/* =========================== Default CSS =========================== */
-
-html {
-  /*22px*/
-  font-size: 137.5%;
+canvas {
+  display: block;
+  margin: auto; /* centers the canvas */
 }
+
+/* =========================== Gradient =========================== */
+
+body, .light-mode {
+  /* sunrise */
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background: linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
+  background: -moz-linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
+  background: -webkit-linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
+  background: -o-linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
+  background: -ms-linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
+}
+
+body, .dark-mode {
+  /* sunset */
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background: linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
+  background: -webkit-linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
+  background: -moz-linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
+  background: -ms-linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
+  background: -o-linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
+}
+
+/* =========================== Font Stylings =========================== */
 
 body {
-  background: white;
-  font-family: "Quicksand", sans-serif;
-  /* font-weight: 400; */
   line-height: 1.75;
+  font-family: "Quicksand", sans-serif;
 }
 
 p {
   margin-bottom: 1rem;
-  
-}
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: "Quicksand", sans-serif;
 }
 
 .title-1 {
@@ -56,32 +80,32 @@ h5 {
   font-weight: 700;
 }
 
-h1 {
+.display-1 {
   font-size: 4.162rem;
   font-weight: 500;
 }
 
-h2 {
+.display-2 {
   font-size: 3.129rem;
   font-weight: 500;
 }
 
-h3 {
-    font-size: 2.353rem;
-    font-weight: 700;
+.headline {
+  font-size: 2.353rem;
+  font-weight: 700;
 }
 
-h4 {
+.title {
   font-size: 1.769rem;
   font-weight: 500;
 }
 
-h5 {
+.subheading {
   font-size: 1.33rem;
 }
 
 p,
-.p-text {
+.p-bodycopy {
   font-size: 1rem;
   font-weight: 500;
 }
@@ -92,14 +116,42 @@ p,
   font-weight: 400;
 }
 
-small,
-.text_overline_1 {
-  font-size: 0.752rem;
-  font-weight: 500; 
+button,
+.button {
+  font-size: 0.727rem;
+  font-weight: 500;
 }
 
 small,
-.text_overline_2 {
+.caption {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+small,
+.legal {
   font-size: 0.565rem;
   font-weight: 600;
+}
+
+/* =========================== Font Colors =========================== */
+
+.text-black {
+  color: #262626;
+}
+
+.text-cream {
+  color: #FBF4E9;
+}
+
+.text-white {
+  color: #F8F8F8;
+}
+
+.text-overlay-light {
+  color: #A0A0A0;
+}
+
+.text-overlay-black {
+  color: #383838;
 }
