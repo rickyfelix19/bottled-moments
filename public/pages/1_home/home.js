@@ -26,6 +26,11 @@ function draw() {
   myButton.draw();
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+// button is not responsive
 function primaryButton() {
   myButton = new Button({
     x: width/2, y: height/2,
@@ -33,15 +38,21 @@ function primaryButton() {
     align_x: 0, align_y: 0,
     color: 'rgb(4834D4)',
     content: 'Start Playing',
+    border_radius: '15',
+    // myButton.style('cursor', 'pointer'),
+
     // on_press() {
     //   window.open("https://www.google.com", '_parent')
     // },
     // on_click() {
     //   window.open("https://www.google.com", '_parent')
     // }
+    // on_mouse_enter() {
+    //   myButton.style('cursor', 'pointer')
+    // },
     on_release() {
       window.open("../pages/2_onboarding/onboarding.html", '_parent')
-    }
+    },
   });
 }
 

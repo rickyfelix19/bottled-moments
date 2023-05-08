@@ -13,7 +13,7 @@
     <link
       rel="icon"
       type="image/svg+xml"
-      href="../assets/favicons/outputDir/favicon.ico"
+      href="../../assets/favicons/outputDir/favicon.ico"
     />
 
     <!-- Responsiveness -->
@@ -45,31 +45,30 @@
     <link rel="stylesheet" href="./thankYou.css" />
   </head>
 
-  <body>
-    
+  <body class='light-mode'>
     <main>
       <div>
+        <!-- Write below here -->
+        <div id="container-p5-waves">
+          <!--sketch will be inserted here, as done in setup() in sketch.js-->
+        </div>
 
-        <div>
-          <!-- Write below here -->
-          <div id="container-p5-waves">
-            <!--sketch will be inserted here, as done in setup() in sketch.js-->
+        <div class='text-container'>
+          <h1 class='headline'>Your Bottle Is Now Drifting Through The Sea</h1>
+          <p class='text-overline-2'>Embark On It's New Journey</p>
+          
+          <div>
+            <button onClick="window.open(`http://www.google.com`)";>Give Feedback</button></a>
+            <a href='..\3_sketch\sketch.html'><button>Play Again</button></a>
           </div>
-      <div>
-        <h1 class='display-2'>Your Bottle Is Now Drifting Through The Sea</h1>
-        <p class='text-overline-2'>Embark On It's New Journey</p>
-        <div>
-          <button onClick="window.open(`http://www.google.com`)";>Give Feedback</button></a>
-          <a href='..\3_sketch\sketch.html'><button>Play Again</button></a>
         </div>
       </div>
-    </div>
     </main>
 
     <!-- Global JS file -->
-    <script src="./index.js"></script>
+    <script src="../../index.css"></script>
 
     <!-- Page JS  -->
-    <script src="./pages/1_welcome/welcome.js"></script>
+    <script src="./thankYou.js"></script>
   </body>
 </html>
