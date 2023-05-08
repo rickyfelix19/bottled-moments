@@ -1,6 +1,6 @@
 /* =========================== Register font =========================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?Quicksand&display=swap");
 /* @import url("https://fonts.googleapis.com/css?family=Quicksand:400"); */
 
     /* 
@@ -16,33 +16,37 @@
 
 html,
 body {
+  overflow: hidden;
   margin: 0;
   padding: 0;
 }
 
-canvas {
+.container-p5 {
   display: block;
+  /* margin: 0; */
   margin: auto; /* centers the canvas */
+  padding: 0;
 }
 
 /* =========================== Gradient =========================== */
 
-body, .light-mode {
+body[class="light-mode"] {
   /* sunrise */
+
   height: 100%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   background-repeat: no-repeat;
-  background: linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
-  background: -moz-linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
-  background: -webkit-linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
-  background: -o-linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
-  background: -ms-linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
+  background: linear-gradient( #CCEAFF 0%, #FFFFFF 54.92%);
+  background: -moz-linear-gradient( #CCEAFF 0%, #FFFFFF 54.92%);
+  background: -webkit-linear-gradient( #CCEAFF 0%, #FFFFFF 54.92%);
+  background: -o-linear-gradient( #CCEAFF 0%, #FFFFFF 54.92%);
+  background: -ms-linear-gradient( #CCEAFF 0%, #FFFFFF 54.92%);
 }
 
-body, .dark-mode {
+body[class="dark-mode"] {
   /* sunset */
   height: 100%;
   -webkit-background-size: cover;
@@ -50,11 +54,11 @@ body, .dark-mode {
   -o-background-size: cover;
   background-size: cover;
   background-repeat: no-repeat;
-  background: linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
-  background: -webkit-linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
-  background: -moz-linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
-  background: -ms-linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
-  background: -o-linear-gradient(180deg, #112362 7.98%, #FFFFFF 100%);
+  background: linear-gradient(#112362 7.98%, #FFFFFF 100%);
+  background: -webkit-linear-gradient(#112362 7.98%, #FFFFFF 100%);
+  background: -moz-linear-gradient(#112362 7.98%, #FFFFFF 100%);
+  background: -ms-linear-gradient(#112362 7.98%, #FFFFFF 100%);
+  background: -o-linear-gradient(#112362 7.98%, #FFFFFF 100%);
 }
 
 /* =========================== Font Stylings =========================== */
@@ -64,18 +68,26 @@ body {
   font-family: "Quicksand", sans-serif;
 }
 
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
+}
+
 p {
   margin-bottom: 1rem;
 }
 
+/* 
+body[class='light-mode'] > p {
+  color: #383838;
+} */
+
 .title-1 {
-  margin-top: 0;
   font-size: 7.361rem;
   font-weight: 700;
 }
 
 .title-2 {
-  margin-top: 0;
   font-size: 5.535rem;
   font-weight: 700;
 }
@@ -87,7 +99,8 @@ p {
 
 .display-2 {
   font-size: 3.129rem;
-  font-weight: 500;
+  font-weight: 700;
+  line-height: 100%;
 }
 
 .headline {
@@ -104,31 +117,26 @@ p {
   font-size: 1.33rem;
 }
 
-p,
 .p-bodycopy {
   font-size: 1rem;
   font-weight: 500;
 }
 
-p,
 .p-paragraph {
   font-size: 0.818rem;
   font-weight: 400;
 }
 
-button,
 .button {
   font-size: 0.727rem;
   font-weight: 500;
 }
 
-small,
 .caption {
   font-size: 0.75rem;
   font-weight: 500;
 }
 
-small,
 .legal {
   font-size: 0.565rem;
   font-weight: 600;
@@ -154,4 +162,12 @@ small,
 
 .text-overlay-black {
   color: #383838;
+}
+
+ h1, h2, h3, h4, h5, h6 > body[class="light-mode"]{
+  color: #383838
+}
+
+p {
+  color: #383838
 }

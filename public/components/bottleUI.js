@@ -1,30 +1,30 @@
 /* 
     things to add:
-    
-    - font ✅
-    - messageBox
+
+    // @import url("https://fonts.googleapis.com/css2?Quicksand:400&display=swap");
+    - font ✅ -> CSS and preloads
+    // https://editor.p5js.org/Samizdat/sketches/eUsieMk6j
+    - messageBox ✅ -> inputboxes
 
     - background ✅
-    -- background color
+    -- background color ✅ -> CSS
     -- waves -> sin 
     -- productCircle
     
     - color palettes
-    -- light mode
+    -- light mode ✅
     -- dark mode 
     
-    
+    // 
     - buttons:  -> library
     -- primary
     -- secondary
-    -- outline
+    -- underline
+    -- Micro-animations
 
-    Advanced UI:
+    Advanced UI: -> Tailwind
     - carousel
     - stepperUI
-    - container
-    
-    - Micro-animations
 
 */
 
@@ -91,8 +91,9 @@ class Background {
         this.amount = amount; //
     }
     showGradient() {
-        //   background: linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);
-        lerpColor('#CCEAFF', '#FFFFFF', 0.54);
+        //   background: linear-gradient(180deg, #CCEAFF 0%, #FFFFFF 54.92%);'
+        // lerpColor('#CCEAFF', '#FFFFFF', 0.54);
+        lerpColor(this.rgba1, this.rgba2, this.amount);
     }
 
     showWaves() {
@@ -102,5 +103,4 @@ class Background {
         lerpColor(rgba1, rgba2, amount)
         // endShape()
     }
-}
-
+    }
