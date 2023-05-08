@@ -16,6 +16,9 @@ function setup() {
 }
 
 function draw() {
+  // page 1 button 1 clicked -> page 2
+  // page 2 button 1 clicked -> page 1, page 2 button 2 clicked -> page 3
+  // page 3 button 1 clicked -> page 2, page 3 button 2 clicked -> send request
     if (mode == 0) {
     screen_1();
   } else if (mode == 1) {
