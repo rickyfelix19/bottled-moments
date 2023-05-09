@@ -25,6 +25,8 @@ document.addEventListener('touchend', function(e) {
 // Fixed variables
 var HOST = window.location.origin;
 let xmlHttpRequest = new XMLHttpRequest();
+var socket;
+let userSessionId;
 ////////////////////////////////////////////////////////
 //FIXED SECTION - END: DO NOT CHANGE THESE VARIABLES
 ////////////////////////////////////////////////////////
@@ -44,23 +46,25 @@ let sliderDimension;
 let lastFrameCountUpdate;
 let updateRateInFrames = 5;
 
+// NUMBER OF USERS POLL: Variables
+let lastTimeNumberOfUsersPolled;
+let intervalToPollNumberOfUsers = 5000;
+let currentNumberOfUsers = 1;
+
 
 ///////////////////////////////////////////
 // SETUP FUNCTION
 ///////////////////////////////////////////
 function setup() {
 	createCanvas(windowWidth, windowHeight);
+
+	// NUMBER OF USERS POLL: Initialise
+	userSessionId = int(random(100000));
+	lastTimeNumberOfUsersPolled = millis();
+	setupNumberOfUsersPoll();
+
 	font = loadFont('/static/assets/SourceSansPro-Regular.otf');
   textSize(35);
-
-	quarterPoint = 0.25*windowWidth;
-	halfPoint = 0.5*windowWidth;
-	threeQuarterPoint = 0.75*windowWidth;
-	sliderDimension = 0.1*windowHeight;
-
-	lastFrameCountUpdate = frameCount;
-
-	initialiseResolume();
 }
 
 
@@ -70,177 +74,14 @@ function setup() {
 function draw() {
 	background(205, 185, 150);
 
-	stroke(255);
-	line(quarterPoint, 0, quarterPoint, windowHeight);
-	line(halfPoint, 0, halfPoint, windowHeight);
-	line(threeQuarterPoint, 0, threeQuarterPoint, windowHeight);
-
-	stroke(150);
-	line(0, 0.5*windowHeight, windowWidth, 0.5*windowHeight);
-
-	stroke(200);
-	fill(255);
-	rectMode(CENTER);
+	// NUMBER OF USERS POLL: Update
+	if ((millis() - lastTimeNumberOfUsersPolled) > intervalToPollNumberOfUsers) {
+		lastTimeNumberOfUsersPolled = millis();
+		getNumberOfUsers();
+	}
 
 	textAlign(CENTER);
-	text('2019', int(0.5*quarterPoint), int(0.1*windowHeight));
-	text('2020', halfPoint-0.5*quarterPoint, 0.1*windowHeight);
-	text('2021', threeQuarterPoint-0.5*quarterPoint, 0.1*windowHeight);
-	text('2022', windowWidth-0.5*quarterPoint, 0.1*windowHeight);
-
-	if (isMousePressed || touches.length > 0) {
-		var xpos = mouseX;
-		var ypos = mouseY;
-		if (touches.length > 0) {
-			xpos = touches[0].x;
-			ypos = touches[0].y;
-		}
-		timelinePos = xpos/windowWidth;
-
-		if (timelinePos != oldTimelinePos) {
-			oldTimelinePos = timelinePos;
-			updateResolumeState();
-		}
-	}
-	rect(timelinePos*windowWidth, 0.5*windowHeight, sliderDimension, sliderDimension, 10, 10);
-
-	if ((frameCount - lastFrameCountUpdate) > updateRateInFrames) {
-		lastFrameCountUpdate = frameCount;
-		redrawResolumeComponents();
-	}
-}
-
-///////////////////////////////////////////////////////////////////
-// initialiseResolume()
-//
-// This is like "setup", but applied to Resolume. In other words,
-// it runs only once, when the website is loaded.
-///////////////////////////////////////////////////////////////////
-function initialiseResolume() {
-	loadClip(1, 1); // load beach video
-	loadClip(2, 1); // load virus video
-
-	// Initialise text caption (layer 6)
-	loadClip(6, 1);
-	setLayerOpacity(6, 0.2);
-	sendMessage('/composition/layers/6/clips/1/video/source/blocktextgenerator/size', 5, "f"); // set font size
-	sendMessage('/composition/layers/6/clips/1/video/source/blocktextgenerator/color/red', 255, "f"); // set text colour to white
-	sendMessage('/composition/layers/6/clips/1/video/source/blocktextgenerator/color/green', 255, "f");
-	sendMessage('/composition/layers/6/clips/1/video/source/blocktextgenerator/color/blue', 255, "f");
-}
-
-
-//////////////////////////////////////////////////////////////////////////////
-// updateResolumeState()
-//
-// This function is invoked occasionally, based on certain conditions,
-// tested within "draw". However, the steps included here should not be run 
-// every frame, to avoid too many OSC messages being sent to Resolume.
-//////////////////////////////////////////////////////////////////////////////
-function updateResolumeState() {
-	var brightnessLayer1 = map(timelinePos, 0, 1, 0.3, 0.7);
-	sendMessage('/composition/layers/1/video/effects/brightnesscontrast/effect/brightness', brightnessLayer1, "f");
-
-	var opacityLayer2 = 0;
-	if (timelinePos < 0.5) {
-		opacityLayer2 = map(timelinePos, 0.2, 0.5, 0, 1);
-	} else {
-		opacityLayer2 = map(timelinePos, 0.5, 1, 1, 0);
-	}
-	setLayerOpacity(2, opacityLayer2);
-
-	// Turn pulsing dots on/off
-	if (timelinePos < 0.25) {
-		turnLayerOff(3);
-		sendMessage('/composition/layers/6/clips/1/video/source/blocktextgenerator/text/params/lines', '2019', "s"); // set caption text
-	} else {
-		loadClip(3, 1);
-		setLayerOpacity(3, 0.75);
-
-		if (timelinePos < 0.5) {
-			turnLayerOff(4);
-			sendMessage('/composition/layers/6/clips/1/video/source/blocktextgenerator/text/params/lines', '2020', "s"); // set caption text
-		} else {
-			loadClip(4, 1);
-			setLayerOpacity(4, 0.75);
-
-			if (timelinePos < 0.75) {
-				turnLayerOff(5);
-			sendMessage('/composition/layers/6/clips/1/video/source/blocktextgenerator/text/params/lines', '2021', "s"); // set caption text
-			} else {
-				loadClip(5, 1);
-				setLayerOpacity(5, 0.75);
-				sendMessage('/composition/layers/6/clips/1/video/source/blocktextgenerator/text/params/lines', '2022', "s"); // set caption text
-			}
-		}
-	}
-}
-
-
-/////////////////////////////////////////////////////////////////////
-// redrawResolumeComponents()
-//
-// This is like "draw", but applied to Resolume. In other words,
-// it runs over and over, every frame, after the website is loaded.
-/////////////////////////////////////////////////////////////////////
-function redrawResolumeComponents() {
-	if (timelinePos > 0.75) {
-		var posDotLayer5 = map(abs(cos(frameCount*0.005)), 0, 1, 0.3, 0.7);
-		sendMessage("/composition/layers/5/clips/1/dashboard/link2", posDotLayer5, "f");
-		
-		var posDotLayer4 = map(abs(cos(frameCount*0.02)), 0, 1, 0.3, 0.7);
-		sendMessage("/composition/layers/4/clips/1/dashboard/link2", posDotLayer4, "f");
-		
-		var posDotLayer3 = map(abs(cos(frameCount*0.01)), 0, 1, 0.3, 0.7);
-		sendMessage("/composition/layers/3/clips/1/dashboard/link2", posDotLayer3, "f");
-
-		// Colour
-		sendMessage("/composition/layers/3/clips/1/dashboard/link1", abs(cos(frameCount*0.5)), "f");
-		sendMessage("/composition/layers/4/clips/1/dashboard/link1", abs(sin(frameCount*0.1)), "f");
-		sendMessage("/composition/layers/5/clips/1/dashboard/link1", abs(cos(frameCount*0.3)), "f");
-	} else if (timelinePos > 0.5) {
-		var posDotLayer4 = map(abs(cos(frameCount*0.02)), 0, 1, 0.3, 0.7);
-		sendMessage("/composition/layers/4/clips/1/dashboard/link2", posDotLayer4, "f");
-		
-		var posDotLayer3 = map(abs(cos(frameCount*0.01)), 0, 1, 0.3, 0.7);
-		sendMessage("/composition/layers/3/clips/1/dashboard/link2", posDotLayer3, "f");
-
-		// Colour
-		sendMessage("/composition/layers/3/clips/1/dashboard/link1", abs(cos(frameCount*0.05)), "f");
-		sendMessage("/composition/layers/4/clips/1/dashboard/link1", 0, "f");
-	} else if (timelinePos > 0.25) {
-		var posDotLayer3 = map(abs(cos(frameCount*0.01)), 0, 1, 0.3, 0.7);
-		sendMessage("/composition/layers/3/clips/1/dashboard/link2", posDotLayer3, "f");
-
-		// Colour
-		sendMessage("/composition/layers/3/clips/1/dashboard/link1", 0, "f");
-	}
-}
-
-
-////////////////////////////////////////////////////
-// Helper functions:
-//		- loadClip(layer, clip)
-//				Loads a clip on Resolume. Arguments:
-//						- layer: integer number of the layer where the clip is
-//						- clip: integer number of the clip, within the layer
-//		- turnLayerOff(layer)
-//				Turns off a layer on Resolume. Arguments:
-//						- layer: integer number of the layer to be turned off
-//		- setLayerOpacity(layer, opacityLevel)
-//						- layer: integer number of the layer we are setting the opacity of
-//						- opacityLevel: decimal number between 0.0 (full transparency) and 1.0 (full opacity)
-////////////////////////////////////////////////////
-function loadClip(layer, clip) {
-	sendMessage("/composition/layers/" + layer + "/clips/" + clip + "/connect", 1, "f");
-}
-
-function turnLayerOff(layer) {
-	sendMessage("/composition/layers/" + layer + "/clear", 0, "f");
-}
-
-function setLayerOpacity(layer, opacityLevel) {
-	sendMessage("/composition/layers/" + layer + "/video/opacity", opacityLevel, "f");
+	text(currentNumberOfUsers, 0.5*windowWidth, 0.5*windowHeight);
 }
 
 ////////////////////////////////////////////////////
@@ -248,6 +89,25 @@ function setLayerOpacity(layer, opacityLevel) {
 ////////////////////////////////////////////////////
 
 
+////////////////////////////////////////////////////
+// NUMBER OF USERS POLL: Functions
+////////////////////////////////////////////////////
+function setupNumberOfUsersPoll() {
+	socket = io.connect(HOST);
+	socket.on('numberOfUsers', updateNumberOfUsers);
+}
+
+function updateNumberOfUsers(numberOfUsers) {
+	currentNumberOfUsers = numberOfUsers;
+}
+
+function getNumberOfUsers() {
+	let postData = JSON.stringify({ 'id': userSessionId });
+
+	xmlHttpRequest.open("POST", HOST + '/getNumberOfUsers', false);
+  xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
+	xmlHttpRequest.send(postData);
+}
 
 /***********************************************************************
   === PLEASE DO NOT CHANGE OR DELETE THIS SECTION ===
@@ -264,7 +124,7 @@ function sendMessage(address, value, type) {
                   'type': type });
 
 	xmlHttpRequest.open("POST", HOST + '/sendMessage', false);
-    xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
+  xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
 	xmlHttpRequest.send(postData);
 }
 
