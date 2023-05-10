@@ -4,18 +4,49 @@ let xmlHttpRequest = new XMLHttpRequest();
 // let product = JSON.parse(JSON.stringify(products));
 
 let mode = 0;
-let userArray = [];
+let userSelection = [];
+
+let itemWidth = 150;
+let buttonHeight = 30;
+
+let artifacts = [
+  {
+    artifactID: 1,
+    name: "shield",
+    category: "",
+    description: "",
+    color: "red",
+    image: "www.google.com",
+  },
+  {
+    artifactID: 2,
+    name: "rose",
+    category: "",
+    description: "",
+    color: "red",
+    image: "www.google.com",
+  },
+  {
+    artifactID: 3,
+    name: "carpet",
+    category: "",
+    description: "",
+    color: "red",
+    image: "www.google.com",
+  },
+  {
+    artifactID: 4,
+    name: "flower",
+    category: "",
+    description: "",
+    color: "red",
+    image: "www.google.com",
+  },
+];
 
 // function preload() {
 //   let products = require("./products.js");
 // }
-
-// carousel
-let leftArrow, rightArrow, 
-
-function preload() {
-  let products = loadJSON('./product.json')
-}
 
 function setup() {
   p5 = createCanvas(windowWidth, windowHeight);
@@ -44,39 +75,9 @@ function draw() {
   // } else if (mode == 2) {
   //   mode = 0;
   // }
-  background(220);
-
-  // screen_1();
-  // screen_2();
-  screen_3();
-  // sendLeft.draw();
-  // sendRight.draw();
-  myButton.draw();
-
-
-
-  // if (screenMode == 0) {
-  //   screen_1();
-      // clear();
-  // } else if (screenMode == 1) {
-  //   screen_2();
-      // clear();
-  // } else if (screenMode == 2) {
-  //   screen_3();
-      // clear();
-  // }
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
 }
 
 function screen_1() {
-  // https://editor.p5js.org/slow_izzm/sketches/VjpH74Oc1
-  // https://editor.p5js.org/slow_izzm/sketches/535SiO_aC
-  
-  // ellipse(width / 2, height / 2, 300, 300);
-
   noLoop();
   //  choose product
   text("Choose One Object", 20, 30);
@@ -99,16 +100,11 @@ function screen_1() {
 }
 
 function screen_2() {
-  noLoop();
-//   // rect(50, 50, 300, 300);
+  // write message box
+  text("Message Box");
+  text("Your message will not be saved");
 
-//   // write message box
-  textSize(32);
-  text('Message Box', 10, 30);
-  textSize(20);
-  text('Your message will not be saved', 10, 55);
-
-  // let messageField;
+  let messageField;
 
   messageField = createInput("");
   messageField.attribute(
@@ -123,26 +119,10 @@ function screen_2() {
   if (message) {
     textSize(24);
   }
-  // messageField = createInput('')
-  // messageField.attribute('placeholder', 'Write your feelings / emotions / thoughts inside this message box to submit it with the object you selected')
-  // messageField.position(100, 100)
-  // messageField.size(100)
-  
-  // let message = messageField.value()
-  
-  // if (message){
-  //   textSize(24)
-  // }
 }
 
 function screen_3() {
-
-  textSize(32);
-  text('Hold the screen on send your bottle', 10, 30);
-  textSize(16);
-  text('Your screen choice has no affect on your animations only on where it will show', 10, 55);
-
-  // create two equally sized div / button to be sent to Resolume display  
+  // send message
 }
 
 function primaryButton() {
@@ -339,9 +319,7 @@ function initialiseResolume() {}
 // tested within "draw". However, the steps included here should not be run
 // every frame, to avoid too many OSC messages being sent to Resolume.
 //////////////////////////////////////////////////////////////////////////////
-function updateResolumeState() {
-}
-
+function updateResolumeState() {}
 
 /////////////////////////////////////////////////////////////////////
 // redrawResolumeComponents()
