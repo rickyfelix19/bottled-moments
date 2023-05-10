@@ -4,25 +4,29 @@
       "artifactID": 1,
       "name": "shield",
       "category": "",
-      "description": ""
+      "description": "",
+      "color": "#00000"
     },
     {
       "artifactID": 2,
       "name": "rose",
       "category": "",
-      "description": ""
+      "description": "",
+      "color": "#00000"
     },
     {
       "artifactID": 3,
       "name": "carpet",
       "category": "",
-      "description": ""
+      "description": "",
+      "color": "#00000"
     },
     {
       "artifactID": 4,
       "name": "flower",
       "category": "",
-      "description": ""
+      "description": "",
+      "color": "#00000"
     }
   ]
 }
