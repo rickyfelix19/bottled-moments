@@ -1,127 +1,34 @@
+
 // Fixed variables
 var HOST = window.location.origin;
 let xmlHttpRequest = new XMLHttpRequest();
 
 let mode = 0;
-let userSelection = [];
-
-let itemWidth = 150;
-let buttonHeight = 30;
-
-// carousel variables
-// messageBox variables
-
-let artifacts = [
-  {
-    artifactID: 1,
-    name: "Flower",
-    description: "lorem ipsum",
-    // image: `https://drive.google.com/file/d/1CaZ3yetUebhvGsLsJp18zThW_wo0McY7/view`,
-    color: "red",
-    image: '../../assets/images-webp/bottled-moments.webp',
-  },
-  {
-    artifactID: 2,
-    name: "Miners Lamp",
-    description: "lorem ipsum",
-    color: "red",
-    image: `www.google.com`,
-  },
-  {
-    artifactID: 3,
-    name: "Fishing Pole",
-    description: "lorem ipsum",
-    color: "red",
-    image: `www.google.com`
-  },
-  {
-    artifactID: 4,
-    name: "Surfboard",
-    description: "lorem ipsum",
-    color: "red",
-    image: `www.google.com`,
-  },
-];
-
-let canvasWidth, canvasHeight;
+let userArray = [];
 
 function setup() {
-  // textWrap(CHAR);
+  p5=createCanvas(windowWidth, windowHeight);
+  p5.parent('container-p5');
 
-  // let canvasWidth = windowWidth - 100;
-  // let canvasHeight = windowHeight /2 ;
-
-  p5 = createCanvas(windowWidth, windowHeight);
-  p5.parent("container-p5");
-  // p5.center();
-
-  // let nextScreen1 = selectButton();
-  // let nextScreen2 = selectMessage();
-  // let skipScreen = skipButton();
-  // let previousScreen = backButton();
-  // let submitMessage = submitButton();
-
-  // create the following files:
-  // selectButton
-  // selectMessage
-  // skipButton
-  // backButton
-  // messageButton
-
-  noLoop(); // Stop the draw() function from continuously running
+  initialiseResolume();
+  let myButton = primaryButton()
+  
 }
 
 function draw() {
-  // screen_1();
-  // screen_2();
-  screen_3();
-
-  // if (mode == 0) {
-  //   mode = 1;
-  // } else if (mode == 1) {
-  //   mode = 2;
-  // } else if (mode == 2) {
-  //   mode = 0;
-  // }
+  // page 1 button 1 clicked -> page 2
+  // page 2 button 1 clicked -> page 1, page 2 button 2 clicked -> page 3
+  // page 3 button 1 clicked -> page 2, page 3 button 2 clicked -> send request
+    if (mode == 0) {
+    screen_1();
+  } else if (mode == 1) {
+    screen_2();
+  } else if (mode == 2) {
+    screen_3();
+  }
 }
-
-function windowResized() {
-  p5 = resizeCanvas(windowWidth, windowHeight);
-}
-
-// messageField
-// carousel
 
 function screen_1() {
-  // noLoop();
-  // skeleton loading
-  let messageField;
-  let regex = "^(?i)(?:\b\w+\b\s*){1,20}$";
-
-
-  // message checkers
-  // write message box
-  text("Share your thoughts", 20, 30);
-  text("Your message will not be saved", 20, 45);
-  
-  messageField = createInput("");
-  messageField.attribute(
-    "placeholder", "Write your message here..."
-  );
-  
-  messageField.size(width-(width/5), height-(height/1.5));
-  messageField.position(25, 250);
-
-  
-  // check message with regex
-  // let message = messageField.value();
-  // var match = input.match(message);
-  
-  // Submit Button
-  // BUTTON
-}
-
-function screen_2() {
   //  choose product
   text("Choose One Object", 20, 30);
   text("Each object have different animations", 20, 50);
@@ -167,7 +74,38 @@ function screen_2() {
   // }
 }
 
-function screen_3() {
+function screen_2() {
+  let messageField;
+  let regex = "^(?i)(?:\b\w+\b\s*){1,20}$";
+
+    // message checkers
+  // write message box
+  text("Share your thoughts", 20, 30);
+  text("Your message will not be saved", 20, 45);
+  
+  messageField = createInput("");
+  messageField.attribute(
+    "placeholder", "Write your message here..."
+  );
+  
+  messageField.size(width-(width/5), height-(height/1.5));
+  messageField.position(25, 250);
+
+  
+  let message = messageField.value()
+  
+  if (message){
+    textSize(24)
+  }
+  
+  // check message with regex
+  // let message = messageField.value();
+  // var match = input.match(message);
+  
+  // Submit Button
+  // BUTTON
+}
+
   // send message
   text("Choose your walls", 20, 30);
   text("To send your artifact", 20, 50);
@@ -198,5 +136,112 @@ function screen_4B() {
 // storeItem(key, value)
 function userChoice(artifact) {
   selectedItems.push(artifact);
+}
+
+function primaryButton() {
+  myButton = new Button({
+    x: width/2, y: height/2,
+    width: width-30, height: 50,
+    align_x: 0, align_y: 0,
+    color: 'rgb(4834D4)',
+    content: 'Start Playing',
+    border_radius: '15',
+    // myButton.style('cursor', 'pointer'),
+
+    // on_press() {
+    //   window.open("https://www.google.com", '_parent')
+    // },
+    // on_click() {
+    //   window.open("https://www.google.com", '_parent')
+    // }
+    // on_mouse_enter() {
+    //   myButton.style('cursor', 'pointer')
+    // },
+    on_release() {
+      window.open("../pages/2_onboarding/onboarding.html", '_parent')
+    },
+  });
+}
+
+
+///////////////////////////////////////////////////////////////////
+// initialiseResolume()
+//
+// This is like "setup", but applied to Resolume. In other words,
+// it runs only once, when the website is loaded.
+///////////////////////////////////////////////////////////////////
+function initialiseResolume() {
+
+}
+
+
+//////////////////////////////////////////////////////////////////////////////
+// updateResolumeState()
+//
+// This function is invoked occasionally, based on certain conditions,
+// tested within "draw". However, the steps included here should not be run 
+// every frame, to avoid too many OSC messages being sent to Resolume.
+//////////////////////////////////////////////////////////////////////////////
+function updateResolumeState() {
+}
+
+
+/////////////////////////////////////////////////////////////////////
+// redrawResolumeComponents()
+//
+// This is like "draw", but applied to Resolume. In other words,
+// it runs over and over, every frame, after the website is loaded.
+/////////////////////////////////////////////////////////////////////
+function redrawResolumeComponents() {
+}
+
+////////////////////////////////////////////////////
+// Helper functions:
+//		- loadClip(layer, clip)
+//				Loads a clip on Resolume. Arguments:
+//						- layer: integer number of the layer where the clip is
+//						- clip: integer number of the clip, within the layer
+//		- turnLayerOff(layer)
+//				Turns off a layer on Resolume. Arguments:
+//						- layer: integer number of the layer to be turned off
+//		- setLayerOpacity(layer, opacityLevel)
+//						- layer: integer number of the layer we are setting the opacity of
+//						- opacityLevel: decimal number between 0.0 (full transparency) and 1.0 (full opacity)
+////////////////////////////////////////////////////
+function loadClip(layer, clip) {
+	sendMessage("/composition/layers/" + layer + "/clips/" + clip + "/connect", 1, "f");
+}
+
+function turnLayerOff(layer) {
+	sendMessage("/composition/layers/" + layer + "/clear", 0, "f");
+}
+
+function setLayerOpacity(layer, opacityLevel) {
+	sendMessage("/composition/layers/" + layer + "/video/opacity", opacityLevel, "f");
+}
+
+////////////////////////////////////////////////////
+// CUSTOMIZABLE SECTION - END: ENTER OUR CODE HERE
+////////////////////////////////////////////////////
+
+
+
+/***********************************************************************
+  === PLEASE DO NOT CHANGE OR DELETE THIS SECTION ===
+  This function sends a OSC message to server
+
+  Parameters:
+  	- address: the OSC message address pattern string
+  	- value: single value as message payload
+  	- type: type of the value passed as message payload
+***********************************************************************/
+function sendMessage(address, value, type) {
+	let postData = JSON.stringify({ id: 1, 'address': address,
+                  'value': value,
+                  'type': type });
+
+	xmlHttpRequest.open("POST", HOST + '/sendMessage', false);
+    xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
+	xmlHttpRequest.send(postData);
 }
 
