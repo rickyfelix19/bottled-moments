@@ -101,9 +101,30 @@ function waveBackground() {
   offset += 0.1;
 }
 
-/*
-  * Expected Outcome:
- 
-  * Success Metrics: 
- 
-*/
+function primaryButton() {
+  myButton = new Button({
+    x: width/2, y: height/2,
+    width: width-30, height: 50,
+    align_x: 0, align_y: 0,
+    color: 'rgb(4834D4)',
+    content: 'Start Playing',
+    border_radius: '15',
+    x: width / 2,
+    y: height / 2,
+    width: width - 30,
+    height: 50,
+    align_x: 0,
+    align_y: 0,
+    color: "rgb(4834D4)",
+    content: "Start Playing",
+    border_radius: "15",
+    // myButton.style('cursor', 'pointer'),
+    // on_press() {
+    //   myButton.style('cursor', 'pointer')
+    // },
+    on_release() {
+      // window.open("../pages/2_onboarding/onboarding.html", '_parent')
+      window.open("../pages/3_sketch/sketch.html", "_parent");
+    },
+  });
+}

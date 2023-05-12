@@ -1,7 +1,6 @@
 // Fixed variables
 var HOST = window.location.origin;
 let xmlHttpRequest = new XMLHttpRequest();
-// let product = JSON.parse(JSON.stringify(products));
 
 let mode = 0;
 let userSelection = [];
@@ -9,54 +8,52 @@ let userSelection = [];
 let itemWidth = 150;
 let buttonHeight = 30;
 
+// carousel variables
+// messageBox variables
+
 let artifacts = [
   {
     artifactID: 1,
-    name: "shield",
-    category: "concept",
-    description: "",
+    name: "Flower",
+    description: "lorem ipsum",
+    // image: `https://drive.google.com/file/d/1CaZ3yetUebhvGsLsJp18zThW_wo0McY7/view`,
     color: "red",
-    image: `www.google.com`,
+    image: '../../assets/images-webp/bottled-moments.webp',
   },
   {
     artifactID: 2,
-    name: "rose",
-    category: "plant",
-    description: "",
+    name: "Miners Lamp",
+    description: "lorem ipsum",
     color: "red",
     image: `www.google.com`,
   },
   {
     artifactID: 3,
-    name: "carpet",
-    category: "magical",
-    description: "",
+    name: "Fishing Pole",
+    description: "lorem ipsum",
     color: "red",
     image: `www.google.com`
   },
   {
     artifactID: 4,
-    name: "flower",
-    category: "plant",
-    description: "",
+    name: "Surfboard",
+    description: "lorem ipsum",
     color: "red",
     image: `www.google.com`,
   },
 ];
 
-// function preload() {
-//   let products = require("./products.js");
-// }
-
-function storeItem(artifact) {
-  selectedItems.push(artifact);
-}
+let canvasWidth, canvasHeight;
 
 function setup() {
-  noLoop();
+  // textWrap(CHAR);
+
+  // let canvasWidth = windowWidth - 100;
+  // let canvasHeight = windowHeight /2 ;
 
   p5 = createCanvas(windowWidth, windowHeight);
   p5.parent("container-p5");
+  // p5.center();
 
   // let nextScreen1 = selectButton();
   // let nextScreen2 = selectMessage();
@@ -70,14 +67,15 @@ function setup() {
   // skipButton
   // backButton
   // messageButton
-  // 
 
+  noLoop(); // Stop the draw() function from continuously running
 }
 
 function draw() {
   // screen_1();
   // screen_2();
   screen_3();
+
   // if (mode == 0) {
   //   mode = 1;
   // } else if (mode == 1) {
@@ -88,106 +86,117 @@ function draw() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  p5 = resizeCanvas(windowWidth, windowHeight);
 }
 
+// messageField
+// carousel
+
 function screen_1() {
+  // noLoop();
   // skeleton loading
+  let messageField;
+  let regex = "^(?i)(?:\b\w+\b\s*){1,20}$";
 
 
+  // message checkers
+  // write message box
+  text("Share your thoughts", 20, 30);
+  text("Your message will not be saved", 20, 45);
+  
+  messageField = createInput("");
+  messageField.attribute(
+    "placeholder", "Write your message here..."
+  );
+  
+  messageField.size(width-(width/5), height-(height/1.5));
+  messageField.position(25, 250);
+
+  
+  // check message with regex
+  // let message = messageField.value();
+  // var match = input.match(message);
+  
+  // Submit Button
+  // BUTTON
+}
+
+function screen_2() {
   //  choose product
   text("Choose One Object", 20, 30);
   text("Each object have different animations", 20, 50);
-
-  // Display the items in a carousel
-  let carouselWidth = artifacts.length * itemWidth;
-  let carouselLeft = (width - carouselWidth) / 2;
-
-  artifacts.forEach((artifact, index) => {
-    let itemLeft = carouselLeft + index * itemWidth;
-
-    // Display the item's name
-    fill(0);
-    text(artifact.name, itemLeft + 20, 100);
-        // Display the item's category
-    fill(128);
-    text(artifact.category, itemLeft + 20, 130);
-
-    // Display the item's description
-    fill(64);
-    text(artifact.description, itemLeft + 20, 160);
-
-    // Display the item's color
-    noStroke();
-    fill(artifact.color);
-    rect(itemLeft + 20, 180, 30, 30);
-
-    // Display the item's image
-    let img = loadImage(artifact.image);
-    image(img, itemLeft + 80, 180, 50, 50);
-  });
   
-  // Add a button for each item
-  artifacts.forEach((artifact, index) => {
-    let button = createButton(artifact.name);
-    button.position(20 + index * itemWidth, 20);
-    button.mousePressed(() => {
-      storeItem(item);
-    });
-  });
+  // // Variables for carousel
+  // let canvasWidth = windowWidth - 100;
+  // let canvasHeight = windowHeight / 2;
+  
+  let carouselWidth = width; // Width of the carousel (adjust as needed)
+  let carouselHeight = height/5; // Height of the carousel (adjust as needed)
+  let currentIndex = 0; // Current index of the displayed 
+  
+  // Array of objects (items)
+  // Display items in the carousel
+  for (let i = 0; i < artifacts.length; i++) {
+    let itemX = (i - currentIndex) * carouselWidth; // Calculate the X-coordinate of each item
 
-  // Display the selected items
-  fill(0);
-  text('Selected items:', 20, 300);
-  selectedItems.forEach((artifact, index) => {
-    text(artifact.name, 20, 330 + index * 30);
-  });
-}
+    // Draw the item
+    noFill();
+    noStroke();
+    rect(itemX, 0, carouselWidth, carouselHeight);
 
-
-  // map product.json data into here and then add styling into it
-
-  // nextScreen1.draw();
-
-function screen_2() {
-  // skeleton loading
-
-  // message checkers
-  var regex = /^(?i)(?:\b\w+\b\s*){1,20}$/;
-  let messageField;
-
-  let message = messageField.value();
-  var match = input.match(message);
-
-  // write message box
-  text("Message Box", 20, 30);
-  text("Your message will not be saved", 20, 50);
-
-  messageField = createInput("");
-  messageField.attribute(
-    "placeholder",
-    "Write your feelings / emotions / thoughts inside this message box to submit it with the object you selected"
-  );
-  messageField.position(windowWidth/2, windowHeight/2);
-  messageField.size(windowWidth/3, windowHeight/3);
-
-  if (match) {
-    textSize(24);
+    // Display the item's title and description
+    fill(0);
+    text(artifacts[i].name, itemX + 10, carouselHeight / 2 + 10 );
+    text(artifacts[i].description, itemX + 10, carouselHeight / 2 + 30 );
   }
+  
+  // button onlick function
+  // function previousItem() {
+  //   if (currentIndex > 0) {
+  //     currentIndex--;
+  //     redraw(); // Redraw the carousel with the updated index
+  //   }
+  // }
+
+  // // Function to go to the next item in the carousel
+  // function nextItem() {
+  //   if (currentIndex < artifacts.length - 1) {
+  //     currentIndex++;
+  //     redraw(); // Redraw the carousel with the updated index
+  //   }
+  // }
 }
 
 function screen_3() {
   // send message
-  text("Send your Artifact", 20, 30);
-  text("By holding the screens", 20, 50);
+  text("Choose your walls", 20, 30);
+  text("To send your artifact", 20, 50);
 
-  // left side
-  // right side
+  // left wall
+  // rect(x, y, w, [h], [tl], [tr], [br], [bl])
 
+  rect(15,60, (width/2)-20 , 80+(height/1.5))
+  // right wall
+  rect(5 + (width / 2), 60, (width / 2) - 20, 80 + (height / 1.5))
+  
   // loading screen
 }
 
+// left screen
+function screen_4A() {
+  text("Send your Artifact", 20, 30);
+
+  
+}
+
+// right screen
+function screen_4B() {
+  text("Send your Artifact", 20, 30);
+  
+}
+
 // storeItem(key, value)
-function storeItem(artifact) {
+function userChoice(artifact) {
   selectedItems.push(artifact);
 }
+

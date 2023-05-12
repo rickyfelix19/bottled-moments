@@ -4,26 +4,27 @@
     // @import url("https://fonts.googleapis.com/css2?Quicksand:400&display=swap");
     - font ✅ -> CSS and preloads
     // https://editor.p5js.org/Samizdat/sketches/eUsieMk6j
-    - messageBox ✅ -> inputboxes
-
+    
     - background ✅
     -- background color ✅ -> CSS
     -- waves -> sin 
     -- productCircle
+
+    - messageBox ✅ -> inputboxes
+    - carousel
+    - send bottle buttons
     
     - color palettes
     -- light mode ✅
     -- dark mode 
     
-    // 
     - buttons:  -> library
     -- primary
     -- secondary
     -- underline
     -- Micro-animations
-
+    
     Advanced UI: -> Tailwind
-    - carousel
     - stepperUI
 
 */
