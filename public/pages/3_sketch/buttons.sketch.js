@@ -1,5 +1,5 @@
-// selectMessage
-function selectMessage() {
+// messageButton
+function saveMessageButton() { // primary
   myButton = new Button({
     x: width / 2,
     y: height / 2,
@@ -8,28 +8,20 @@ function selectMessage() {
     align_x: 0,
     align_y: 0,
     color: "rgb(4834D4)",
-    content: "Select Artifact",
+    content: "Save Message",
     border_radius: "15",
-    // myButton.style('cursor', 'pointer'),
-
-    // on_press() {
-    //   window.open("https://www.google.com", '_parent')
-    // },
-    // on_click() {
-    //   window.open("https://www.google.com", '_parent')
-    // }
-    // on_mouse_enter() {
-    //   myButton.style('cursor', 'pointer')
-    // },
     on_release() {
       // copy the product array and send it into user array
-      window.open("../pages/2_onboarding/onboarding.html", "_parent");
+      // promise wait; send the data first then move ot the next page
+
+      // if array is empty fill it in; if not clear it out and then fill it in
+      mode++;
     },
   });
 }
 
 // skipButton
-function skipButton() {
+function skipMessageButton() { // secondary outline
   myButton = new Button({
     x: width / 2,
     y: height / 2,
@@ -40,25 +32,55 @@ function skipButton() {
     color: "rgb(4834D4)",
     content: "Select Artifact",
     border_radius: "15",
-    // myButton.style('cursor', 'pointer'),
-
-    // on_press() {
-    //   window.open("https://www.google.com", '_parent')
-    // },
-    // on_click() {
-    //   window.open("https://www.google.com", '_parent')
-    // }
-    // on_mouse_enter() {
-    //   myButton.style('cursor', 'pointer')
-    // },
     on_release() {
-      // empty message
       mode++;
     },
   });
 }
-// backButton
-function backButton() {
+
+// selectMessage
+function carouselNext() { // ->
+  myButton = new Button({
+    x: width / 2,
+    y: height / 2,
+    width: width - 30,
+    height: 50,
+    align_x: 0,
+    align_y: 0,
+    color: "rgb(4834D4)",
+    content: "->",
+    border_radius: "15",
+    on_release() {
+      // copy the product array and send it into user array
+      if (currentIndex < artifacts.length - 1) {
+        currentIndex++;
+        redraw(); // Redraw the carousel with the updated index
+      }
+    }
+  })
+}
+
+function carouselPrevious() { // <-
+  myButton = new Button({
+    x: width / 2,
+    y: height / 2,
+    width: width - 30,
+    height: 50,
+    align_x: 0,
+    align_y: 0,
+    color: "rgb(4834D4)",
+    content: "<-",
+    border_radius: "15",
+    on_release() {
+      if (currentIndex > 0) {
+      currentIndex--;
+      redraw(); // Redraw the carousel with the updated index
+      }
+    }
+  })
+}
+    
+function carouselSelect() { // primary button
   myButton = new Button({
     x: width / 2,
     y: height / 2,
@@ -69,25 +91,35 @@ function backButton() {
     color: "rgb(4834D4)",
     content: "Select Artifact",
     border_radius: "15",
-    // myButton.style('cursor', 'pointer'),
+    on_release() {
+      // if array is empty fill it in; if not clear it out and then fill it in
 
-    // on_press() {
-    //   window.open("https://www.google.com", '_parent')
-    // },
-    // on_click() {
-    //   window.open("https://www.google.com", '_parent')
-    // }
-    // on_mouse_enter() {
-    //   myButton.style('cursor', 'pointer')
-    // },
+      mode++;
+    },
+  });
+}
+
+// backButton
+function backButton() { // secondary outline button
+  myButton = new Button({
+    x: width / 2,
+    y: height / 2,
+    width: width - 30,
+    height: 50,
+    align_x: 0,
+    align_y: 0,
+    color: "rgb(4834D4)",
+    content: "Select Artifact",
+    border_radius: "15",
     on_release() {
       mode--;
     },
   });
 }
-// messageButton
-function messageButton() {
-  myButton = new Button({
+
+// leftButton
+function selectLeftWall() { // primary button 
+    myButton = new Button({
     x: width / 2,
     y: height / 2,
     width: width - 30,
@@ -95,32 +127,44 @@ function messageButton() {
     align_x: 0,
     align_y: 0,
     color: "rgb(4834D4)",
-    content: "Select Artifact",
+    content: "Select Left Wall",
     border_radius: "15",
-    // myButton.style('cursor', 'pointer'),
-
-    // on_press() {
-    //   window.open("https://www.google.com", '_parent')
-    // },
-    // on_click() {
-    //   window.open("https://www.google.com", '_parent')
-    // }
-    // on_mouse_enter() {
-    //   myButton.style('cursor', 'pointer')
-    // },
     on_release() {
-      // copy the product array and send it into user array
-      // promise wait; send the data first then move ot the next page
+      
     },
   });
 }
 
-// leftButton
-function leftWall() {
-
+// rightButton
+function selectRightWall() { // primary button 
+      myButton = new Button({
+    x: width / 2,
+    y: height / 2,
+    width: width - 30,
+    height: 50,
+    align_x: 0,
+    align_y: 0,
+    color: "rgb(4834D4)",
+    content: "Select Right Wall",
+    border_radius: "15",
+    on_release() {
+    },
+  });
 }
 
-// rightButton
-function rightWall() {
-
+function submitBottle() { // button with icon 
+      myButton = new Button({
+    x: width / 2,
+    y: height / 2,
+    width: width - 30,
+    height: 50,
+    align_x: 0,
+    align_y: 0,
+    color: "rgb(4834D4)",
+    content: "Submit Artifact",
+    border_radius: "15",
+        on_release() {
+      // submit user array to the server
+    },
+  });
 }
