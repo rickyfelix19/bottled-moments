@@ -2,12 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* =========================== Register font =========================== */
-
-/* @import url("https://fonts.googleapis.com/css?family=Quicksand"); */
-/* @import url("https://fonts.googleapis.com/css?family=Quicksand:400"); */
-
-    /* 
+/* 
       * Font weight: ( https://fonts.google.com/specimen/Quicksand )
       * Light - 300
       * Regular - 400
@@ -15,25 +10,12 @@
       * SemiBold - 600
       * Bold - 700  
     */
-
-/* =========================== Default p5.js =========================== */
-
-html,
-body {
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  /* max-width: 1600px; */
-}
-
-.container-p5 {
-  display: block;
-  /* margin: 0; */
-  margin: auto; /* centers the canvas */
-  padding: 0;
-}
-
+    
 /* =========================== Gradient =========================== */
+
+html, body {
+  font-family: 'Quicksand', sans-serif;
+}
 
 body[class="light-mode"] {
   /* sunrise */

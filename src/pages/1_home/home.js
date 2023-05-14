@@ -1,4 +1,4 @@
-// import * as buttons from "../../components/buttonUI";
+// Global Variables
 
 var offset = 0;
 var strum = 1;
@@ -6,6 +6,15 @@ let link;
 var nextPage;
 
 function preload() {
+	// insert fonts here
+    //   fonts = loadFont("https://fonts.googleapis.com/css?Quicksand");
+    //   fontLight = loadFont('./font/Quicksand-Light-300.ttf');
+    //   fontRegular = loadFont('./font/Quicksand-Light-400.ttf');
+    //   fontMedium = loadFont('./font/Quicksand-Light-500.ttf');
+    //   fontSemiBold = loadFont('./font/Quicksand-Light-600.ttf');
+    //   fontBold = loadFont('./font/Quicksand-Light-700.ttf');
+
+	// insert image below
 	bottle = loadImage("../../assets/images-webp/bottled-moments.webp");
 }
 
@@ -37,6 +46,8 @@ function draw() {
 function windowResized() {
 	resizeCanvas(windowWidth, windowHeight);
 }
+
+/* ==================================== */
 
 function waveBackground() {
 	// https://editor.p5js.org/stevenraysimon/sketches/HyTseadOg

@@ -5,7 +5,7 @@ module.exports = {
   darkMode: "media", // or 'class'
   content: [
     'index.html', './src/**/*.{js,html}',
-    './node_modules/preline/dist/preline.js',
+    "./node_modules/flowbite/**/*.js"
   ],
   theme: {
     extend: {
@@ -14,7 +14,7 @@ module.exports = {
       },
     },
     plugins: [
-      require('preline/plugin'),
+      require('flowbite/plugin')
     ],
   }
 }

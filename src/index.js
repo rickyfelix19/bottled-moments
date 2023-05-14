@@ -1,4 +1,6 @@
-import './index.css'
+// DO NOT TOUCH THIS
+import './index.css' // for Tailwind to run and work
+import 'flowbite'; // to make sure flowbite runs
 
 // this code below allow Cypress to be used with Cucumber for making BDD and User Stories
 const cucumber = require("cypress-cucumber-preprocessor").default;
@@ -14,11 +16,3 @@ document.addEventListener('touchend', function(e) {
     document.documentElement.style.overflow = 'auto';
 });
 
-// function preload() {
-//   fontLight = loadFont('./font/Quicksand-Light-300.ttf');
-//   fontRegular = loadFont('./font/Quicksand-Light-400.ttf');
-//   fontMedium = loadFont('./font/Quicksand-Light-500.ttf');
-//   fontSemiBold = loadFont('./font/Quicksand-Light-600.ttf');
-//   fontBold = loadFont('./font/Quicksand-Light-700.ttf');
-//   font = loadFont("https://fonts.googleapis.com/css?Quicksand");
-// }

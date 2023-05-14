@@ -1,11 +1,13 @@
-// Fixed variables
+//  Global variables
+
+// For network
 var HOST = window.location.origin;
 let xmlHttpRequest = new XMLHttpRequest();
 
-// screen
+// To change screen
 let mode = 0;
 
-// object properties
+// Object properties -> to loop via array properties
 let artifacts = [
   {
     artifactID: 1,
@@ -38,7 +40,7 @@ let artifacts = [
   },
 ];
 
-// user array json array
+// user array -> to send to resolume
 let userSelection = [{
   'artifactID': '',
   'message': '',
@@ -47,10 +49,13 @@ let userSelection = [{
 
 function setup() {
   p5 = createCanvas(windowWidth, windowHeight);
-  p5.parent("container-p5");
+  p5.parent("container-p5"); // div
 
-  initialiseResolume();
+  // page buttons
   let myButton = primaryButton();
+
+  // server connections
+  initialiseResolume();
 }
 
 function draw() {
@@ -81,6 +86,8 @@ function draw() {
 function windowResized() {
 	p5 = resizeCanvas(windowWidth, windowHeight);
 }
+
+/* ==================================== */
 
 function screen_1() {
   //  choose product
@@ -178,6 +185,8 @@ function screen_4A() {
 function screen_4B() {
   text("Send your Artifact", 20, 30);
 }
+
+/* ==================================== */
 
 /*
  * Primary: Fill-'Gradient' ; Text-#FBF4E9
