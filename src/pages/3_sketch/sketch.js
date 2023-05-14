@@ -7,51 +7,50 @@ let mode = 0;
 
 // object properties
 let artifacts = [
-	{
-		artifactID: 1,
-		name: "Flower",
-		description: "lorem ipsum",
-		// image: `https://drive.google.com/file/d/1CaZ3yetUebhvGsLsJp18zThW_wo0McY7/view`,
-		color: "red",
-		image: "../../assets/images-webp/bottled-moments.webp",
-	},
-	{
-		artifactID: 2,
-		name: "Miners Lamp",
-		description: "lorem ipsum",
-		color: "red",
-		image: `www.google.com`,
-	},
-	{
-		artifactID: 3,
-		name: "Fishing Pole",
-		description: "lorem ipsum",
-		color: "red",
-		image: `www.google.com`,
-	},
-	{
-		artifactID: 4,
-		name: "Surfboard",
-		description: "lorem ipsum",
-		color: "red",
-		image: `www.google.com`,
-	},
+  {
+    artifactID: 1,
+    name: "Flower",
+    description: "lorem ipsum",
+    // image: `https://drive.google.com/file/d/1CaZ3yetUebhvGsLsJp18zThW_wo0McY7/view`,
+    color: "red",
+    image: '../../assets/images-webp/bottled-moments.webp',
+  },
+  {
+    artifactID: 2,
+    name: "Miners Lamp",
+    description: "lorem ipsum",
+    color: "red",
+    image: `www.google.com`,
+  },
+  {
+    artifactID: 3,
+    name: "Fishing Pole",
+    description: "lorem ipsum",
+    color: "red",
+    image: `www.google.com`
+  },
+  {
+    artifactID: 4,
+    name: "Surfboard",
+    description: "lorem ipsum",
+    color: "red",
+    image: `www.google.com`,
+  },
 ];
 
 // user array json array
-let userSelection = {
-	message: "",
-	artifact: "",
-	wall: "",
-};
+let userSelection = [{
+  'artifactID': '',
+  'message': '',
+  'screen': ''
+}];
 
 function setup() {
-	// textWrap(CHAR);
-	p5 = createCanvas(windowWidth, windowHeight);
-	p5.parent("container-p5");
+  p5 = createCanvas(windowWidth, windowHeight);
+  p5.parent("container-p5");
 
-	// initialiseResolume();
-	noLoop();
+  initialiseResolume();
+  let myButton = primaryButton();
 }
 
 function draw() {
@@ -61,22 +60,22 @@ function draw() {
 	// screen_4A();
 	// screen_4B();
 
-	if (mode === 0) {
-		// message screen
-		screen_1();
-	} else if (mode === 1) {
-		// artifact screen
-		screen_2();
-	} else if (mode === 2) {
-		// artifact choose wall
-		screen_3();
-	} else if (mode === 3) {
-		// left wall
-		screen_4A();
-	} else if (mode === 4) {
-		// right wall
-		screen_4B();
-	}
+  if (mode === 0) {
+    // message screen
+    screen_1();
+  } else if (mode === 1) {
+    // artifact screen
+    screen_2();
+  } else if (mode === 2) {
+    // artifact choose wall
+    screen_3();
+  } else if (mode === 3) {
+    // left wall
+    screen_4A();
+  } else if (mode === 4) {
+    // right wall
+    screen_4B();
+  }
 }
 
 function windowResized() {
@@ -84,76 +83,74 @@ function windowResized() {
 }
 
 function screen_1() {
-	//  choose product
-	text("Choose One Object", 20, 30);
-	text("Each object have different animations", 20, 50);
+  //  choose product
+  text("Choose One Object", 20, 30);
+  text("Each object have different animations", 20, 50);
 
-	// // Variables for carousel
-	let currentIndex = 0; // Current index of the displayed
+  // // Variables for carousel
+  let currentIndex = 0; // Current index of the displayed
 
-	let carouselWidth = windowWidth;
-	let carouselHeight = windowHeight / 2;
+  let carouselWidth = windowWidth;
+  let carouselHeight = windowHeight / 2;
 
-	// Array of objects (items)
-	// Display items in the carousel
+  // Array of objects (items)
+  // Display items in the carousel
 
-	for (let i = 0; i < artifacts.length; i++) {
-		noStroke();
+  for (let i = 0; i < artifacts.length; i++) {
+    noStroke();
 
-		let itemX = (i - currentIndex) * (windowWidth / 2) + carouselWidth / 2.5; // Calculate the X-coordinate of each item
-		let itemY = (i - currentIndex) * (windowHeight / 2) + carouselHeight; // Calculate the Y-coordinate of each item
+    let itemX = (i - currentIndex) * (windowWidth / 2) + carouselWidth / 2.5; // Calculate the X-coordinate of each item
+    let itemY = (i - currentIndex) * (windowHeight / 2) + carouselHeight; // Calculate the Y-coordinate of each item
 
-		// background(0);
-		// Display the item's picture, title, and description
+    // background(0);
+    // Display the item's picture, title, and description
 
-		// let artifactPicture =
-
-		let artifactName = text(
-			// text(str, x, y, [x2], [y2])
-			artifacts[i].name,
-			itemX,
-			itemY,
-			carouselWidth,
-			carouselHeight
-		);
-		let artifactDescription = text(
-			artifacts[i].description,
-			itemX,
-			itemY + 20,
-			carouselWidth,
-			carouselHeight
-		);
-	}
-	screen1_buttons();
+    let artifactName = text(
+      // text(str, x, y, [x2], [y2])
+      artifacts[i].name,
+      itemX,
+      itemY,
+      carouselWidth,
+      carouselHeight
+    );
+    let artifactDescription = text(
+      artifacts[i].description,
+      itemX,
+      itemY + 20,
+      carouselWidth,
+      carouselHeight
+    );
+  }
+  screen1_buttons();
 }
 
 function screen_2() {
-	let messageField;
-	let regex = "^(?i)(?:\bw+\bs*){1,20}$";
+  let messageField;
+  let regex = "^(?i)(?:\bw+\bs*){1,20}$";
 
-	// message checkers
-	// write message box
-	text("Share your thoughts", 20, 30);
-	text("Your message will not be saved", 20, 45);
+  // message checkers
+  // write message box
+  text("Share your thoughts", 20, 30);
+  text("Your message will not be saved", 20, 45);
 
-	messageField = createInput("");
-	messageField.attribute("placeholder", "Write your message here...");
+  messageField = createInput("");
+  messageField.attribute("placeholder", "Write your message here...");
 
-	messageField.size(width - width / 5, height - height / 1.5);
-	messageField.position(25, 250);
+  messageField.size(width - width / 5, height - height / 1.5);
+  messageField.position(25, 250);
 
-	let message = messageField.value();
+  let message = messageField.value();
 
-	if (message) {
-		textSize(24);
-	}
+  if (message) {
+    textSize(24);
+  }
 
-	// check message with regex
-	// let message = messageField.value();
-	// var match = input.match(message);
+  // check message with regex
+  // let message = messageField.value();
+  // var match = input.match(message);
 
-	// Submit Button
-	// BUTTON
+  // Submit Button
+  // BUTTON
 }
 
 function screen_3() {
@@ -164,21 +161,22 @@ function screen_3() {
 	// left wall
 	// rect(x, y, w, [h], [tl], [tr], [br], [bl])
 
-	rect(15, 60, width / 2 - 20, 80 + height / 1.5);
-	// right wall
-	rect(5 + width / 2, 60, width / 2 - 20, 80 + height / 1.5);
-
-	// loading screen
+  rect(15,60, (width/2)-20 , 80+(height/1.5))
+  // right wall
+  rect(5 + (width / 2), 60, (width / 2) - 20, 80 + (height / 1.5))
+  
+  // loading screen
 }
 
 // left screen
 function screen_4A() {
-	text("Send your Artifact", 20, 30);
+  text("Send your Artifact", 20, 30);
+  
 }
 
 // right screen
 function screen_4B() {
-	text("Send your Artifact", 20, 30);
+  text("Send your Artifact", 20, 30);
 }
 
 /*
@@ -268,32 +266,32 @@ function screen4_buttons() {
 // it runs only once, when the website is loaded.
 ///////////////////////////////////////////////////////////////////
 function initialiseResolume() {
-	loadClip(1, 1); // load beach video
-	loadClip(2, 1); // load virus video
+  loadClip(1, 1); // load beach video
+  loadClip(2, 1); // load virus video
 
-	// Initialise text caption (layer 6)
-	loadClip(6, 1);
-	setLayerOpacity(6, 0.2);
-	sendMessage(
-		"/composition/layers/6/clips/1/video/source/blocktextgenerator/size",
-		5,
-		"f"
-	); // set font size
-	sendMessage(
-		"/composition/layers/6/clips/1/video/source/blocktextgenerator/color/red",
-		255,
-		"f"
-	); // set text colour to white
-	sendMessage(
-		"/composition/layers/6/clips/1/video/source/blocktextgenerator/color/green",
-		255,
-		"f"
-	);
-	sendMessage(
-		"/composition/layers/6/clips/1/video/source/blocktextgenerator/color/blue",
-		255,
-		"f"
-	);
+  // Initialise text caption (layer 6)
+  loadClip(6, 1);
+  setLayerOpacity(6, 0.2);
+  sendMessage(
+    "/composition/layers/6/clips/1/video/source/blocktextgenerator/size",
+    5,
+    "f"
+  ); // set font size
+  sendMessage(
+    "/composition/layers/6/clips/1/video/source/blocktextgenerator/color/red",
+    255,
+    "f"
+  ); // set text colour to white
+  sendMessage(
+    "/composition/layers/6/clips/1/video/source/blocktextgenerator/color/green",
+    255,
+    "f"
+  );
+  sendMessage(
+    "/composition/layers/6/clips/1/video/source/blocktextgenerator/color/blue",
+    255,
+    "f"
+  );
 }
 
 //////////////////////////////////////////////////////////////////////////////
