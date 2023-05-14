@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "dev": "cross-env TAILWIND_MODE=watch vite",
-    "build": "cross-env TAILWIND_MODE=build vite build",
-    "serve": "vite preview",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:spec": "cypress run --spec"
@@ -21,10 +18,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "mocha": "^10.2.0",
     "mqtt": "^4.3.7",
-    "preline": "^1.8.0",
-    "prettier": "^2.8.7",
-    "prettier-plugin-tailwindcss": "^0.1.5",
-    "tailwindcss": "^3.3.2"
+    "prettier": "^2.8.7"
   },
   "dependencies": {
     "cli-real-favicon": "^0.0.8",

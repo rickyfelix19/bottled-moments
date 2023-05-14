@@ -38,6 +38,39 @@ app.post("/sendMessage", function (request, response) {
   response.end("");
 });
 
+// // Handle POST requests about number of users
+// app.post('/getNumberOfUsers', function(request, response) {
+//     // Handle user sessions
+//     var userId = request.body.id;
+//     userSessionIds.set(userId, Date.now());
+//     io.sockets.emit('numberOfUsers', userSessionIds.size);
+
+//     response.end("");
+// });
+
+// setInterval(cleanUpOldUserSessions, 5000); // Periodically calls cleanUpOldUserSessions()
+
+// // Cleans up any unused user sessions
+// function cleanUpOldUserSessions() {
+//     for (var userId of userSessionIds.keys()) {
+//         var userLastAccess = userSessionIds.get(userId)*1.0;
+
+//         if ((Date.now() - userLastAccess) > 10000) { // After 10s of inactivity, remove reference to user
+//             userSessionIds.delete(userId);
+//         }
+//     }
+// }
+
+// Handle POST requests about sending messages
+app.post('/sendMessage', function(request, response) {
+	var address = request.body.address;
+	var value = request.body.value;
+    var type = request.body.type;
+
+	sendOSC(address, value, type);
+    response.end("");
+});
+
 /*
     Send OSC messages
     * Incoming Port
