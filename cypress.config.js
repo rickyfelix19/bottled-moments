@@ -5,5 +5,9 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+    // only needed within Cypress (Legacy mode)
+    // testFiles: {
+    //   "**/*.feature"
+    // }
   },
 });
