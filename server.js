@@ -5,7 +5,10 @@ var PORT = 4040;
 var express = require("express");
 var app = express();
 var server = app.listen(PORT);
-app.use(express.static("public"));
+
+// app.use(express.static("public"));
+app.use(express.static("src"));
+
 console.log("Node.js Express server running on port " + PORT);
 
 // Import and configure body-parser for Express
