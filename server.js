@@ -62,13 +62,13 @@ app.post("/sendMessage", function (request, response) {
 // }
 
 // Handle POST requests about sending messages
-app.post('/sendMessage', function(request, response) {
-	var address = request.body.address;
-	var value = request.body.value;
-    var type = request.body.type;
+app.post("/sendMessage", function (request, response) {
+  var address = request.body.address;
+  var value = request.body.value;
+  var type = request.body.type;
 
-	sendOSC(address, value, type);
-    response.end("");
+  sendOSC(address, value, type);
+  response.end("");
 });
 
 /*
