@@ -1,0 +1,28 @@
+{
+  "artifact": [
+    {
+      "artifactID": 1,
+      "name": "Flower",
+      "description": "lorem ipsum",
+      "image": "../../assets/images-webp/artifact-1.webp"
+    },
+    {
+      "artifactID": 2,
+      "name": "Miners Lamp",
+      "description": "lorem ipsum",
+      "image": "../../assets/images-webp/artifact-2.webp"
+    },
+    {
+      "artifactID": 3,
+      "name": "Compass",
+      "description": "lorem ipsum",
+      "image": "../../assets/images-webp/artifact-3.webp"
+    },
+    {
+      "artifactID": 4,
+      "name": "Surfboard",
+      "description": "lorem ipsum",
+      "image": "../../assets/images-webp/artifact-4.webp"
+    }
+  ]
+}

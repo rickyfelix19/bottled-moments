@@ -8,10 +8,12 @@ let xmlHttpRequest = new XMLHttpRequest();
 
 // To change screen
 let currentMode = 0;
-let totalMode = 4;
+let totalMode = 3;
 
 // text
 let title, subtitle;
+
+// object MIME data
 
 // Object properties -> to loop via array properties
 let artifacts = [
@@ -19,30 +21,25 @@ let artifacts = [
     artifactID: 1,
     name: "Flower",
     description: "lorem ipsum",
-    // image: `https://drive.google.com/file/d/1CaZ3yetUebhvGsLsJp18zThW_wo0McY7/view`,
-    color: "red",
-    image: "../../assets/images-webp/bottled-moments.webp",
+    image: "../../assets/images-webp/artifact-1.webp",
   },
   {
     artifactID: 2,
     name: "Miners Lamp",
     description: "lorem ipsum",
-    color: "red",
-    image: `www.google.com`,
+    image: "../../assets/images-webp/artifact-2.webp",
   },
   {
     artifactID: 3,
-    name: "Fishing Pole",
+    name: "Compass",
     description: "lorem ipsum",
-    color: "red",
-    image: `www.google.com`,
+    image: "../../assets/images-webp/artifact-3.webp",
   },
   {
     artifactID: 4,
     name: "Surfboard",
     description: "lorem ipsum",
-    color: "red",
-    image: `www.google.com`,
+    image: "../../assets/images-webp/artifact-4.webp",
   },
 ];
 
@@ -127,12 +124,12 @@ function draw() {
     // title
     fill("#383838");
     textSize(29);
-    title = text("Select your artifacts", width / 2, 55);
+    title = text("Choose your walls", width / 2, height - 80);
 
     // subheading
     fill("#A0A0A0");
     textSize(18);
-    subtitle = text("Each artifact has different animations", width / 2, 85);
+    subtitle = text("To send your artifact", width / 2, height - 100);
     removeElements();
   }
 }
@@ -170,6 +167,20 @@ function screen_2() {
     // background(0);
     // Display the item's picture, title, and description
 
+    // image(img, dx, dy, dWidth, dHeight, sx, sy, [sWidth], [sHeight], [fit], [xAlign], [yAlign])
+    let artifactImage = image(
+      artifacts[i].image,
+      0,
+      80,
+      width,
+      height / 1.8,
+      0,
+      0,
+      width,
+      height,
+      CONTAIN
+    );
+
     let artifactName = text(
       // text(str, x, y, [x2], [y2])
       artifacts[i].name,
@@ -187,6 +198,7 @@ function screen_2() {
       carouselHeight
     );
   }
+  selectArtifact.draw();
 }
 
 function screen_3() {
@@ -199,8 +211,59 @@ function screen_3() {
 
   // loading screen
   // send message
-  text("Choose your walls", 20, 30);
-  text("To send your artifact", 20, 50);
+}
+
+function screen1_UI() {
+  stroke("#A199FF");
+  fill("#A199FF");
+  ellipse(50, 100, 20, 20);
+  line(59, 100, width / 2 - 10, 100);
+  text("Write Message", 10, 130);
+
+  noFill();
+  stroke("#A0A0A0");
+  ellipse(width / 2, 100, 20, 20);
+  line(width / 2 + 9, 100, width - 60, 100);
+  text("Write Message", width / 2 - 40, 130);
+
+  ellipse(width - 50, 100, 20, 20);
+  text("Select Artefact", width - 100, 130);
+}
+
+function screen2_UI() {
+  stroke("#A199FF");
+  fill("#A199FF");
+  ellipse(50, 100, 20, 20);
+  line(59, 100, width / 2 - 10, 100);
+  text("Write Message", 10, 130);
+
+  // noFill();e
+  // stroke("#A0A0A0");
+  ellipse(width / 2, 100, 20, 20);
+  line(width / 2 + 9, 100, width - 60, 100);
+  text("Write Message", width / 2 - 40, 130);
+
+  noFill();
+  ellipse(width - 50, 100, 20, 20);
+  text("Select Artefact", width - 100, 130);
+}
+
+function screen3_UI() {
+  stroke("#A199FF");
+  fill("#A199FF");
+  ellipse(50, 100, 20, 20);
+  line(59, 100, width / 2 - 10, 100);
+  text("Write Message", 10, 130);
+
+  // noFill();
+  // fill('#A0A0A0')
+  // stroke("#A0A0A0");
+  ellipse(width / 2, 100, 20, 20);
+  line(width / 2 + 9, 100, width - 60, 100);
+  text("Write Message", width / 2 - 40, 130);
+
+  ellipse(width - 50, 100, 20, 20);
+  text("Select Artefact", width - 100, 130);
 }
 
 /* ==================================== */
@@ -344,12 +407,6 @@ function selectRightWall() {
     },
   });
 }
-
-function screen1_UI() {}
-
-function screen2_UI() {}
-
-function screen3_UI() {}
 
 ///////////////////////////////////////////////////////////////////
 // initialiseResolume()

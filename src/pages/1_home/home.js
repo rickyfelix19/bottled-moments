@@ -14,7 +14,7 @@ function preload() {
   //   fontSemiBold = loadFont('./font/Quicksand-Light-600.ttf');
   //   fontBold = loadFont('./font/Quicksand-Light-700.ttf');
 
-  // insert image below
+   // insert image below
   bottle = loadImage("../../assets/images-webp/bottled-moments.webp");
 }
 

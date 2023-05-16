@@ -88,7 +88,7 @@ function productPageButton() {
     align_y: 0,
     on_release() {
       // empty7_legacy_code_ERROR
-      window.open("../3_message/message.html", "_parent");
+      window.open("../3_sketch/sketch.html", "_parent");
     },
   });
 }
