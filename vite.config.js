@@ -1,25 +1,28 @@
 // vite.config.js
-// vite.config.js
-import { defineConfig } from 'vite'
-import dns from 'dns'
-import { createServer as createViteServer } from 'vite'
+import dns from "dns";
+import { defineConfig } from "vite";
+import { createServer as createViteServer } from "vite";
 
-dns.setDefaultResultOrder('verbatim')
+dns.setDefaultResultOrder("verbatim");
 
 export default defineConfig({
-    // omit
-    //   server: {
-    // origin: 'http://127.0.0.1:8080',
+  // omit
+  //   server: {
+  // origin: 'http://127.0.0.1:8080',
+  // },
+  root: "src",
+  server: {
+    // middlewareMode: true,
+    // async middleware(app, server) {
+    // insert server.js middleware into here
+    //   app.use(server.middlewares);
     // },
-    root: 'src',
-    server: {
-        port: 3030,
-    },
-    preview: {
-        port: 8080,
-    },
-})
-
+    port: 3030,
+  },
+  preview: {
+    port: 8080,
+  },
+});
 
 // async function createServer() {
 //   const app = express()

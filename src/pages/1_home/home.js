@@ -29,12 +29,13 @@ function setup() {
 function draw() {
   background(220);
   waveBackground();
+  // image(img, dx, dy, dWidth, dHeight, sx, sy, [sWidth], [sHeight], [fit], [xAlign], [yAlign])
   image(
     bottle,
     0,
-    0,
+    80,
     width,
-    height / 2,
+    height / 1.8,
     0,
     0,
     bottle.width,
@@ -97,11 +98,17 @@ function nextPageButton() {
   nextPage = new Button({
     content: "Start Playing",
     x: width / 2,
-    y: height / 1.6,
+    y: height / 1.3,
     width: width / 1.2,
     height: 75,
     align_x: 0,
     align_y: 0,
+    on_mouse_enter() {
+      cursor("pointer");
+    },
+    on_mouse_exit() {
+      cursor(ARROW);
+    },
     on_release() {
       // empty message
       window.open("../pages/2_onboarding/onboarding.html", "_parent");

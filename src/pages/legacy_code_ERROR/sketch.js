@@ -1,5 +1,6 @@
 //  Global variables
 var messageField;
+let regex = "^(?i)(?:\bw+\bs*){1,20}$";
 
 // For network
 var HOST = window.location.origin;
@@ -7,7 +8,10 @@ let xmlHttpRequest = new XMLHttpRequest();
 
 // To change screen
 let currentMode = 0;
-let totalMode = 5;
+let totalMode = 4;
+
+// text
+let title, subtitle;
 
 // Object properties -> to loop via array properties
 let artifacts = [
@@ -67,37 +71,68 @@ function setup() {
   messageField = createInput(userSelection.message || "");
   messageField.attribute("placeholder", "Write your message here...");
 
-  messageField.position(75, height / 5);
-  messageField.size(width / 1.1, height / 1.7);
+  messageField.position(40, height / 5);
+  messageField.size(width - 80, height / 1.7);
 
   messageField.input(function () {
     userSelection.message = messageField.value();
   });
+
+  // check message with regex
+  // let message = messageField.value();
+  // var match = input.match(message);
 
   // server connections
   //   initialiseResolume();
 }
 
 function draw() {
+  // to test each screen
   // screen_1();
   // screen_2();
   // screen_3();
-  // screen_4A();
-  // screen_4B();
   //////////////////////////////
   if (currentMode === 0) {
     screen_1();
+
+    // title
+    fill("#383838");
+    textSize(29);
+    title = text("Share your thoughts", width / 2, 55);
+
+    // subheading
+    fill("#A0A0A0");
+    textSize(18);
+    subtitle = text("Your message will not be saved", width / 2, 85);
   } else if (currentMode === 1) {
+    clear();
+
     screen_2();
+
+    // title
+    fill("#383838");
+    textSize(29);
+    title = text("Select your artifacts", width / 2, 55);
+
+    // subheading
+    fill("#A0A0A0");
+    textSize(18);
+    subtitle = text("Each artifact has different animations", width / 2, 85);
+
     removeElements();
   } else if (currentMode === 2) {
+    clear();
     screen_3();
-    removeElements();
-  } else if (currentMode === 3) {
-    screen_4A();
-    removeElements();
-  } else if (currentMode === 4) {
-    screen_4B();
+
+    // title
+    fill("#383838");
+    textSize(29);
+    title = text("Select your artifacts", width / 2, 55);
+
+    // subheading
+    fill("#A0A0A0");
+    textSize(18);
+    subtitle = text("Each artifact has different animations", width / 2, 85);
     removeElements();
   }
 }
@@ -110,25 +145,12 @@ function windowResized() {
 
 function screen_1() {
   // let messageField
-  let regex = "^(?i)(?:\bw+\bs*){1,20}$";
-
-  // message checkers
-  // write message box
-  text("Share your thoughts", width / 2, 30);
-  text("Your message will not be saved", width / 2.1, 45);
-  // check message with regex
-  // let message = messageField.value();
-  // var match = input.match(message);
-
-  // Submit Button
   saveMessage.draw();
   skipMessage.draw();
 }
 
 function screen_2() {
   //  choose product
-  text("Choose One Object", 20, 30);
-  text("Each object have different animations", 20, 50);
 
   // // Variables for carousel
   let currentIndex = 0; // Current index of the displayed
@@ -142,7 +164,7 @@ function screen_2() {
   for (let i = 0; i < artifacts.length; i++) {
     noStroke();
 
-    let itemX = (i - currentIndex) * (windowWidth / 2) + carouselWidth / 2.5; // Calculate the X-coordinate of each item
+    let itemX = (i - currentIndex) * (windowWidth / 2) + carouselWidth / 100; // Calculate the X-coordinate of each item
     let itemY = (i - currentIndex) * (windowHeight / 2) + carouselHeight; // Calculate the Y-coordinate of each item
 
     // background(0);
@@ -168,10 +190,6 @@ function screen_2() {
 }
 
 function screen_3() {
-  // send message
-  text("Choose your walls", 20, 30);
-  text("To send your artifact", 20, 50);
-
   // left wall
   // rect(x, y, w, [h], [tl], [tr], [br], [bl])
 
@@ -180,16 +198,9 @@ function screen_3() {
   rect(5 + width / 2, 60, width / 2 - 20, 80 + height / 1.5);
 
   // loading screen
-}
-
-// left screen
-function screen_4A() {
-  text("Send your Artifact", 20, 30);
-}
-
-// right screen
-function screen_4B() {
-  text("Send your Artifact", 20, 30);
+  // send message
+  text("Choose your walls", 20, 30);
+  text("To send your artifact", 20, 50);
 }
 
 /* ==================================== */
@@ -200,6 +211,8 @@ function screen_4B() {
  * Carousel Arrows: #383838 ✅
  */
 
+// screen 1
+
 function saveMessageButton() {
   saveMessage = new Button({
     x: width / 2,
@@ -209,43 +222,56 @@ function saveMessageButton() {
     align_x: 0,
     align_y: 0,
     content: "Save Message",
+    on_mouse_enter() {
+      cursor("pointer");
+    },
+    on_mouse_exit() {
+      cursor(ARROW);
+    },
     on_release() {
       // console.log("this is before: " + currentMode);
-
       // userSelection.message = messageInput.value();
       if (currentMode < totalMode) {
         console.log(userSelection);
         currentMode++;
-        // clear();
       }
+      clear();
+      cursor(ARROW);
       // console.log(userSelection);
     },
   });
 }
 
-// skipButton
 function skipMessageButton() {
   skipMessage = new Button({
     content: "Skip",
-    x: width / 1.2,
+    x: width - 80,
     y: height / 6,
-    width: width / 15,
+    width: 80,
     height: 45,
     align_x: 0,
     align_y: 0,
-    style_disabled: STYLE_DISABLED,
+    on_mouse_enter() {
+      cursor("pointer");
+    },
+    on_mouse_exit() {
+      cursor(ARROW);
+    },
     on_release() {
       // console.log("this is before: " + currentMode);
       if (currentMode < totalMode) {
         console.log(userSelection);
         currentMode++;
         // currentMode = 2;
-        clear();
       }
+      clear();
+      cursor(ARROW);
       // console.log(currentMode);
     },
   });
 }
+
+// screen 2
 
 function carouselSelect() {
   selectArtifact = new Button({
@@ -256,16 +282,23 @@ function carouselSelect() {
     align_x: 0,
     align_y: 0,
     content: "Select Object",
+    on_mouse_enter() {
+      cursor("pointer");
+    },
+    on_mouse_exit() {
+      cursor(ARROW);
+    },
     on_release() {
       userSelection.artifact = artifact[i];
       console.log(userSelection);
       currentMode = 2;
-      clear();
+      // clear();
+      cursor(ARROW);
     },
   });
 }
 
-// leftButton
+// screen 3
 function selectLeftWall() {
   leftWall = new Button({
     x: width / 2,
@@ -275,16 +308,20 @@ function selectLeftWall() {
     align_x: 0,
     align_y: 0,
     content: "Select Left Wall",
+    on_mouse_enter() {
+      cursor("pointer");
+    },
+    on_mouse_exit() {
+      cursor(ARROW);
+    },
     on_release() {
       // console.log(currentMode);
-
       userSelection.wall = "Left";
-      currentMode = 3;
+      cursor(ARROW);
     },
   });
 }
 
-// rightButton
 function selectRightWall() {
   rightWall = new Button({
     x: width / 2,
@@ -294,14 +331,25 @@ function selectRightWall() {
     align_x: 0,
     align_y: 0,
     content: "Select Right Wall",
+    on_mouse_enter() {
+      cursor("pointer");
+    },
+    on_mouse_exit() {
+      cursor(ARROW);
+    },
     on_release() {
       // console.log(userSelection);
-
       userSelection.wall = "Right";
-      currentMode = 4;
+      cursor(ARROW);
     },
   });
 }
+
+function screen1_UI() {}
+
+function screen2_UI() {}
+
+function screen3_UI() {}
 
 ///////////////////////////////////////////////////////////////////
 // initialiseResolume()
@@ -490,14 +538,14 @@ function turnLayerOff(layer) {
 ////////////////////////////////////////////////////
 
 /***********************************************************************
-  === PLEASE DO NOT CHANGE OR DELETE THIS SECTION ===
-  This function sends a OSC message to server
-
-  Parameters:
-  	- address: the OSC message address pattern string
-  	- value: single value as message payload
-  	- type: type of the value passed as message payload
-***********************************************************************/
+    === PLEASE DO NOT CHANGE OR DELETE THIS SECTION ===
+    This function sends a OSC message to server
+  
+    Parameters:
+      - address: the OSC message address pattern string
+      - value: single value as message payload
+      - type: type of the value passed as message payload
+  ***********************************************************************/
 function sendMessage(address, value, type) {
   let postData = JSON.stringify({
     id: 1,
