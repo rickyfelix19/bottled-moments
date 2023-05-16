@@ -7,13 +7,13 @@
 <html lang="EN">
   <head>
     <!-- Page Title -->
-    <title>Onboarding | Bottled Moments</title>
+    <title>Select | Bottled Moments</title>
 
     <!-- Link -->
     <link
       rel="icon"
       type="image/svg+xml"
-      href="../assets/favicons/outputDir/favicon.ico"
+      href="../../assets/favicons/outputDir/favicon.ico"
     />
 
     <!-- Responsiveness -->
@@ -23,7 +23,7 @@
     <meta name="description" content="" />
 
     <!-- Author -->
-    <!-- <link rel="author" href="../../" /> -->
+    <link rel="author" href="../../humans.txt" />
 
     <!-- Tailwind and Flowbite via CDN-->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -34,8 +34,8 @@
     <script src="../../libraries/p5.dom.js"></script>
 
     <!-- p5.js Add-Ons: 
-      * buttons: https://github.com/koerismo/p5.buttons/
-    -->
+		* buttons: https://github.com/koerismo/p5.buttons/
+		-->
     <script src="../../libraries/buttons.min.js"></script>
 
     <!-- Tailwind CSS -->
@@ -45,33 +45,33 @@
     <!-- Global CSS -->
     <link rel="stylesheet" href="../../index.css" />
 
-    <!-- Author -->
-    <link rel="author" href="./public/humans.txt" />
-
     <!-- Page CSS -->
-    <link rel="stylesheet" href="./onboarding.css" />
+    <link rel="stylesheet" href="./sketch.css" />
   </head>
 
   <body class="light-mode">
-    <div class="container">
-      <div class="inner-container">
-        <!-- Write below -->
-        <h1 class="display-2">Bottled Moments</h1>
-        <p class="p-bodycopy">by University of Sydney's Design Lab</p>
-        <div></div>
+    <main>
+      <!-- Write below here -->
+      <div class="container">
+        <!-- <div class="stepper-ui"></div> -->
+        <div class="inner-container">
+          <h1>Select Your Product</h1>
+          <p>Each artifact has a different animation</p>
+        </div>
+
+        <div id="container-p5">
+          <!--sketch will be inserted here, as done in setup() in sketch.js-->
+        </div>
       </div>
-      <div id="container-p5">
-        <!--sketch will be inserted here, as done in setup() in sketch.js-->
-      </div>
-    </div>
+    </main>
 
     <!-- Global JS file -->
     <script type="module" src="../../index.js"></script>
 
     <!-- Page JS  -->
-    <script src="./onboarding.js"></script>
+    <script src="./message.js"></script>
 
-    <!-- Tailwind and Flowbite UI via NPM-->
-    <script src="../../../tailwindcss.config.js"></script>
+    <!-- TailWind CSS and Flowbite -->
+    <script src="../../../tailwind.config.js"></script>
   </body>
 </html>
