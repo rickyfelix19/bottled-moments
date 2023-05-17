@@ -118,56 +118,56 @@ function setup() {
 function draw() {
   // to test each screen
   // screen_1();
-  // screen_2();
+  screen_2();
   // screen_3();
   //////////////////////////////
-  if (currentMode === 0) {
-    screen_1();
-    screen1_UI();
-    // title
-    fill("#383838");
-    textSize(29);
-    title = text("Share your thoughts", width / 2, 150);
-    // subheading
-    fill("#A0A0A0");
-    textSize(18);
-    subtitle = text("Your message will not be saved", width / 2, 180);
-  } else if (currentMode === 1) {
-    clear();
-    screen_2();
-    screen2_UI();
-    // screen2_blob();
-    // title
-    fill("#383838");
-    textSize(29);
-    title = text("Select your artifacts", width / 2, 150);
-    // subheading
-    fill("#A0A0A0");
-    textSize(18);
-    subtitle = text("Each artifact has different animations", width / 2, 180);
+  // if (currentMode === 0) {
+  //   screen_1();
+  //   screen1_UI();
+  //   // title
+  //   fill("#383838");
+  //   textSize(29);
+  //   title = text("Share your thoughts", width / 2, 150);
+  //   // subheading
+  //   fill("#A0A0A0");
+  //   textSize(18);
+  //   subtitle = text("Your message will not be saved", width / 2, 180);
+  // } else if (currentMode === 1) {
+  //   clear();
+  //   screen_2();
+  //   screen2_UI();
+  //   // screen2_blob();
+  //   // title
+  //   fill("#383838");
+  //   textSize(29);
+  //   title = text("Select your artifacts", width / 2, 150);
+  //   // subheading
+  //   fill("#A0A0A0");
+  //   textSize(18);
+  //   subtitle = text("Each artifact has different animations", width / 2, 180);
 
-    removeElements();
-  } else if (currentMode === 2) {
-    clear();
-    screen_3();
-    screen3_UI();
-    // title
-    fill("#383838");
-    textSize(29);
-    title = text("Choose the walls you would", width / 2, height / 1.4);
-    fill("#383838");
-    textSize(29);
-    title = text("like to send your bottle", width / 2, height / 1.35);
-    // subheading
-    fill("#A0A0A0");
-    textSize(18);
-    subtitle = text(
-      "This won't affect your animations",
-      width / 2,
-      height / 1.3
-    );
-    removeElements();
-  }
+  //   removeElements();
+  // } else if (currentMode === 2) {
+  //   clear();
+  //   screen_3();
+  //   screen3_UI();
+  //   // title
+  //   fill("#383838");
+  //   textSize(29);
+  //   title = text("Choose the walls you would", width / 2, height / 1.4);
+  //   fill("#383838");
+  //   textSize(29);
+  //   title = text("like to send your bottle", width / 2, height / 1.35);
+  //   // subheading
+  //   fill("#A0A0A0");
+  //   textSize(18);
+  //   subtitle = text(
+  //     "This won't affect your animations",
+  //     width / 2,
+  //     height / 1.3
+  //   );
+  //   removeElements();
+  // }
   // image(productImg1URL, width / 2, height / 2);
   // image(productImg1, width / 2, height / 2);
   // noLoop();
