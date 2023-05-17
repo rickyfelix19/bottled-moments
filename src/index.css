@@ -1,18 +1,22 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Sketch p5.js Default */
 
-.inner-container {
-  margin-top: 55px;
-  /* height: 23vh; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
+canvas {
+  display: block;
+}
+
+/* ==================================== */
 
 /* 
       * Font weight: ( https://fonts.google.com/specimen/Quicksand )
+      * <link rel="preconnect" href="https://fonts.googleapis.com">
+      * <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      * <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+      
       * Light - 300
       * Regular - 400
       * Medium - 500 
@@ -109,7 +113,6 @@ body[class='light-mode'] > p {
 .display-2 {
   font-size: 3.129rem;
   font-weight: 700;
-  line-height: 100%;
 }
 
 .headline {
@@ -186,8 +189,14 @@ p {
   color: #383838;
 }
 
-/* =========================== Misc =========================== */
-
-button {
-  cursor: pointer;
-}
+/* .inner-container {
+  margin-top: 55px;
+  height: 23vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin-left: 50%;
+  margin-right: 50%;
+  margin-right: auto;
+} */

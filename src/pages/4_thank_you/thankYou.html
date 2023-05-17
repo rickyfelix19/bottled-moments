@@ -7,7 +7,7 @@
 <html lang="EN">
   <head>
     <!-- Page Title -->
-    <title>Select | Bottled Moments</title>
+    <title>Thank You | Bottled Moments</title>
 
     <!-- Link -->
     <link
@@ -25,9 +25,6 @@
     <!-- Author -->
     <link rel="author" href="../../humans.txt" />
 
-    <!-- Tailwind and Flowbite via CDN-->
-    <script src="https://cdn.tailwindcss.com"></script>
-
     <!-- p5.js Default Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.js"></script>
@@ -35,33 +32,32 @@
 
     <!-- p5.js Add-Ons: 
 		* buttons: https://github.com/koerismo/p5.buttons/
-		-->
+  -->
     <script src="../../libraries/buttons.min.js"></script>
 
+    <!-- Tailwind and Flowbite via CDN-->
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="/dist/output.css" rel="stylesheet" />
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <!-- <link href="/dist/output.css" rel="stylesheet" /> -->
 
     <!-- Global CSS -->
     <link rel="stylesheet" href="../../index.css" />
 
-    <!-- Page CSS -->
-    <link rel="stylesheet" href="./sketch.css" />
+    <!-- Font Links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body class="light-mode">
     <main>
-      <!-- Write below here -->
-      <div class="container">
-        <!-- <div class="stepper-ui"></div> -->
-        <div class="inner-container">
-          <h1>Choose the wall you like to send your bottle</h1>
-          <p>This won’t affect your animations</p>
-        </div>
-
-        <div id="container-p5">
-          <!--sketch will be inserted here, as done in setup() in sketch.js-->
-        </div>
+      <div id="container-p5">
+        <!--sketch will be inserted here, as done in setup() in sketch.js-->
       </div>
     </main>
 
@@ -69,9 +65,9 @@
     <script type="module" src="../../index.js"></script>
 
     <!-- Page JS  -->
-    <script src="./message.js"></script>
+    <script src="./thankYou.js"></script>
 
     <!-- TailWind CSS and Flowbite -->
-    <script src="../../../tailwind.config.js"></script>
+    <!-- <script src="../../../tailwind.config.js"></script> -->
   </body>
 </html>

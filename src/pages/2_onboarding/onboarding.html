@@ -8,14 +8,14 @@
   <head>
     <!-- Page Title -->
     <title>Onboarding | Bottled Moments</title>
-
+    
     <!-- Link -->
     <link
-      rel="icon"
-      type="image/svg+xml"
-      href="../assets/favicons/outputDir/favicon.ico"
+    rel="icon"
+    type="image/svg+xml"
+    href="../assets/favicons/outputDir/favicon.ico"
     />
-
+    
     <!-- Responsiveness -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,10 +23,7 @@
     <meta name="description" content="" />
 
     <!-- Author -->
-    <!-- <link rel="author" href="../../" /> -->
-
-    <!-- Tailwind and Flowbite via CDN-->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="author" href="../../public/humans.txt" />
 
     <!-- p5.js Default Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
@@ -38,40 +35,33 @@
     -->
     <script src="../../libraries/buttons.min.js"></script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="/dist/output.css" rel="stylesheet" />
-
     <!-- Global CSS -->
     <link rel="stylesheet" href="../../index.css" />
 
-    <!-- Author -->
-    <link rel="author" href="./public/humans.txt" />
+    <!-- Tailwind and Flowbite via CDN -->
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <!-- Tailwind CSS -->
+    <!-- <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/dist/output.css" rel="stylesheet" /> -->
 
-    <!-- Page CSS -->
-    <link rel="stylesheet" href="./onboarding.css" />
+    <!-- Font Links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
   </head>
 
   <body class="light-mode">
-    <div class="container">
-      <div class="inner-container">
-        <!-- Write below -->
-        <h1 class="display-2">Bottled Moments</h1>
-        <p class="p-bodycopy">by University of Sydney's Design Lab</p>
-        <div></div>
-      </div>
+    <main>
       <div id="container-p5">
         <!--sketch will be inserted here, as done in setup() in sketch.js-->
-      </div>
+      </main>
     </div>
-
-    <!-- Global JS file -->
-    <script type="module" src="../../index.js"></script>
 
     <!-- Page JS  -->
     <script src="./onboarding.js"></script>
-
-    <!-- Tailwind and Flowbite UI via NPM-->
-    <script src="../../../tailwindcss.config.js"></script>
   </body>
 </html>

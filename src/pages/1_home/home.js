@@ -16,7 +16,6 @@ function preload() {
 
   // insert image below
   bottle = loadImage("../../assets/images-webp/bottled-moments.webp");
-  
 }
 
 function setup() {
