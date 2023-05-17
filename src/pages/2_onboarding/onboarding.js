@@ -1,41 +1,41 @@
 // Global Variables
 
-// let rules = [
-//   {
-//     rulesID: 1,
-//     headings: "Journey through companionship",
-//     subheadings:
-//       "With people's support, we will feel warmth and have positive feelings",
-//     image: "../../assets/images-webp/bottled-moments.webp",
-//   },
-//   {
-//     rulesID: 2,
-//     headings: "Reflection of emotions",
-//     subheadings:
-//       "This concept is visualize through Bottled Messages and the Lake",
-//     image: "../../assets/images-webp/bottled-moments.webp",
-//   },
-//   {
-//     rulesID: 3,
-//     headings: "Personalized animations",
-//     subheadings:
-//       "With different animations available based on your selection of objects",
-//     image: "../../assets/images-webp/bottled-moments.webp",
-//   },
-//   {
-//     rulesID: 4,
-//     headings: "Share your moment",
-//     subheadings:
-//       "Don’t forget to capture the moment and share it with everyone",
-//     image: "../../assets/images-webp/bottled-moments.webp",
-//   },
-//   {
-//     rulesID: 5,
-//     headings: "Protect the environment",
-//     subheadings: "Please do not litter to the lake",
-//     image: "../../assets/images-webp/bottled-moments.webp",
-//   },
-// ];
+let rules = [
+  {
+    rulesID: 1,
+    headings: "Journey through companionship",
+    subheadings:
+      "With people's support, we will feel warmth and have positive feelings",
+    icon: "https://img.icons8.com/external-flat-gradient-andi-nur-abdillah/256/external-advertising-digital-marketing-flat-gradient-flat-gradient-andi-nur-abdillah-10.png",
+  },
+  {
+    rulesID: 2,
+    headings: "Reflection of emotions",
+    subheadings:
+      "This concept is visualize through Bottled Messages and the Lake",
+    icon: "https://img.icons8.com/external-flat-andi-nur-abdillah/256/external-Panorama-virtual-reality-(flat)-flat-andi-nur-abdillah.png",
+  },
+  {
+    rulesID: 3,
+    headings: "Personalized animations",
+    subheadings:
+      "With different animations available based on your selection of objects",
+    icon: "https://img.icons8.com/external-flat-gradient-andi-nur-abdillah/256/external-bottle-ecology-flat-gradient-flat-gradient-andi-nur-abdillah.png",
+  },
+  {
+    rulesID: 4,
+    headings: "Share your moment",
+    subheadings:
+      "Don’t forget to capture the moment and share it with everyone",
+    icon: "https://img.icons8.com/external-flat-gradient-andi-nur-abdillah/256/external-discussion-online-learning-flat-gradient-flat-gradient-andi-nur-abdillah.png",
+  },
+  {
+    rulesID: 5,
+    headings: "Protect the environment",
+    subheadings: "Please do not litter to the lake",
+    icon: "https://img.icons8.com/external-flat-gradient-andi-nur-abdillah/256/external-ecology-ecology-flat-gradient-flat-gradient-andi-nur-abdillah-9.png",
+  },
+];
 
 function preload() {
   // insert fonts here
@@ -62,13 +62,11 @@ function draw() {
   fill("#A0A0A0");
   textSize(15);
 
-  p5.text(
+  text(
     "Bottled Moments uses cookie for the best experience.",
     width / 2,
-    height / 1.55
+    height - 110
   );
-
-  // viewRules();
 }
 
 function windowResized() {
@@ -81,7 +79,7 @@ function productPageButton() {
   productPage = new Button({
     content: "Accept and Continue",
     x: width / 2,
-    y: height / 1.4,
+    y: height - 55,
     width: width / 1.2,
     height: 75,
     align_x: 0,
