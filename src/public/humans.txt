@@ -16,7 +16,7 @@ SOURCE: https://humanstxt.org/
 
 	Ruyi Cheng: UX Researcher and UX Auditor
 	
-    Charlotte: UI Designer
+    Charlotte: Product Designer
 	
     Katy: Resolume
 
@@ -29,6 +29,6 @@ SOURCE: https://humanstxt.org/
 /* SITE */
 	Last update:2023/04/29
 	Language: English
-	Standards: HTML5, CSS3, W3C
-    Components: p5.js, TailwindCSS, Cypress, Express.js, OSC
+	Standards: HTML5, CSS3, W3C, JSON
+    Components: p5.js, TailwindCSS, Cypress, Express.js, OSC, VitaWind
     Software: Miro, Illustrator, Photoshop, VSCode, Figma, Resolume

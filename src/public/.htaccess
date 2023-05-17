@@ -1,1 +1,2 @@
-ErrorDocument 404 /404.html
+# serve custom error pages 
+ErrorDocument 400 ../404.html
