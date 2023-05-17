@@ -65,7 +65,7 @@ function draw() {
   p5.text(
     "Bottled Moments uses cookie for the best experience.",
     width / 2,
-    height / 1.65
+    height / 1.55
   );
 
   // viewRules();
@@ -81,7 +81,7 @@ function productPageButton() {
   productPage = new Button({
     content: "Accept and Continue",
     x: width / 2,
-    y: height / 1.5,
+    y: height / 1.4,
     width: width / 1.2,
     height: 75,
     align_x: 0,

@@ -14,8 +14,9 @@ function preload() {
   //   fontSemiBold = loadFont('./font/Quicksand-Light-600.ttf');
   //   fontBold = loadFont('./font/Quicksand-Light-700.ttf');
 
-   // insert image below
+  // insert image below
   bottle = loadImage("../../assets/images-webp/bottled-moments.webp");
+  
 }
 
 function setup() {
@@ -98,7 +99,7 @@ function nextPageButton() {
   nextPage = new Button({
     content: "Start Playing",
     x: width / 2,
-    y: height / 1.3,
+    y: height / 1.35,
     width: width / 1.2,
     height: 75,
     align_x: 0,
