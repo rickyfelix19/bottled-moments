@@ -1,6 +1,6 @@
 // Global Variables
 
-var offset = 0;
+var offset = 1;
 var strum = 3;
 
 let title, subheading;
@@ -36,7 +36,7 @@ function draw() {
   image(
     bottle,
     0,
-    250,
+    50,
     width,
     height / 1.8,
     0,
@@ -45,12 +45,12 @@ function draw() {
     bottle.height,
     CONTAIN
   );
-  background("#222222");
-  fill("#222222");
-  textSize(48);
-  title = text("Bottled Moments", width / 2, 75);
-  textSize(20);
-  subtitle = text("Journey through Companionship", width / 2, 120);
+  // background("#222222");
+  // fill("#222222");
+  // textSize(48);
+  // title = text("Bottled Moments", width / 2, 75);
+  // textSize(20);
+  // subtitle = text("Journey through Companionship", width / 2, 120);
 
   nextPage.draw();
 }
@@ -92,7 +92,7 @@ function waveBackground() {
     //var angle = map(x, 0, width, 0, TWO_PI);
     var angle = offset + x * 0.01;
     // map x between 0 and width to 0 and Two Pi
-    var y = map(sin(angle / 4), -strum, strum, 300, 720);
+    var y = map(sin(angle / 4), -strum, strum, 120, 360);
     // make color mapping
     // make gradient based on the mapping
 
@@ -108,7 +108,7 @@ function nextPageButton() {
   nextPage = new Button({
     content: "Start Playing",
     x: width / 2,
-    y: height - 75,
+    y: height / 1.4,
     width: width / 1.2,
     height: 75,
     align_x: 0,

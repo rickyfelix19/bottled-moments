@@ -1,14 +1,5 @@
 /* Sketch p5.js Default */
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-canvas {
-  display: block;
-}
-
 /* ==================================== */
 
 /* 
@@ -113,6 +104,7 @@ body[class='light-mode'] > p {
 .display-2 {
   font-size: 3.129rem;
   font-weight: 700;
+  line-height: 100%;
 }
 
 .headline {
@@ -136,7 +128,7 @@ body[class='light-mode'] > p {
 
 .p-paragraph {
   font-size: 0.818rem;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .button {
@@ -189,14 +181,16 @@ p {
   color: #383838;
 }
 
-/* .inner-container {
+.inner-container {
   margin-top: 55px;
-  height: 23vh;
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  margin-left: 50%;
-  margin-right: 50%;
-  margin-right: auto;
-} */
+  /* margin-left: auto;
+  margin-right: auto; */
+  /* height: 23vh; */
+  /* margin-left: 40%; */
+  /* margin-right: 50%; */
+}
