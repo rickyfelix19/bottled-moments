@@ -45,6 +45,7 @@ function draw() {
     bottle.height,
     CONTAIN
   );
+  background("#222222");
   fill("#222222");
   textSize(48);
   title = text("Bottled Moments", width / 2, 75);
