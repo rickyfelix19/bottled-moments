@@ -1,7 +1,5 @@
 // Global Variables
 
-const { p5 } = require("p5js-wrapper");
-
 var offset = 1;
 var strum = 3;
 
@@ -26,7 +24,6 @@ function preload() {
 function setup() {
   p5 = createCanvas(windowWidth, windowHeight);
   p5.parent("container-p5");
-  p5.center();
 
   // page buttons
   let nextPage = nextPageButton();

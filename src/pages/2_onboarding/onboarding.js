@@ -60,10 +60,6 @@ function preload() {
   //   fontMedium = loadFont('./font/Quicksand-Light-500.ttf');
   //   fontSemiBold = loadFont('./font/Quicksand-Light-600.ttf');
   //   fontBold = loadFont('./font/Quicksand-Light-700.ttf');
-  // insert images below
-  // for (let i = 0; i < rules.length; i++) {
-  //   ruleImage[i] = loadImage(rules.src);
-  // }
 
   // loadJSON(path, datatype, [callback], [errorCallback])
   let rulesJSON = loadJSON("rules.json", "json", storeData);
@@ -79,9 +75,8 @@ function setup() {
 }
 
 function draw() {
-  productPage.draw();
-
   // console.log(ruleImage);
+  productPage.draw();
 
   // image(iconsArr[1], 200, 200);
 
@@ -100,7 +95,8 @@ function draw() {
   // image(iconsArr[1], width / 2, height / 2);
   rulesLeftColumn();
   rulesRightColumn();
-  productPageButton();
+
+  // productPage.draw();
 }
 
 function windowResized() {
@@ -126,28 +122,41 @@ function rulesLeftColumn() {
   let images;
   let imageYPos = 40;
 
-  // for (let i = 0; i < iconArr.length; i++) {
-  //   image(iconArr[i], i * 200, 0, 600 / 3, 450 / 3);
-  // }
-
-  // image.size(64, 64);
-  iconArr.forEach((rule) => {
-    // // image(img, x, y, [width], [height]);
+  for (let i = 0; i < iconArr.length; i++) {
+    // image(iconArr[i], i * 200, 0, 600 / 3, 450 / 3);
     images = image(
-      rule,
+      iconArr[i],
       windowWidth / 2 - 170,
       imageYPos,
       64,
       64,
       0,
       0,
-      rule.width,
-      rule.height,
+      width,
+      height,
       CONTAIN
     );
     imageYPos += 100;
-    // console.log(rule);
-  });
+  }
+
+  // image.size(64, 64);
+  // iconArr.forEach((rule) => {
+  //   // // image(img, x, y, [width], [height]);
+  //   images = image(
+  //     rule,
+  //     windowWidth / 2 - 170,
+  //     imageYPos,
+  //     64,
+  //     64,
+  //     0,
+  //     0,
+  //     rule.width,
+  //     rule.height,
+  //     CONTAIN
+  //   );
+  //   imageYPos += 100;
+  //   // console.log(rule);
+  // });
 }
 
 function rulesRightColumn() {
@@ -159,50 +168,65 @@ function rulesRightColumn() {
   let subtitleHeight = 85;
   let title, subtitle;
 
-  // console.log(headingArr); // this should show the arrays in a Object format (exactly the same as JSON)
-  headingArr.forEach(function (rule) {
-    // y = (i * windowHeight) / 5;
+  for (let i = 0; i < headingArr.length; i++) {
     fill("#4456F5");
     textAlign(LEFT);
 
     // let imageY = currentIndex * windowHeight - 100; // Calculate the
     title = textSize(18);
-    title = text(rule, windowWidth / 2 - 90, titleHeight);
+    title = text(headingArr[i], windowWidth / 2 - 90, titleHeight);
     titleHeight += 100;
-  });
+  }
 
-  subHeadingArr.forEach(function (rule) {
+  for (let i = 0; i < subHeadingArr.length; i++) {
     fill("#222222");
     textAlign(LEFT);
 
     // let imageY = currentIndex * windowHeight - 100; // Calculate the
     subtitle = textSize(14);
-    subtitle = text(rule, windowWidth / 2 - 90, subtitleHeight);
+    subtitle = text(subHeadingArr[i], windowWidth / 2 - 90, subtitleHeight);
     subtitleHeight += 100;
-  });
+  }
 
-  // iconArr.forEach(function (rule) {
-  // // image(img, dx, dy, dWidth, dHeight, sx, sy, [sWidth], [sHeight], [fit], [xAlign], [yAlign])
-  // icons = image(
-  //   rule,
-  //   0,
-  //   0,
-  //   width,
-  //   height / 1.8,
-  //   100,
-  //   100,
-  //   rule.width,
-  //   rule.height,
-  //   CONTAIN
-  // );
+  /* 
+    * for Each cant be used in p5JS
+    * it creates a never ending loop
+    * loop is a feature. Loop is bad
+    * JS is bad, TS is good
 
-  // if (rule) {
-  //   console.log("hello world");
-  //   // console.log("this is:" + z);
-  // }
-
-  // image(iconsArr[1], width / 2, height / 2);
-  // });
+   console.log(headingArr); // this should show the arrays in a Object format (exactly the same as JSON)
+   headingArr.forEach(function (rule) {
+     // y = (i * windowHeight) / 5;
+     fill("#4456F5");
+     textAlign(LEFT)
+     // let imageY = currentIndex * windowHeight - 100; // Calculate the
+     title = textSize(18);
+     title = text(rule, windowWidth / 2 - 90, titleHeight);
+     titleHeight += 100;
+   })
+   subHeadingArr.forEach(function (rule) {
+     fill("#222222");
+     textAlign(LEFT)
+     // let imageY = currentIndex * windowHeight - 100; // Calculate the
+     subtitle = textSize(14);
+     subtitle = text(rule, windowWidth / 2 - 90, subtitleHeight);
+     subtitleHeight += 100;
+   })
+   iconArr.forEach(function (rule) {
+   // image(img, dx, dy, dWidth, dHeight, sx, sy, [sWidth], [sHeight], [fit], [xAlign], [yAlign])
+   icons = image(
+     rule,
+     0,
+     0,
+     width,
+     height / 1.8,
+     100,
+     100,
+     rule.width,
+     rule.height,
+     CONTAIN
+   );
+  */
 }
 
 function productPageButton() {
@@ -214,8 +238,15 @@ function productPageButton() {
     height: 75,
     align_x: 0,
     align_y: 0,
+    on_mouse_enter() {
+      cursor("pointer");
+    },
+    on_mouse_exit() {
+      cursor(ARROW);
+    },
     on_release() {
-      // empty7_legacy_code_ERROR
+      // empty message
+      cursor(ARROW);
       window.open("../3_sketch/sketch.html", "_parent");
     },
   });
