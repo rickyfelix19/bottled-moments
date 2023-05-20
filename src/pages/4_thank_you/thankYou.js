@@ -1,20 +1,13 @@
 // p5.js Default
 
 var offset = 2;
-var strum = 4;
+var strum = 3;
 let link;
+let shadow;
 
 // Global Variables
-
 function preload() {
-  // insert fonts here
-  //   fonts = loadFont("https://fonts.googleapis.com/css?Quicksand");
-  //   fontLight = loadFont('./font/Quicksand-Light-300.ttf');
-  //   fontRegular = loadFont('./font/Quicksand-Light-400.ttf');
-  //   fontMedium = loadFont('./font/Quicksand-Light-500.ttf');
-  //   fontSemiBold = loadFont('./font/Quicksand-Light-600.ttf');
-  //   fontBold = loadFont('./font/Quicksand-Light-700.ttf');
-  // insert images below
+  bottle = loadImage("../../assets/images-webp/bottled-moments.webp");
 }
 
 function setup() {
@@ -25,14 +18,50 @@ function setup() {
   // page buttons
   let like = followButton();
   let selectOther = otherArtifact();
-
-  // server connections
-  // initialiseResolume();
 }
 
 function draw() {
-  // waveBackground();
+  waveBackground();
   // to create the pages
+
+  shadow = image(
+    bottle,
+    width / 2.5,
+    50,
+    width / 3.5,
+    height / 2.2,
+    0,
+    0,
+    bottle.width,
+    bottle.height,
+    CONTAIN
+  );
+
+  fill("#fffffff");
+  rect(0, windowHeight / 2, windowWidth, windowHeight);
+
+  textAlign(CENTER);
+  fill("#383838");
+  textSize(28);
+  text("Your Bottle Is Now Drifting", width / 2, height / 1.8);
+  text("Through The Sea", width / 2, height / 1.7);
+  fill("#A0A0A0");
+  textSize(16);
+  text("PLEASE FIND YOUR DRIFT BOTTLE", width / 2, height / 1.55);
+  text("IN THE SCREEN", width / 2, height / 1.5);
+
+  // image(
+  //   bottle,
+  //   width / 3,
+  //   50,
+  //   width / 3,
+  //   height / 2,
+  //   0,
+  //   0,
+  //   bottle.width,
+  //   bottle.height,
+  //   CONTAIN
+  // );
 
   like.draw();
   selectOther.draw();
@@ -78,7 +107,7 @@ function waveBackground() {
     //var angle = map(x, 0, width, 0, TWO_PI);
     var angle = offset + x * 0.01;
     // map x between 0 and width to 0 and Two Pi
-    var y = map(sin(angle), -strum, strum, 350, 200);
+    var y = map(sin(angle), -strum, strum, 200, 360);
     // make color mapping
     // make gradient based on the mapping
 
@@ -99,7 +128,7 @@ function followButton() {
     height: 55,
     align_x: 0,
     align_y: 0,
-    content: "Follow Us",
+    content: "Follow Lake Macquaire Arts",
     on_mouse_enter() {
       cursor("pointer");
     },
@@ -109,7 +138,7 @@ function followButton() {
     on_release() {
       // console.log(currentMode);
       cursor(ARROW);
-      window.open(`https://www.instagram.com/lakemacarts/?hl=en`);
+      window.open(`https://www.instagram.com/lakemacarts/`);
     },
   });
 }
@@ -122,7 +151,7 @@ function otherArtifact() {
     height: 55,
     align_x: 0,
     align_y: 0,
-    content: "Select Other Artifact",
+    content: "Send Other Messages",
     on_mouse_enter() {
       cursor("pointer");
     },
@@ -132,7 +161,7 @@ function otherArtifact() {
     on_release() {
       // console.log(userSelection);
       cursor(ARROW);
-      window.open("../3_sketch/sketch.html", "_parent");
+      window.open("../../index.html", "_parent");
     },
   });
 }

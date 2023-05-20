@@ -5,53 +5,6 @@ let headingArr = [];
 let subHeadingArr = [];
 let iconArr = [];
 
-// let rules = [
-//   {
-//     rulesID: 1,
-//     headings: "Journey through companionship",
-//     subheadings:
-//       "With people's support, we will feel warmth and have positive feelings",
-//     icon: "../../assets/icons-svg/family.svg",
-//     src: "https://img.icons8.com/color/128/family.svg",
-//     reference: "icons-8",
-//   },
-//   {
-//     rulesID: 2,
-//     headings: "Reflection of emotions",
-//     subheadings:
-//       "This concept is visualize through Bottled Messages and the Lake",
-//     icon: "../../assets/icons-svg/panorama.svg",
-//     src: "https://img.icons8.com/external-flat-andi-nur-abdillah/128/external-Panorama-virtual-reality-(flat)-flat-andi-nur-abdillah.svg",
-//     reference: "andi-nur-abdillah-from-icons-8",
-//   },
-//   {
-//     rulesID: 3,
-//     headings: "Personalized animations",
-//     subheadings:
-//       "With different animations available based on your selection of objects",
-//     icon: "../../assets/icons-svg/what.svg",
-//     src: "https://img.icons8.com/color/128/what.svg",
-//     reference: "icons-8",
-//   },
-//   {
-//     rulesID: 4,
-//     headings: "Share your moment",
-//     subheadings:
-//       "Don't forget to capture the moment and share it with everyone",
-//     icon: "../../assets/icons-svg/email.svg",
-//     src: "https://img.icons8.com/external-flat-gradient-andi-nur-abdillah/128/external-email-morning-routine-flat-gradient-flat-gradient-andi-nur-abdillah.svg",
-//     reference: "andi-nur-abdillah-from-icons-8",
-//   },
-//   {
-//     rulesID: 5,
-//     headings: "Protect the environment",
-//     subheadings: "Please do not litter to the lake",
-//     icon: "../../assets/icons-svg/ecology.svg",
-//     src: "https://img.icons8.com/external-flat-gradient-andi-nur-abdillah/128/external-ecology-ecology-flat-gradient-flat-gradient-andi-nur-abdillah-9.svg",
-//     reference: "andi-nur-abdillah-from-icons-8",
-//   },
-// ];
-
 function preload() {
   // insert fonts here
   //   fonts = loadFont("https://fonts.googleapis.com/css?Quicksand");

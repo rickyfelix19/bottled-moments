@@ -41,8 +41,8 @@ function preload() {
   // }
 
   artifactJSON = loadJSON("product.json", "json", storeData);
-  // leftWall = loadImage("../../assets/images-webp/Left.png");
-  // rightWall = loadImage("../../assets/images-webp/Right.png");
+  leftWall = loadImage("../../assets/images-webp/Left.png");
+  rightWall = loadImage("../../assets/images-webp/Right.png");
 }
 
 function setup() {
@@ -66,45 +66,48 @@ function setup() {
   carouselNext = createButton("&#8594;");
   carouselNext.position(width / 1.2, height / 2);
   carouselNext.mousePressed(nextProduct);
+
+  messageBox();
 }
 
 function draw() {
   let color1 = color("#cceaff");
   let color2 = color("#ffffff");
 
-  push();
-  for (i = 0; i < height; i++) {
-    let finalColor = lerpColor(color1, color2, i / height);
-    stroke(finalColor);
-    line(0, i, width, i);
-  }
-  pop();
-  // // to test each screen
+  // push();
+  // for (i = 0; i < height; i++) {
+  //   let finalColor = lerpColor(color1, color2, i / height);
+  //   stroke(finalColor);
+  //   line(0, i, width, i);
+  // }
+  // pop();
+  // // to test each
+
   // screen_1();
   // screen_2();
   // screen_3();
 
   // seperate into components -- for easier debugging
 
-  // if (currentMode === 0) {
-  //   screen_1();
-  //   messageBox();
-  //   screen1_UI();
-  // } else if (currentMode === 1) {
-  // clear();
-  // removeElements();
-  carouselNext.show();
-  carouselPrev.show();
-  screen_2();
-  screen2_UI();
-  // selectArtifact();
-  // screen2_blob();
-  //   } else if (currentMode === 2) {
-  //     clear();
-  //     removeElements();
-  //     screen_3();
-  //     screen3_UI();
-  //   }
+  if (currentMode === 0) {
+    screen_1();
+    screen1_UI();
+    carouselPrev.hide();
+    carouselNext.hide();
+  } else if (currentMode === 1) {
+    clear();
+    screen_2();
+    screen2_UI();
+    // screen2_blob();
+    carouselNext.show();
+    carouselPrev.show();
+    removeElements();
+  } else if (currentMode === 2) {
+    clear();
+    removeElements();
+    screen_3();
+    screen3_UI();
+  }
 }
 
 function windowResized() {
@@ -350,13 +353,12 @@ function productCarousel() {
       artifactsArr[i].artifactURL,
       picX,
       picY,
-      carouselWidth,
-      carouselHeight,
+      width,
+      height / 2,
       0,
       0,
       artifactsArr.width,
       artifactsArr.height
-      // CONTAIN
     );
 
     fill("#000000");
@@ -379,6 +381,7 @@ function productCarousel() {
       carouselHeight
     );
   }
+  selectArtifact.draw();
 }
 
 function prevProduct() {
@@ -476,8 +479,7 @@ function screen_3() {
     0,
     0,
     leftWall.width,
-    leftWall.height,
-    CONTAIN
+    leftWall.height
   );
 
   image(
@@ -489,8 +491,7 @@ function screen_3() {
     0,
     0,
     rightWall.width,
-    rightWall.height,
-    CONTAIN
+    rightWall.height
   );
 
   // title
