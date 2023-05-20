@@ -1,9 +1,8 @@
 // p5.js Default
 
-var offset = 0;
-var strum = 1;
+var offset = 2;
+var strum = 4;
 let link;
-var nextPage;
 
 // Global Variables
 
@@ -32,8 +31,9 @@ function setup() {
 }
 
 function draw() {
+  // waveBackground();
   // to create the pages
-  waveBackground();
+
   like.draw();
   selectOther.draw();
 }
@@ -44,6 +44,9 @@ function windowResized() {
 
 /* ==================================== */
 
+function footer() {
+  background("#fdfdfd");
+}
 function waveBackground() {
   // https://editor.p5js.org/stevenraysimon/sketches/HyTseadOg
   noFill();
@@ -91,9 +94,9 @@ function waveBackground() {
 function followButton() {
   like = new Button({
     x: width / 2,
-    y: height - 145,
+    y: height - 195,
     width: width / 1.2,
-    height: 75,
+    height: 55,
     align_x: 0,
     align_y: 0,
     content: "Follow Us",
@@ -114,9 +117,9 @@ function followButton() {
 function otherArtifact() {
   selectOther = new Button({
     x: width / 2,
-    y: height - 55,
+    y: height - 110,
     width: width / 1.2,
-    height: 75,
+    height: 55,
     align_x: 0,
     align_y: 0,
     content: "Select Other Artifact",

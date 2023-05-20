@@ -1,6 +1,6 @@
 // Global Variables
 
-let rulesJSON;
+let rulesJSO = [];
 let headingArr = [];
 let subHeadingArr = [];
 let iconArr = [];
@@ -62,7 +62,7 @@ function preload() {
   //   fontBold = loadFont('./font/Quicksand-Light-700.ttf');
 
   // loadJSON(path, datatype, [callback], [errorCallback])
-  let rulesJSON = loadJSON("rules.json", "json", storeData);
+  rulesJSON = loadJSON("rules.json", "json", storeData);
 }
 
 function setup() {
@@ -103,10 +103,8 @@ function windowResized() {
   p5 = resizeCanvas(windowWidth, windowHeight);
 }
 
-/* ==================================== */
-
 function storeData(data) {
-  // console.log(data); // return objects of array
+  // console.log(data); // return array of objects
 
   headingArr = data.map((data) => data.headings);
   // console.log(headingArr); // store heading arrays
@@ -117,6 +115,8 @@ function storeData(data) {
   iconArr = data.map((data) => loadImage(data.src));
   // console.log(iconsArr); // return icons arrays
 }
+
+/* ==================================== */
 
 function rulesLeftColumn() {
   let images;
@@ -191,8 +191,6 @@ function rulesRightColumn() {
   /* 
     * for Each cant be used in p5JS
     * it creates a never ending loop
-    * loop is a feature. Loop is bad
-    * JS is bad, TS is good
 
    console.log(headingArr); // this should show the arrays in a Object format (exactly the same as JSON)
    headingArr.forEach(function (rule) {
@@ -235,7 +233,7 @@ function productPageButton() {
     x: width / 2,
     y: height / 1.3,
     width: width / 1.2,
-    height: 75,
+    height: 55,
     align_x: 0,
     align_y: 0,
     on_mouse_enter() {

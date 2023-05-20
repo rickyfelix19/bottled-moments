@@ -110,7 +110,7 @@ function nextPageButton() {
     x: width / 2,
     y: height / 1.4,
     width: width / 1.2,
-    height: 75,
+    height: 55,
     align_x: 0,
     align_y: 0,
     on_mouse_enter() {
