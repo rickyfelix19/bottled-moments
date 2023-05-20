@@ -310,7 +310,7 @@ function productCarousel() {
     noStroke();
 
     // for image
-    let picX = (i - currentIndex) * (windowWidth / 2) + carouselWidth / 120;33ee
+    let picX = (i - currentIndex) * (windowWidth / 2) + carouselWidth / 120;
     let picY = (i - currentIndex) * windowHeight + carouselHeight / 2.5;
 
     // for title and description
