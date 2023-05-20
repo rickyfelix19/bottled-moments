@@ -12,7 +12,7 @@ let userSessionId;
 //FIXED SECTION - END: DO NOT CHANGE THESE VARIABLES
 ////////////////////////////////////////////////////////
 
-// user array -> to send to resolume
+// user array -> to send to Resolume
 let userSelection = [
   {
     userID: "",
@@ -101,10 +101,12 @@ function setup() {
   // server connections
   // NUMBER OF USERS POLL: Initialise
   userSessionId = int(random(100000));
+  userSelection.push(userSessionId); // this push the variable into the array of the user session
+
   lastTimeNumberOfUsersPolled = millis();
   setupNumberOfUsersPoll();
-  console.log(setupNumberOfUsersPoll());
 
+  // run Resolume
   initialiseResolume();
 
   // buttons
@@ -187,7 +189,34 @@ function windowResized() {
 ///////////////////////////////////////////
 // LOADING SECTION
 ///////////////////////////////////////////
-function skeletonLoading() {}
+function skeletonLoading() {
+  // make rectangle that goes from left to right
+
+  textSize(16);
+  // fill("#A199FF");
+  ellipse(65, 65, 20, 20);
+  // stroke("#A0A0A0");
+  line(75, 65, width / 2 - 10, 65);
+  noStroke();
+  UIText1 = text("Write Message", 65, 95);
+
+  noFill();
+  // stroke("#A0A0A0");
+  ellipse(width / 2, 65, 20, 20);
+  line(width / 2 + 9, 65, width - 90, 65);
+  noStroke();
+  // fill("#A0A0A0");
+  UIText2 = text("Select Object", width / 2, 95);
+
+  noFill();
+  // stroke("#A0A0A0");
+  ellipse(width - 80, 65, 20, 20);
+  noStroke();
+  // fill("#A0A0A0");
+  UIText3 = text("Send Bottle", width - 85, 95);
+
+  noStroke();
+}
 
 function loadingScreen() {
   // https://editor.p5js.org/kchung/sketches/SJkdHhWUQ
@@ -654,24 +683,48 @@ function selectRightWall() {
 // This is like "setup", but applied to Resolume. In other words,
 // it runs only once, when the website is loaded.
 ///////////////////////////////////////////////////////////////////
-function initialiseResolume() {}
+function initialiseResolume() {
+  // lake background
+  loadClip(1, 1); // lake passive background
 
-////////////////////////////////////////////////////////////////////////////
+  // patterns
+}
+
+// //////////////////////////////////////////////////////////////////////////////
 // updateResolumeState()
 //
 // This function is invoked occasionally, based on certain conditions,
 // tested within "draw". However, the steps included here should not be run
 // every frame, to avoid too many OSC messages being sent to Resolume.
-//////////////////////////////////////////////////////////////////////////////
-function updateResolumeState() {}
+// //////////////////////////////////////////////////////////////////////////////
+function updateResolumeState() {
+  // check which wall
+  // check if the specific row is running
+  // left screen  - artifact
+  // artifact1, artifact2, artifact3, artifact4
+  // melt
+  // // -----------
+  // check which wall
+  // check if the specific row is running
+  // right screen - artifact
+  // artifact1, artifact2, artifact3, artifact4
+  // melt
+}
 
-/////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////
 // redrawResolumeComponents()
 //
 // This is like "draw", but applied to Resolume. In other words,
 // it runs over and over, every frame, after the website is loaded.
-/////////////////////////////////////////////////////////////////////
-function redrawResolumeComponents() {}
+// /////////////////////////////////////////////////////////////////////
+function redrawResolumeComponents() {
+  // check number of trigger
+  // if no users -> passive
+  // if one users -> 1 then 1
+  // if two users -> 2 then 2
+  // if three users -> 3 then 3, more than 3
+  // always loop 3 times then goes from current back to passive
+}
 
 // ////////////////////////////////////////////////////
 // Helper functions:
@@ -682,13 +735,27 @@ function redrawResolumeComponents() {}
 //		- turnLayerOff(layer)
 //				Turns off a layer on Resolume. Arguments:
 //						- layer: integer number of the layer to be turned off
-//		- setLayerOpacity(layer, opacityLevel)
-//						- layer: integer number of the layer we are setting the opacity of
-//						- opacityLevel: decimal number between 0.0 (full transparency) and 1.0 (full opacity)
-////////////////////////////////////////////////////
-function loadClip(layer, clip) {}
+//
+// Opacity wont be used
+// //		- setLayerOpacity(layer, opacityLevel)
+// //						- layer: integer number of the layer we are setting the opacity of
+// //						- opacityLevel: decimal number between 0.0 (full transparency) and 1.0 (full opacity)
+// ////////////////////////////////////////////////////
+function loadClip(layer, clip) {
+  sendMessage(
+    // Connect the clip by its position in the clip grid
+    // POST /composition/layers/{layer-index}/clips/{clip-index}/connect
+    "/composition/layers/" + layer + "/clips/" + clip + "/connect",
+    1,
+    "f"
+  );
+}
 
-function turnLayerOff(layer) {}
+function turnLayerOff(layer) {
+  sendMessage("/composition/layers/" + layer + "/clear", 0, "f");
+}
+
+// function loadLayerGroup() {}
 
 // ////////////////////////////////////////////////////
 // CUSTOMIZABLE SECTION - END: ENTER OUR CODE HERE
@@ -714,7 +781,7 @@ function getNumberOfUsers() {
   xmlHttpRequest.send(postData);
 }
 
-// /***********************************************************************
+// ***********************************************************************
 //     === PLEASE DO NOT CHANGE OR DELETE THIS SECTION ===
 //     This function sends a OSC message to server
 
@@ -722,7 +789,7 @@ function getNumberOfUsers() {
 //       - address: the OSC message address pattern string
 //       - value: single value as message payload
 //       - type: type of the value passed as message payload
-//   /***********************************************************************
+//   ***********************************************************************
 
 function sendMessage(address, value, type) {
   let postData = JSON.stringify({
