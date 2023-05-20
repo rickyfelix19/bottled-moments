@@ -1,15 +1,25 @@
 // Port for the Express web server
 var PORT = 4040;
 
+//SERVER VARIABLES
+var userSessionIds = new Map();
+
 // Import Express and initialise the web server
 var express = require("express");
 var app = express();
 var server = app.listen(PORT);
-
 // app.use(express.static("public"));
 app.use(express.static("src"));
-
 console.log("Node.js Express server running on port " + PORT);
+
+// Import socket.io and create a socket to talk to the client
+var socket = require("socket.io");
+var io = socket(server);
+io.sockets.on("connection", newSocketConnection);
+
+function newSocketConnection(socket) {
+  console.log("*** New connection to server web socket " + socket.id);
+}
 
 // Import and configure body-parser for Express
 var bodyParser = require("body-parser");
@@ -42,27 +52,28 @@ app.post("/sendMessage", function (request, response) {
 });
 
 // // Handle POST requests about number of users
-// app.post('/getNumberOfUsers', function(request, response) {
-//     // Handle user sessions
-//     var userId = request.body.id;
-//     userSessionIds.set(userId, Date.now());
-//     io.sockets.emit('numberOfUsers', userSessionIds.size);
+app.post("/getNumberOfUsers", function (request, response) {
+  // Handle user sessions
+  var userId = request.body.id;
+  userSessionIds.set(userId, Date.now());
+  io.sockets.emit("numberOfUsers", userSessionIds.size);
 
-//     response.end("");
-// });
+  response.end("");
+});
 
-// setInterval(cleanUpOldUserSessions, 5000); // Periodically calls cleanUpOldUserSessions()
+setInterval(cleanUpOldUserSessions, 5000); // Periodically calls cleanUpOldUserSessions()
 
 // // Cleans up any unused user sessions
-// function cleanUpOldUserSessions() {
-//     for (var userId of userSessionIds.keys()) {
-//         var userLastAccess = userSessionIds.get(userId)*1.0;
+function cleanUpOldUserSessions() {
+  for (var userId of userSessionIds.keys()) {
+    var userLastAccess = userSessionIds.get(userId) * 1.0;
 
-//         if ((Date.now() - userLastAccess) > 10000) { // After 10s of inactivity, remove reference to user
-//             userSessionIds.delete(userId);
-//         }
-//     }
-// }
+    if (Date.now() - userLastAccess > 10000) {
+      // After 10s of inactivity, remove reference to user
+      userSessionIds.delete(userId);
+    }
+  }
+}
 
 // Handle POST requests about sending messages
 app.post("/sendMessage", function (request, response) {
