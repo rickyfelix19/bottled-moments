@@ -58,9 +58,27 @@ function setup() {
 
   // server connections
   // initialiseResolume();
+
+  carouselPrev = createButton("&#8592;");
+  carouselPrev.position(70, height / 2);
+  carouselPrev.mousePressed(prevProduct);
+
+  carouselNext = createButton("&#8594;");
+  carouselNext.position(width / 1.2, height / 2);
+  carouselNext.mousePressed(nextProduct);
 }
 
 function draw() {
+  let color1 = color("#cceaff");
+  let color2 = color("#ffffff");
+
+  push();
+  for (i = 0; i < height; i++) {
+    let finalColor = lerpColor(color1, color2, i / height);
+    stroke(finalColor);
+    line(0, i, width, i);
+  }
+  pop();
   // // to test each screen
   // screen_1();
   // screen_2();
@@ -75,6 +93,8 @@ function draw() {
   // } else if (currentMode === 1) {
   // clear();
   // removeElements();
+  carouselNext.show();
+  carouselPrev.show();
   screen_2();
   screen2_UI();
   // selectArtifact();
@@ -335,8 +355,8 @@ function productCarousel() {
       0,
       0,
       artifactsArr.width,
-      artifactsArr.height,
-      CONTAIN
+      artifactsArr.height
+      // CONTAIN
     );
 
     fill("#000000");
@@ -359,24 +379,15 @@ function productCarousel() {
       carouselHeight
     );
   }
-  prevProduct();
-  nextProduct();
 }
 
 function prevProduct() {
-  // Button for previous slide
-  carouselPrev = createButton("&#8592;");
-  carouselPrev.position(70, height / 2);
-  carouselPrev.mousePressed(prevProduct);
-
+  console.log("prevProduct pressed");
   currentIndex = (currentIndex - 1 + artifactsArr.length) % artifactsArr.length;
 }
 
 function nextProduct() {
-  carouselNext = createButton("&#8594;");
-  carouselNext.position(width / 1.2, height / 2);
-  carouselNext.mousePressed(nextProduct);
-
+  console.log("nextProduct pressed");
   currentIndex = (currentIndex + 1) % artifactsArr.length;
 }
 
