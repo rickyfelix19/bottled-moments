@@ -48,6 +48,9 @@ let artifactsArr = [];
 let currentIndex = 0; // Current index of the displayed
 let carouselPrev, carouselNext;
 
+let lastFrameCountUpdate;
+let updateRateInFrames = 5;
+
 ///////////////////////////////////////////
 // PRELOAD FUNCTION
 ///////////////////////////////////////////
@@ -107,6 +110,8 @@ function setup() {
   // NUMBER OF USERS POLL: Initialise
   userSessionId = int(random(100000));
   userSelection.push(userSessionId); // this push the variable into the array of the user session
+
+  lastFrameCountUpdate = frameCount;
 
   lastTimeNumberOfUsersPolled = millis();
   setupNumberOfUsersPoll();
