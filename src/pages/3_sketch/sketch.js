@@ -8,6 +8,11 @@ let xmlHttpRequest = new XMLHttpRequest();
 var socket;
 let userSessionId;
 
+// NUMBER OF USERS POLL: Variables
+let lastTimeNumberOfUsersPolled;
+let intervalToPollNumberOfUsers = 5000;
+let currentNumberOfUsers = 1;
+
 ////////////////////////////////////////////////////////
 //FIXED SECTION - END: DO NOT CHANGE THESE VARIABLES
 ////////////////////////////////////////////////////////
