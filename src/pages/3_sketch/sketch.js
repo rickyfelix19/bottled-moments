@@ -57,8 +57,8 @@ function preload() {
   // }
 
   artifactJSON = loadJSON("product.json", "json", storeData);
-  leftWall = loadImage("../../assets/images-webp/Left.png");
-  rightWall = loadImage("../../assets/images-webp/Right.png");
+  leftWall = loadImage("../../assets/images-webp/Left.webp");
+  rightWall = loadImage("../../assets/images-webp/Right.webp");
 }
 
 function storeData(data) {

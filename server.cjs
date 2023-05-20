@@ -1,9 +1,15 @@
 // Port for the Express web server
-var PORT = 4040;
+var PORT = 4000;
 
 //SERVER VARIABLES
 var userSessionIds = new Map();
 
+///////////////////////////////////////////////////////////
+// UNCOMMENT THIS SECTION IF RUNNING FROM DESKTOP - BEGIN
+// Remember to use http:// to start the URL in your browser
+//
+// KEEP IT COMMENTED OUT IF RUNNING FROM MOBILE
+///////////////////////////////////////////////////////////
 // Import Express and initialise the web server
 var express = require("express");
 var app = express();
@@ -11,6 +17,39 @@ var server = app.listen(PORT);
 // app.use(express.static("public"));
 app.use(express.static("src"));
 console.log("Node.js Express server running on port " + PORT);
+
+///////////////////////////////////////////////////////////
+// UNCOMMENT THIS SECTION IF RUNNING FROM DESKTOP - END
+///////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////
+// UNCOMMENT THIS SECTION IF RUNNING FROM MOBILE - BEGIN
+// Remember to use https:// to start the URL in your browser
+//
+// KEEP IT COMMENTED OUT IF RUNNING FROM DESKTOP
+///////////////////////////////////////////////////////////
+// var https = require('https');
+// var fs = require('fs');
+// var express = require('express');
+// var app = express();
+
+// https
+//   .createServer(
+// 		// Provide the private and public key to the server by reading each
+// 		// file's content with the readFileSync() method.
+//     {
+//       key: fs.readFileSync("./src/key.pem"),
+//       cert: fs.readFileSync("./src/cert.pem"),
+//     },
+//     app
+//   )
+//   .listen(PORT, () => {
+//     console.log("Node.js Express HTTPS server is runing at port " + PORT);
+//   });
+// app.use(express.static('public'));
+///////////////////////////////////////////////////////////
+// UNCOMMENT THIS SECTION IF RUNNING FROM MOBILE - END
+///////////////////////////////////////////////////////////
 
 // Import socket.io and create a socket to talk to the client
 var socket = require("socket.io");
