@@ -18,13 +18,24 @@ let currentNumberOfUsers = 1;
 ////////////////////////////////////////////////////////
 
 // user array -> to send to Resolume
-let userSelection = [
-  {
-    userID: "",
-    artifactID: "",
-    screen: "",
-  },
-];
+// let userSelection = [
+//   {
+//     userID: "",
+//     artifactID: "",
+//     wallSelection: "",
+//   },
+// ];
+
+// constructor to be sent over ( Maybe should used TS or PropTypes)
+function UserSelection(userID, artifactID, wallSelection) {
+  this.userID = userID;
+  this.artifactID = artifactID;
+  this.wallSelection = wallSelection;
+}
+
+// - address: the OSC message address pattern string
+// - value: single value as message payload
+// - type: type of the value passed as message payload
 
 ////////////////////////////////////////////////////
 // CUSTOMIZABLE SECTION - BEGIN: ENTER OUR CODE HERE
@@ -72,6 +83,7 @@ function preload() {
 function storeData(data) {
   artifactsArr = data.map((artifact) => {
     return {
+      artifactID: artifact.id,
       artifactName: artifact.name,
       artifactDesc: artifact.description,
       artifactURL: loadImage(artifact.url),
@@ -109,7 +121,8 @@ function setup() {
   // server connections
   // NUMBER OF USERS POLL: Initialise
   userSessionId = int(random(100000));
-  userSelection.push(userSessionId); // this push the variable into the array of the user session
+  UserSelection.push(userSelection);
+  // userSelection[0] = { userID: userSessionId }; // this push the variable into the array of the user session
 
   lastFrameCountUpdate = frameCount;
 
@@ -150,7 +163,6 @@ function draw() {
     lastTimeNumberOfUsersPolled = millis();
     getNumberOfUsers();
   }
-  console.log(getNumberofUsers());
 
   // push();
   // for (i = 0; i < height; i++) {
@@ -537,7 +549,8 @@ function carouselSelect() {
   });
 }
 
-function screen2_blob() {
+// function screen2_blob() {
+/*
   // https://editor.p5js.org/mcpecommander/sketches/GPDsjtaXD
 
   // for blob
@@ -577,6 +590,7 @@ function screen2_blob() {
   );
   endShape();
 }
+*/
 
 ///////////////////////////////////////////
 // SCREEN_3 FUNCTION
@@ -770,6 +784,10 @@ function turnLayerOff(layer) {
 // ////////////////////////////////////////////////////
 // CUSTOMIZABLE SECTION - END: ENTER OUR CODE HERE
 // ////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////
+// CUSTOMIZABLE SECTION - END: ENTER OUR CODE HERE
+////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////
 // NUMBER OF USERS POLL: Functions
