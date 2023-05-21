@@ -740,19 +740,17 @@ function initialiseResolume() {
 // This function is invoked occasionally, based on certain conditions,
 // tested within "draw". However, the steps included here should not be run
 // every frame, to avoid too many OSC messages being sent to Resolume.
-//   ************* **********************************************************
+//   ************************************************************************
 function updateResolumeState() {
-	
-  /*
+  /* 
     * If no wall:
       * Which artifact 
       * Play animation
       * Melt
-
     
     * With wall:
       * Check which wall
-      * Which artifact
+      * Which artifact 
       * Play animation
       * Melt
     
@@ -764,6 +762,21 @@ function updateResolumeState() {
       * Which artifact
       * Play animation
       * Melt
+  */
+  /*
+	----------------------------------------------------------------
+	Animation Triggers:
+	
+	  * Left -> Artifact 1 -> {Bottle (3,2) + Flower (4,3)} -> Melt (3,7)
+	  * Left -> Artifact 2 -> {Bottle (3,2) + Light(4,4)} -> Melt (3,7)
+	  * Left -> Artifact 3 -> {Bottle (3,2) + Clock (4,5)} -> Melt (3,7)
+	  * Left -> Artifact 4 -> {Bottle (3,2) + Surfboard (4,6)} -> Melt (3,7)
+
+	  * Right -> Artifact 1 -> {Bottle (5,2) + Flower (6,3)} -> Melt (5,7)
+	  * Right -> Artifact 2 -> {Bottle (5,2) + Light (6,4)} -> Melt (5,7)
+	  * Right -> Artifact 3 -> {Bottle (5,2) + Clock (6,5)} -> Melt (5,7)
+	  * Right -> Artifact 4 -> {Bottle (5,2) + Surfboard (6,6)} -> Melt (5,7)
+	----------------------------------------------------------------
   */
 }
 
@@ -789,10 +802,16 @@ function redrawResolumeComponents() {
         * Always loop 3 times then goes from current back to passive
    */
   /*
-   * other patterns if any:
-
-    * there aren't any
-   */
+		Animation Triggers:
+	
+	  * Passive: (1,1) -> Default
+	  * 1 User:  (1,2)
+	  * 2 Users:  (1,3)
+	  * 3 Users:  (1,4)
+	  * 4 Users:  (1,5)
+	  * Long: (1,7) -> all of the above
+	----------------------------------------------------------------
+	*/
 }
 
 //   ***********************************************************************
@@ -849,15 +868,15 @@ function getNumberOfUsers() {
 //       - type: type of the value passed as message payload
 //   ***********************************************************************
 
-// function sendMessage(address, value, type) {
-//   let postData = JSON.stringify({
-//     id: 1,
-//     address: address,
-//     value: value,
-//     type: type,
-//   });
+function sendMessage(address, value, type) {
+  let postData = JSON.stringify({
+    id: 1,
+    address: address,
+    value: value,
+    type: type,
+  });
 
-//   xmlHttpRequest.open("POST", HOST + "/sendMessage", false);
-//   xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
-//   xmlHttpRequest.send(postData);
-// }
+  xmlHttpRequest.open("POST", HOST + "/sendMessage", false);
+  xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
+  xmlHttpRequest.send(postData);
+}
