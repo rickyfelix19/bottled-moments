@@ -20,7 +20,7 @@ let currentNumberOfUsers = 1;
 // user array -> to send to Resolume
 let userSelection = [];
 // let userSelection = [{}
-//   // userID: '',
+//   userID: '',
 //   artifactID: '',
 //   wallSelection: ''
 // }];
@@ -45,7 +45,7 @@ let messageField, title, subtitle, UIText1, UIText2, UIText3;
 
 // To change screen
 let currentMode = 0;
-let totalMode = 3;
+let totalMode = 4;
 
 // JSON Array
 let artifactJSON = [];
@@ -128,7 +128,7 @@ function setup() {
   // userID saved as a Int inside an UserSelection Object Array
   userSelection.push({ userID: userSessionId });
 
-  // userSelection[0] = { userID: userSessionId }; // this push the variable into the array of the user session
+  // //userSelection[0] = { userID: userSessionId }; // this push the variable into the array of the user session
 
   lastFrameCountUpdate = frameCount;
 
@@ -164,18 +164,17 @@ function draw() {
   carouselPrev.hide();
   carouselNext.hide();
 
-  // NUMBER OF USERS POLL: Update
-  //   if (millis() - lastTimeNumberOfUsersPolled > intervalToPollNumberOfUsers) {
-  //     lastTimeNumberOfUsersPolled = millis();
-  //     getNumberOfUsers();
-  //   }
+  ////   NUMBER OF USERS POLL: Update
+  if (millis() - lastTimeNumberOfUsersPolled > intervalToPollNumberOfUsers) {
+    lastTimeNumberOfUsersPolled = millis();
+    getNumberOfUsers();
+  }
 
+  // seperate into components -- for easier debugging
   // screen_1();
   // screen_2();
   // screen_3();
   // loadingScreen();
-
-  // seperate into components -- for easier debugging
 
   if (currentMode === 0) {
     screen_1();
@@ -193,6 +192,10 @@ function draw() {
     removeElements();
     screen_3();
     screen3_UI();
+  } else if (currentMode === 3) {
+    clear();
+    removeElements();
+    loadingScreen();
   }
 }
 
@@ -234,28 +237,6 @@ function skeletonLoading() {
   UIText3 = text("Send Bottle", width - 85, 95);
 
   noStroke();
-}
-
-function loadingScreen() {
-  // https://editor.p5js.org/kchung/sketches/SJkdHhWUQ
-
-  //   loadingLottie;
-  //   lottie.position(0, 0);
-
-  //   loadingGIF.size(width, height);
-
-  loadingGIF.position(width / 3, height / 2);
-
-  textAlign(CENTER);
-
-  textSize(24);
-  text("Sending your Bottled Moments", width / 2, 100);
-
-  textSize(18);
-  text("While we are preparing your message,", width / 2, height / 1.4);
-
-  textSize(18);
-  text("please do not leave or refresh your page", width / 2, height / 1.33);
 }
 
 ///////////////////////////////////////////
@@ -664,6 +645,28 @@ function screen_3() {
   selectRight.draw();
 }
 
+function loadingScreen() {
+  // https://editor.p5js.org/kchung/sketches/SJkdHhWUQ
+
+  //   loadingLottie;
+  //   lottie.position(0, 0);
+
+  //   loadingGIF.size(width, height);
+
+  loadingGIF.position(width / 3, height / 2);
+
+  textAlign(CENTER);
+
+  textSize(24);
+  text("Sending your Bottled Moments", width / 2, 100);
+
+  textSize(18);
+  text("While we are preparing your message,", width / 2, height / 1.4);
+
+  textSize(18);
+  text("please do not leave or refresh your page", width / 2, height / 1.33);
+}
+
 function selectLeftWall() {
   selectLeft = new Button({
     x: width / 2,
@@ -729,8 +732,6 @@ function selectRightWall() {
 function initialiseResolume() {
   // lake background
   loadClip(1, 1); // lake passive background
-
-  // patterns
 }
 
 //   ***********************************************************************
@@ -741,16 +742,12 @@ function initialiseResolume() {
 // every frame, to avoid too many OSC messages being sent to Resolume.
 //   ************* **********************************************************
 function updateResolumeState() {
-  if (artifactID === 3) {
-    loadClip(1, 3);
-    loadClip(5, 1);
-  }
+	
   /*
     * If no wall:
       * Which artifact 
       * Play animation
       * Melt
-      * 
 
     
     * With wall:
