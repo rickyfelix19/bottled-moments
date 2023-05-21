@@ -692,12 +692,12 @@ function selectRightWall() {
 // RESOLUME
 ///////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////
+//   ***********************************************************************
 // initialiseResolume()
 //
 // This is like "setup", but applied to Resolume. In other words,
 // it runs only once, when the website is loaded.
-///////////////////////////////////////////////////////////////////
+//   ***********************************************************************
 function initialiseResolume() {
   // lake background
   loadClip(1, 1); // lake passive background
@@ -705,43 +705,63 @@ function initialiseResolume() {
   // patterns
 }
 
-// //////////////////////////////////////////////////////////////////////////////
+//   ***********************************************************************
 // updateResolumeState()
 //
 // This function is invoked occasionally, based on certain conditions,
 // tested within "draw". However, the steps included here should not be run
 // every frame, to avoid too many OSC messages being sent to Resolume.
-// //////////////////////////////////////////////////////////////////////////////
+//   ***********************************************************************
 function updateResolumeState() {
-  // check which wall
-  // check if the specific row is running
-  // left screen  - artifact
-  // artifact1, artifact2, artifact3, artifact4
-  // melt
-  // // -----------
-  // check which wall
-  // check if the specific row is running
-  // right screen - artifact
-  // artifact1, artifact2, artifact3, artifact4
-  // melt
+  /*
+    * If no no wall:
+      * Which artifact 
+      * Melt
+    
+    * With wall:
+      * Check which wall
+      * Which artifact
+      * Melt
+    
+    * With multiple users:
+      * Check which wall
+      * Check if column is active:
+        * Trigger Reset Video
+        * Ideal Condition: Wait / Loading  
+      * Which artifact
+      * Melt
+  */
 }
 
-// /////////////////////////////////////////////////////////////////////
+//   ***********************************************************************
 // redrawResolumeComponents()
 //
 // This is like "draw", but applied to Resolume. In other words,
 // it runs over and over, every frame, after the website is loaded.
-// /////////////////////////////////////////////////////////////////////
+//   ***********************************************************************
+
 function redrawResolumeComponents() {
-  // check number of trigger
-  // if no users -> passive
-  // if one users -> 1 then 1
-  // if two users -> 2 then 2
-  // if three users -> 3 then 3, more than 3
-  // always loop 3 times then goes from current back to passive
+  /*
+   * Change background color: 
+
+    * if no users
+      * Passive
+    * if one users
+      * Passive then 1
+    * if two users -> 2 then 2
+      * 1 then 2
+    * if three users -> 3 then 3, more than 3
+      * 2 then 3
+        * Always loop 3 times then goes from current back to passive
+   */
+  /*
+   * other patterns if any:
+
+    * there aren't any
+   */
 }
 
-// ////////////////////////////////////////////////////
+//   ***********************************************************************
 // Helper functions:
 //		- loadClip(layer, clip)
 //				Loads a clip on Resolume. Arguments:
@@ -755,7 +775,8 @@ function redrawResolumeComponents() {
 // //		- setLayerOpacity(layer, opacityLevel)
 // //						- layer: integer number of the layer we are setting the opacity of
 // //						- opacityLevel: decimal number between 0.0 (full transparency) and 1.0 (full opacity)
-// ////////////////////////////////////////////////////
+//   ***********************************************************************
+
 function loadClip(layer, clip) {
   sendMessage(
     // Connect the clip by its position in the clip grid
@@ -770,15 +791,13 @@ function turnLayerOff(layer) {
   sendMessage("/composition/layers/" + layer + "/clear", 0, "f");
 }
 
-// function loadLayerGroup() {}
-
 // ////////////////////////////////////////////////////
 // CUSTOMIZABLE SECTION - END: ENTER OUR CODE HERE
 // ////////////////////////////////////////////////////
 
-////////////////////////////////////////////////////
+//   ***********************************************************************
 // NUMBER OF USERS POLL: Functions
-////////////////////////////////////////////////////
+//   ***********************************************************************
 function setupNumberOfUsersPoll() {
   socket = io.connect(HOST);
   socket.on("numberOfUsers", updateNumberOfUsers);
