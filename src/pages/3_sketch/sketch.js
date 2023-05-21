@@ -18,20 +18,20 @@ let currentNumberOfUsers = 1;
 ////////////////////////////////////////////////////////
 
 // user array -> to send to Resolume
-// let userSelection = [
-//   {
-//     userID: "",
-//     artifactID: "",
-//     wallSelection: "",
-//   },
-// ];
+let userSelection = [
+  {
+    userID: "",
+    artifactID: "",
+    wallSelection: "",
+  },
+];
 
 // constructor to be sent over ( Maybe should used TS or PropTypes)
-function UserSelection(userID, artifactID, wallSelection) {
-  this.userID = userID;
-  this.artifactID = artifactID;
-  this.wallSelection = wallSelection;
-}
+// function UserSelection(userID, artifactID, wallSelection) {
+//   this.userID = userID;
+//   this.artifactID = artifactID;
+//   this.wallSelection = wallSelection;
+// }
 
 // - address: the OSC message address pattern string
 // - value: single value as message payload
@@ -163,15 +163,6 @@ function draw() {
     lastTimeNumberOfUsersPolled = millis();
     getNumberOfUsers();
   }
-
-  // push();
-  // for (i = 0; i < height; i++) {
-  //   let finalColor = lerpColor(color1, color2, i / height);
-  //   stroke(finalColor);
-  //   line(0, i, width, i);
-  // }
-  // pop();
-  // // to test each
 
   // screen_1();
   // screen_2();
@@ -784,10 +775,6 @@ function turnLayerOff(layer) {
 // ////////////////////////////////////////////////////
 // CUSTOMIZABLE SECTION - END: ENTER OUR CODE HERE
 // ////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////
-// CUSTOMIZABLE SECTION - END: ENTER OUR CODE HERE
-////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////
 // NUMBER OF USERS POLL: Functions
