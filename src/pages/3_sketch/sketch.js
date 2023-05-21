@@ -18,13 +18,12 @@ let currentNumberOfUsers = 1;
 ////////////////////////////////////////////////////////
 
 // user array -> to send to Resolume
-let userSelection = [
-  {
-    userID: "",
-    artifactID: "",
-    wallSelection: "",
-  },
-];
+let userSelection = [];
+// let userSelection = [{}
+//   // userID: '',
+//   artifactID: '',
+//   wallSelection: ''
+// }];
 
 // constructor to be sent over ( Maybe should used TS or PropTypes)
 // function UserSelection(userID, artifactID, wallSelection) {
@@ -76,6 +75,10 @@ function preload() {
   // }
 
   artifactJSON = loadJSON("product.json", "json", storeData);
+  //   loadingLottie = loadJSON(
+  //     "https://assets9.lottiefiles.com/datafiles/QeC7XD39x4C1CIj/data.json"
+  // 	);
+  loadingGIF = createImg("../../assets/gif/Loading.gif");
   leftWall = loadImage("../../assets/images-webp/Left.webp");
   rightWall = loadImage("../../assets/images-webp/Right.webp");
 }
@@ -121,7 +124,10 @@ function setup() {
   // server connections
   // NUMBER OF USERS POLL: Initialise
   userSessionId = int(random(100000));
-  UserSelection.push(userSelection);
+
+  // userID saved as a Int inside an UserSelection Object Array
+  userSelection.push({ userID: userSessionId });
+
   // userSelection[0] = { userID: userSessionId }; // this push the variable into the array of the user session
 
   lastFrameCountUpdate = frameCount;
@@ -155,26 +161,25 @@ function setup() {
 ///////////////////////////////////////////
 
 function draw() {
-  let color1 = color("#cceaff");
-  let color2 = color("#ffffff");
+  carouselPrev.hide();
+  carouselNext.hide();
 
   // NUMBER OF USERS POLL: Update
-  if (millis() - lastTimeNumberOfUsersPolled > intervalToPollNumberOfUsers) {
-    lastTimeNumberOfUsersPolled = millis();
-    getNumberOfUsers();
-  }
+  //   if (millis() - lastTimeNumberOfUsersPolled > intervalToPollNumberOfUsers) {
+  //     lastTimeNumberOfUsersPolled = millis();
+  //     getNumberOfUsers();
+  //   }
 
   // screen_1();
   // screen_2();
   // screen_3();
+  // loadingScreen();
 
   // seperate into components -- for easier debugging
 
   if (currentMode === 0) {
     screen_1();
     screen1_UI();
-    carouselPrev.hide();
-    carouselNext.hide();
   } else if (currentMode === 1) {
     clear();
     screen_2();
@@ -233,6 +238,24 @@ function skeletonLoading() {
 
 function loadingScreen() {
   // https://editor.p5js.org/kchung/sketches/SJkdHhWUQ
+
+  //   loadingLottie;
+  //   lottie.position(0, 0);
+
+  //   loadingGIF.size(width, height);
+
+  loadingGIF.position(width / 3, height / 2);
+
+  textAlign(CENTER);
+
+  textSize(24);
+  text("Sending your Bottled Moments", width / 2, 100);
+
+  textSize(18);
+  text("While we are preparing your message,", width / 2, height / 1.4);
+
+  textSize(18);
+  text("please do not leave or refresh your page", width / 2, height / 1.33);
 }
 
 ///////////////////////////////////////////
@@ -275,16 +298,17 @@ function screen2_UI() {
   noStroke();
   UIText1 = text("Write Message", 65, 95);
 
-  // noFill();
-  stroke("#A0A0A0");
+  stroke("#A199FF");
+  fill("#A199FF");
   ellipse(width / 2, 65, 20, 20);
-  line(width / 2 + 9, 65, width - 90, 65);
   noStroke();
-  // fill("#A0A0A0");
+  line(width / 2 + 9, 65, width - 90, 65);
   UIText2 = text("Select Object", width / 2, 95);
+  noStroke();
 
+  //   stroke("#A0A0A0");
+  //   stroke("#A0A0A0");
   noFill();
-  stroke("#A0A0A0");
   ellipse(width - 80, 65, 20, 20);
   noStroke();
   fill("#A0A0A0");
@@ -659,6 +683,10 @@ function selectLeftWall() {
       // console.log(currentMode);
       userSelection.wall = "Left";
       cursor(ARROW);
+      // setTimeout(function, time);
+      // use asyncWith
+      // or set timeOut
+
       window.open("../4_thank_you/thankYou.html", "_parent");
     },
   });
@@ -711,24 +739,33 @@ function initialiseResolume() {
 // This function is invoked occasionally, based on certain conditions,
 // tested within "draw". However, the steps included here should not be run
 // every frame, to avoid too many OSC messages being sent to Resolume.
-//   ***********************************************************************
+//   ************* **********************************************************
 function updateResolumeState() {
+  if (artifactID === 3) {
+    loadClip(1, 3);
+    loadClip(5, 1);
+  }
   /*
-    * If no no wall:
+    * If no wall:
       * Which artifact 
+      * Play animation
       * Melt
+      * 
+
     
     * With wall:
       * Check which wall
       * Which artifact
+      * Play animation
       * Melt
     
     * With multiple users:
       * Check which wall
       * Check if column is active:
         * Trigger Reset Video
-        * Ideal Condition: Wait / Loading  
+          * Ideal Condition: Wait / Loading  
       * Which artifact
+      * Play animation
       * Melt
   */
 }
@@ -777,19 +814,9 @@ function redrawResolumeComponents() {
 // //						- opacityLevel: decimal number between 0.0 (full transparency) and 1.0 (full opacity)
 //   ***********************************************************************
 
-function loadClip(layer, clip) {
-  sendMessage(
-    // Connect the clip by its position in the clip grid
-    // POST /composition/layers/{layer-index}/clips/{clip-index}/connect
-    "/composition/layers/" + layer + "/clips/" + clip + "/connect",
-    1,
-    "f"
-  );
-}
+function loadClip(layer, clip) {}
 
-function turnLayerOff(layer) {
-  sendMessage("/composition/layers/" + layer + "/clear", 0, "f");
-}
+function turnLayerOff(layer) {}
 
 // ////////////////////////////////////////////////////
 // CUSTOMIZABLE SECTION - END: ENTER OUR CODE HERE
@@ -825,15 +852,15 @@ function getNumberOfUsers() {
 //       - type: type of the value passed as message payload
 //   ***********************************************************************
 
-function sendMessage(address, value, type) {
-  let postData = JSON.stringify({
-    id: 1,
-    address: address,
-    value: value,
-    type: type,
-  });
+// function sendMessage(address, value, type) {
+//   let postData = JSON.stringify({
+//     id: 1,
+//     address: address,
+//     value: value,
+//     type: type,
+//   });
 
-  xmlHttpRequest.open("POST", HOST + "/sendMessage", false);
-  xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
-  xmlHttpRequest.send(postData);
-}
+//   xmlHttpRequest.open("POST", HOST + "/sendMessage", false);
+//   xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
+//   xmlHttpRequest.send(postData);
+// }
