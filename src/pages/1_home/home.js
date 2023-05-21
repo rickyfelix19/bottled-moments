@@ -30,7 +30,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  // background(220);
   waveBackground();
   // image(img, dx, dy, dWidth, dHeight, sx, sy, [sWidth], [sHeight], [fit], [xAlign], [yAlign])
   image(
@@ -92,7 +92,7 @@ function waveBackground() {
     //var angle = map(x, 0, width, 0, TWO_PI);
     var angle = offset + x * 0.01;
     // map x between 0 and width to 0 and Two Pi
-    var y = map(sin(angle / 4), -strum, strum, 120, 360);
+    var y = map(sin(angle / 3), -strum, strum, 120, 360);
     // make color mapping
     // make gradient based on the mapping
 

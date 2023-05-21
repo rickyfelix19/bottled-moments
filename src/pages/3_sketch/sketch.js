@@ -1,7 +1,3 @@
-////////////////////////////////////////////////////
-// CUSTOMIZABLE SECTION - BEGIN: ENTER OUR CODE HERE
-////////////////////////////////////////////////////
-
 // Fixed variables
 var HOST = window.location.origin;
 let xmlHttpRequest = new XMLHttpRequest();
@@ -17,14 +13,6 @@ let currentNumberOfUsers = 1;
 //FIXED SECTION - END: DO NOT CHANGE THESE VARIABLES
 ////////////////////////////////////////////////////////
 
-// user array -> to send to Resolume
-let userSelection = [];
-// let userSelection = [{}
-//   userID: '',
-//   artifactID: '',
-//   wallSelection: ''
-// }];
-
 // constructor to be sent over ( Maybe should used TS or PropTypes)
 // function UserSelection(userID, artifactID, wallSelection) {
 //   this.userID = userID;
@@ -32,9 +20,18 @@ let userSelection = [];
 //   this.wallSelection = wallSelection;
 // }
 
-// - address: the OSC message address pattern string
-// - value: single value as message payload
-// - type: type of the value passed as message payload
+// user array -> to send to Resolume
+// let userSelection = [{}
+//   userID: '',
+//   artifactID: '',
+//   wallSelection: ''
+// }];
+
+// let userSelection = [];
+
+// KEEP IT SUPER SIMPLE -> REDUCE SPACE AND TIME COMPLEXITY
+let userProductSelection; // productID put into the DOM
+let userWallSelection; // wall choice
 
 ////////////////////////////////////////////////////
 // CUSTOMIZABLE SECTION - BEGIN: ENTER OUR CODE HERE
@@ -48,18 +45,25 @@ let currentMode = 0;
 let totalMode = 4;
 
 // JSON Array
-let artifactJSON = [];
-let artifactsArr = [];
-// artifactIDArr = [];
+let artifactJSON = []; // load from product.json
+let artifactsArr = []; // this comes from preload of product.json
+// let artifactIDArr = [];
 // artifactNameArr = [];
 // artifactDescArr = [];
-// artifactURL = [];
+let artifactURL = [];
+let artifactImage = [];
 
 let currentIndex = 0; // Current index of the displayed
 let carouselPrev, carouselNext;
 
 let lastFrameCountUpdate;
 let updateRateInFrames = 5;
+
+// for loading screen
+var angle = 0; // initialize angle variable
+var scalar = 50; // set the radius of circle
+var startX = 100; // set the x-coordinate for the circle center
+var startY = 100; // set the y-coordinate for the circle center
 
 ///////////////////////////////////////////
 // PRELOAD FUNCTION
@@ -86,12 +90,14 @@ function preload() {
 function storeData(data) {
   artifactsArr = data.map((artifact) => {
     return {
-      artifactID: artifact.id,
-      artifactName: artifact.name,
-      artifactDesc: artifact.description,
+      artifactID: artifact.artifactID,
+      // artifactName: artifact.name,
+      // artifactDesc: artifact.description,
       artifactURL: loadImage(artifact.url),
     };
   });
+
+  console.log(artifactsArr);
 
   // console.log(artifacts);
   // console.log(artifacts[1]);
@@ -120,13 +126,14 @@ function storeData(data) {
 function setup() {
   p5 = createCanvas(windowWidth, windowHeight);
   p5.parent("container-p5"); // div
+  angleMode(DEGREES); // change the angle mode from radians to degrees
 
   // server connections
   // NUMBER OF USERS POLL: Initialise
   userSessionId = int(random(100000));
 
   // userID saved as a Int inside an UserSelection Object Array
-  userSelection.push({ userID: userSessionId });
+  // userSelection.push({ userID: userSessionId });
 
   // //userSelection[0] = { userID: userSessionId }; // this push the variable into the array of the user session
 
@@ -145,14 +152,6 @@ function setup() {
   let selectLeft = selectLeftWall();
   let selectRight = selectRightWall();
 
-  carouselPrev = createButton("&#8592;");
-  carouselPrev.position(70, height / 2);
-  carouselPrev.mousePressed(prevProduct);
-
-  carouselNext = createButton("&#8594;");
-  carouselNext.position(width / 1.2, height / 2);
-  carouselNext.mousePressed(nextProduct);
-
   messageBox();
 }
 
@@ -161,10 +160,20 @@ function setup() {
 ///////////////////////////////////////////
 
 function draw() {
-  carouselPrev.hide();
-  carouselNext.hide();
+  // carouselPrev.hide();
+  // carouselNext.hide();
+  let color1 = color("#cceaff");
+  let color2 = color("#ffffff");
 
-  ////   NUMBER OF USERS POLL: Update
+  push();
+  for (i = 0; i < height; i++) {
+    let finalColor = lerpColor(color1, color2, i / height);
+    stroke(finalColor);
+    line(0, i, width, i);
+  }
+  pop();
+
+  //   NUMBER OF USERS POLL: Update
   if (millis() - lastTimeNumberOfUsersPolled > intervalToPollNumberOfUsers) {
     lastTimeNumberOfUsersPolled = millis();
     getNumberOfUsers();
@@ -180,13 +189,12 @@ function draw() {
     screen_1();
     screen1_UI();
   } else if (currentMode === 1) {
+    messageField.hide();
+    // input.hide();
+    removeElements();
     clear();
     screen_2();
     screen2_UI();
-    // screen2_blob();
-    carouselNext.show();
-    carouselPrev.show();
-    removeElements();
   } else if (currentMode === 2) {
     clear();
     removeElements();
@@ -213,30 +221,31 @@ function windowResized() {
 function skeletonLoading() {
   // make rectangle that goes from left to right
 
-  textSize(16);
-  // fill("#A199FF");
+  // textSize(16);
+  fill("#A199FF");
   ellipse(65, 65, 20, 20);
-  // stroke("#A0A0A0");
+  stroke("#A0A0A0");
   line(75, 65, width / 2 - 10, 65);
   noStroke();
-  UIText1 = text("Write Message", 65, 95);
+  rect(65, 95, 16);
+  // UIText1 = text("Write Message", 65, 95);
 
   noFill();
-  // stroke("#A0A0A0");
+  stroke("#A0A0A0");
   ellipse(width / 2, 65, 20, 20);
   line(width / 2 + 9, 65, width - 90, 65);
   noStroke();
-  // fill("#A0A0A0");
-  UIText2 = text("Select Object", width / 2, 95);
+  fill("#A0A0A0");
+  rect(width / 2, 95, 16);
+  // UIText2 = text("Select Object", width / 2, 95);
 
   noFill();
-  // stroke("#A0A0A0");
+  stroke("#A0A0A0");
   ellipse(width - 80, 65, 20, 20);
   noStroke();
-  // fill("#A0A0A0");
-  UIText3 = text("Send Bottle", width - 85, 95);
-
-  noStroke();
+  fill("#A0A0A0");
+  rect(width - 85, 95, 16);
+  // UIText3 = text("Send Bottle", width - 85, 95);
 }
 
 ///////////////////////////////////////////
@@ -266,8 +275,6 @@ function screen1_UI() {
   noStroke();
   fill("#A0A0A0");
   UIText3 = text("Send Bottle", width - 85, 95);
-
-  noStroke();
 }
 
 function screen2_UI() {
@@ -283,18 +290,17 @@ function screen2_UI() {
   fill("#A199FF");
   ellipse(width / 2, 65, 20, 20);
   noStroke();
-  line(width / 2 + 9, 65, width - 90, 65);
   UIText2 = text("Select Object", width / 2, 95);
+  stroke("#A0A0A0");
+  line(width / 2 + 9, 65, width - 90, 65);
   noStroke();
 
-  //   stroke("#A0A0A0");
-  //   stroke("#A0A0A0");
   noFill();
+  stroke("#A0A0A0");
   ellipse(width - 80, 65, 20, 20);
   noStroke();
   fill("#A0A0A0");
   UIText3 = text("Send Bottle", width - 85, 95);
-  noStroke();
 }
 
 function screen3_UI() {
@@ -328,6 +334,8 @@ function screen3_UI() {
 ///////////////////////////////////////////
 
 function screen_1() {
+  currentMillis = millis();
+
   // buttons
   saveMessage.draw();
   skipMessage.draw();
@@ -348,7 +356,8 @@ function messageBox() {
   // let regex = "^(?i)(?:\bw+\bs*){1,20}$";
 
   // message Field
-  messageField = createInput(userSelection.message || "");
+  // messageField = createInput(userSelection.message || "");
+  messageField = createInput("");
   messageField.attribute("placeholder", "Write your message here...");
   messageField.style("background-color", "#d6d2ff");
   messageField.style("border-style", "none");
@@ -375,7 +384,7 @@ function saveMessageButton() {
     height: 55,
     align_x: 0,
     align_y: 0,
-    content: "Save Message",
+    content: "Next Page",
     on_mouse_enter() {
       cursor("pointer");
     },
@@ -386,7 +395,7 @@ function saveMessageButton() {
       // console.log("this is before: " + currentMode);
       // userSelection.message = messageInput.value();
       if (currentMode < totalMode) {
-        console.log(userSelection);
+        // console.log(userSelection);
         currentMode++;
       }
       // clear();
@@ -415,7 +424,7 @@ function skipMessageButton() {
     on_release() {
       // console.log("this is before: " + currentMode);
       if (currentMode < totalMode) {
-        console.log(userSelection);
+        // console.log(userSelection);
         currentMode++;
         // clear();
         // currentMode = 2;
@@ -430,8 +439,12 @@ function skipMessageButton() {
 // SCREEN_2 FUNCTION
 ///////////////////////////////////////////
 function screen_2() {
-  selectArtifact.draw();
+  // selectArtifact.draw();
   productCarousel();
+
+  prevProduct();
+  nextProduct();
+  selectArtifact.draw();
 
   // title
   fill("#383838");
@@ -446,49 +459,67 @@ function screen_2() {
 
 function productCarousel() {
   // https://editor.p5js.org/slow_izzm/sketches/535SiO_aC
-
   // Variables for carousel
-  let artifactTitle, artifactDescription, artifactImage, artifactID;
-  let indicatorCircle;
-  let indicatorSize = 10;
-  let carouselWidth = windowWidth;
-  let carouselHeight = windowHeight / 2;
-
+  // let artifactTitle, artifactDescription,
+  // let indicatorCircle;
+  // let indicatorSize = 10;
+  // artifactImage = loadImage(artifactsArr[i].artifactURL);
   // create the artifacts
-  for (let i = 0; i < artifactsArr.length; i++) {
-    noStroke();
 
-    // for image
-    let picX = (i - currentIndex) * (windowWidth / 2) + carouselWidth / 120;
-    let picY = (i - currentIndex) * windowHeight + carouselHeight / 2.5;
+  // let currentImage = artifactImage[currentIndex];
 
-    // for title and description
-    let itemX = (i - currentIndex) * (windowWidth / 2) + carouselWidth / 100; // Calculate the X-coordinate of each item
-    let itemY = (i - currentIndex) * (windowHeight / 2) + carouselHeight; // Calculate the Y-coordinate of each item
+  image(
+    artifactsArr[currentIndex].artifactURL,
+    width / 4,
+    height / 4,
+    width / 2.3,
+    height / 2,
+    0,
+    0,
+    artifactsArr.width,
+    artifactsArr.height
+  );
 
+  // image(
+  //   artifactURL[currentIndex],
+  //   0,
+  //   150,
+  //   width,
+  //   height / 1.5,
+  //   0,
+  //   0,
+  //   artifactsArr.width,
+  //   artifactsArr.height
+  // );
+  /*
     // for indicators
     // let indicatorCircleIndex = [];
     // let indicatorX = (i - currentIndex) * windowWidth - 20;
     // let indicatorY = windowHeight / 2;
 
     // Display the item's picture, title, and description:
-    // image(img, dx, dy, dWidth, dHeight, sx, sy, [sWidth], [sHeight], [fit])
     // text(str, x, y, [x2], [y2])
 
-    artifactImage = image(
-      artifactsArr[i].artifactURL,
-      picX,
-      picY,
+    // for title and description
+    let itemX = (i - currentIndex) * (windowWidth / 2) + carouselWidth / 100; // Calculate the X-coordinate of each item
+    let itemY = (i - currentIndex) * (windowHeight / 2) + carouselHeight; // Calculate the Y-coordinate of each item
+   
+    image(img, dx, dy, dWidth, dHeight, sx, sy, [sWidth], [sHeight], [fit])
+    
+    for (i = 0; i < artifactsArr.length; i++) {
+    artifactURL[i],
+      0,
+      150,
       width,
-      height / 2,
+      height / 1.5,
       0,
       0,
       artifactsArr.width,
-      artifactsArr.height
-    );
-
-    fill("#000000");
-    artifactTitle = textSize(22);
+      artifactsArr.height,
+      CONTAIN;
+  }
+      fill("#000000");
+      artifactTitle = textSize(22);
     artifactTitle = text(
       artifactsArr[i].artifactName,
       itemX,
@@ -506,17 +537,27 @@ function productCarousel() {
       carouselWidth,
       carouselHeight
     );
+
+    artifactID = createButton("Select Artifact");
   }
-  selectArtifact.draw();
+  */
+  // selectArtifact.draw();
 }
 
 function prevProduct() {
-  console.log("prevProduct pressed");
+  carouselPrev = createButton("&#8592;");
+  carouselPrev.position(70, height / 2);
+  carouselPrev.mousePressed(prevProduct);
+
   currentIndex = (currentIndex - 1 + artifactsArr.length) % artifactsArr.length;
 }
 
 function nextProduct() {
-  console.log("nextProduct pressed");
+  // Button for next slide
+  let nextButton = createButton("&#8594;");
+  nextButton.position(width - 100, height / 2);
+  nextButton.mousePressed(nextProduct);
+
   currentIndex = (currentIndex + 1) % artifactsArr.length;
 }
 
@@ -536,57 +577,16 @@ function carouselSelect() {
       cursor(ARROW);
     },
     on_release() {
-      // userSelection.artifact = artifact[i];
-      console.log(userSelection);
-      currentMode = 2;
-      // clear();
       cursor(ARROW);
+      if (currentMode < totalMode) {
+        // console.log(userSelection);
+        userProductSelection = currentIndex;
+        console.log(userProductSelection);
+        currentMode++;
+      }
     },
   });
 }
-
-// function screen2_blob() {
-/*
-  // https://editor.p5js.org/mcpecommander/sketches/GPDsjtaXD
-
-  // for blob
-  const slices = 7,
-    size = 200;
-  let randomWeights = [];
-
-  fill(93, 119, 255);
-  translate(width / 2, height / 2);
-  rotate(millis() / 1000);
-  scale(map(sin(millis() / 800), 0, 1, 0.85, 1));
-  beginShape();
-  for (var i = 0, j = 0; i < TWO_PI; i += TWO_PI / slices, j++) {
-    curveVertex(
-      sin(i) * size + map(cos(millis() / randomWeights[j]), 0, 1, -30, 30),
-      cos(i) * size +
-        map(sin(millis() / randomWeights[j + slices]), 0, 1, -20, 20)
-    );
-  }
-  //Needed to make the blob correctly shaped.
-  curveVertex(
-    sin(0) * size + map(cos(millis() / randomWeights[0]), 0, 1, -30, 30),
-    cos(0) * size +
-      map(sin(millis() / randomWeights[0 + slices]), 0, 1, -20, 20)
-  );
-  curveVertex(
-    sin(TWO_PI / slices) * size +
-      map(cos(millis() / randomWeights[1]), 0, 1, -30, 30),
-    cos(TWO_PI / slices) * size +
-      map(sin(millis() / randomWeights[1 + slices]), 0, 1, -20, 20)
-  );
-  curveVertex(
-    sin((2 * TWO_PI) / slices) * size +
-      map(cos(millis() / randomWeights[2]), 0, 1, -30, 30),
-    cos((2 * TWO_PI) / slices) * size +
-      map(sin(millis() / randomWeights[2 + slices]), 0, 1, -20, 20)
-  );
-  endShape();
-}
-*/
 
 ///////////////////////////////////////////
 // SCREEN_3 FUNCTION
@@ -645,28 +645,6 @@ function screen_3() {
   selectRight.draw();
 }
 
-function loadingScreen() {
-  // https://editor.p5js.org/kchung/sketches/SJkdHhWUQ
-
-  //   loadingLottie;
-  //   lottie.position(0, 0);
-
-  //   loadingGIF.size(width, height);
-
-  loadingGIF.position(width / 3, height / 2);
-
-  textAlign(CENTER);
-
-  textSize(24);
-  text("Sending your Bottled Moments", width / 2, 100);
-
-  textSize(18);
-  text("While we are preparing your message,", width / 2, height / 1.4);
-
-  textSize(18);
-  text("please do not leave or refresh your page", width / 2, height / 1.33);
-}
-
 function selectLeftWall() {
   selectLeft = new Button({
     x: width / 2,
@@ -683,14 +661,21 @@ function selectLeftWall() {
       cursor(ARROW);
     },
     on_release() {
-      // console.log(currentMode);
-      userSelection.wall = "Left";
       cursor(ARROW);
+      // go to loading screen
+
+      // console.log(currentMode);
+      // userSelection.wall = "Left";
       // setTimeout(function, time);
       // use asyncWith
       // or set timeOut
 
-      window.open("../4_thank_you/thankYou.html", "_parent");
+      // window.open("../4_thank_you/thankYou.html", "_parent");
+      if (currentMode < totalMode) {
+        // console.log(userSelection);
+        userWallSelection = 3;
+        currentMode++;
+      }
     },
   });
 }
@@ -711,12 +696,66 @@ function selectRightWall() {
       cursor(ARROW);
     },
     on_release() {
-      // console.log(userSelection);
-      userSelection.wall = "Right";
       cursor(ARROW);
-      window.open("../4_thank_you/thankYou.html", "_parent");
+      // console.log(userSelection);
+      // userSelection.wall = "Right";
+      // window.open("../4_thank_you/thankYou.html", "_parent");
+
+      if (currentMode < totalMode) {
+        // console.log(userSelection);
+        userWallSelection = 5;
+      }
+      if (updateResolumeState()) {
+        currentMode++;
+      }
     },
   });
+}
+
+///////////////////////////////////////////
+// SCREEN_4 FUNCTION
+///////////////////////////////////////////
+
+function loadingScreen() {
+  // https://editor.p5js.org/kchung/sketches/SJkdHhWUQ
+
+  //   loadingLottie;
+  //   lottie.position(0, 0);
+
+  // loadingGIF.size(width, height);
+  // loadingGIF.position(width / 3, height / 2);
+
+  var x = startX + scalar * cos(angle);
+  var y = startY + scalar * sin(angle);
+
+  fill("#A199FF");
+  // noStroke();
+  ellipse(x + width / 2.5, y + height / 3.5, 30);
+  angle++; // increment angle for the next frame
+
+  fill("#222222");
+  textAlign(CENTER);
+
+  textSize(24);
+  text("Sending your Bottled Moments", width / 2, 100);
+
+  textSize(18);
+  text("Please do not leave or refresh your page", width / 2, height / 1.33);
+
+  textSize(18);
+  text("while we are preparing your message,", width / 2, height / 1.4);
+
+  newMillis = millis();
+  // after 2 seconds -> go to thankyou page
+  console.log(currentMillis);
+  if (newMillis / currentMillis < 20000) {
+    window.open("../4_thank_you/thankYou.html", "_parent");
+  }
+
+  // let newMillis.mult(2, currentMillis);
+
+  // if (currentMillis == newMillis) {
+  // }
 }
 
 ///////////////////////////////////////////
@@ -743,18 +782,18 @@ function initialiseResolume() {
 //   ************************************************************************
 function updateResolumeState() {
   /* 
-    * If no wall:
+    * STRUCTURE 1: If no wall:
       * Which artifact 
       * Play animation
       * Melt
     
-    * With wall:
+    * STRUCTURE 2: With wall:
       * Check which wall
       * Which artifact 
       * Play animation
       * Melt
     
-    * With multiple users:
+    * STRUCTURE 3: With multiple users:
       * Check which wall
       * Check if column is active:
         * Trigger Reset Video
@@ -767,17 +806,35 @@ function updateResolumeState() {
 	----------------------------------------------------------------
 	Animation Triggers:
 	
-	  * Left -> Artifact 1 -> {Bottle (3,2) + Flower (4,3)} -> Melt (3,7)
-	  * Left -> Artifact 2 -> {Bottle (3,2) + Light(4,4)} -> Melt (3,7)
-	  * Left -> Artifact 3 -> {Bottle (3,2) + Clock (4,5)} -> Melt (3,7)
-	  * Left -> Artifact 4 -> {Bottle (3,2) + Surfboard (4,6)} -> Melt (3,7)
+	  * Left -> Artifact 1 {Bottle (3,2) + Flower (4,3)} -> Melt (3,7)
+	  * Left -> Artifact 2 {Bottle (3,2) + Light(4,4)} -> Melt (3,7)
+	  * Left -> Artifact 3 {Bottle (3,2) + Clock (4,5)} -> Melt (3,7)
+	  * Left -> Artifact 4 {Bottle (3,2) + Surfboard (4,6)} -> Melt (3,7)
 
-	  * Right -> Artifact 1 -> {Bottle (5,2) + Flower (6,3)} -> Melt (5,7)
-	  * Right -> Artifact 2 -> {Bottle (5,2) + Light (6,4)} -> Melt (5,7)
-	  * Right -> Artifact 3 -> {Bottle (5,2) + Clock (6,5)} -> Melt (5,7)
-	  * Right -> Artifact 4 -> {Bottle (5,2) + Surfboard (6,6)} -> Melt (5,7)
+	  * Right -> Artifact 1 {Bottle (5,2) + Flower (6,3)} -> Melt (5,7)
+	  * Right -> Artifact 2 {Bottle (5,2) + Light (6,4)} -> Melt (5,7)
+	  * Right -> Artifact 3 {Bottle (5,2) + Clock (6,5)} -> Melt (5,7)
+	  * Right -> Artifact 4 {Bottle (5,2) + Surfboard (6,6)} -> Melt (5,7)
+    
+    * REDUCE THE SPACE TIME COMPLEXITY!
+
+    * CHANGES:
+    * 1) Resolume Trigger Autopilot, so the code only need to call once thing
+    * 2) only ask for product instead of wall and product saved within the global const and compare it to product.JSON variableID
+    * 3) combine bottle and artifact animation to reduce complexity
+    * 4) make the wall selection and product selection same as Resolume and JSON respectively
+
+    * SYNTAX: loadClip(layer, clip)
+    * loadClip(Left or Right, artifactNumber)
+    
+    * (X) LEFT: 3; RIGHT: 5
+    * (Y) PRODUCT: 1,2,3,4
+    * MELT-LEFT: 4,5
+    * MELT-RIGHT: 6,5
 	----------------------------------------------------------------
   */
+  loadClip(userWallSelection, userProductSelection);
+  loadClip(userWallSelection + 1, userProductSelection);
 }
 
 //   ***********************************************************************
@@ -800,6 +857,12 @@ function redrawResolumeComponents() {
     * if three users -> 3 then 3, more than 3
       * 2 then 3
         * Always loop 3 times then goes from current back to passive
+    
+    * Random Pattern:
+
+    * 1) Sun -> Currently Static
+    * 2) Building -> Cannot
+    * 3) Cloud
    */
   /*
 		Animation Triggers:
@@ -810,7 +873,19 @@ function redrawResolumeComponents() {
 	  * 3 Users:  (1,4)
 	  * 4 Users:  (1,5)
 	  * Long: (1,7) -> all of the above
-	----------------------------------------------------------------
+    
+    * Check how many active layers are running at a time and triggers the video
+      * Loading -> 2s
+      * Total: 
+        * Left Product -> 3s
+        * Left Melt -> 2s 
+
+      * Loading -> 2s
+      * Total: 
+        * Right Product -> 3s
+        * Right Melt -> 2s
+      * 
+    * So in total, there are 4 users that can play at a time
 	*/
 }
 
@@ -825,14 +900,30 @@ function redrawResolumeComponents() {
 //						- layer: integer number of the layer to be turned off
 //
 // Opacity wont be used
-// //		- setLayerOpacity(layer, opacityLevel)
-// //						- layer: integer number of the layer we are setting the opacity of
-// //						- opacityLevel: decimal number between 0.0 (full transparency) and 1.0 (full opacity)
+//		- setLayerOpacity(layer, opacityLevel)
+//						- layer: integer number of the layer we are setting the opacity of
+//						- opacityLevel: decimal number between 0.0 (full transparency) and 1.0 (full opacity)
 //   ***********************************************************************
 
-function loadClip(layer, clip) {}
+function loadClip(layer, clip) {
+  sendMessage(
+    "/composition/layers/" + layer + "/clips/" + clip + "/connect",
+    1,
+    "f"
+  );
+}
 
-function turnLayerOff(layer) {}
+function turnLayerOff(layer) {
+  sendMessage("/composition/layers/" + layer + "/clear", 0, "f");
+}
+
+function setLayerOpacity(layer, opacityLevel) {
+  sendMessage(
+    "/composition/layers/" + layer + "/video/opacity",
+    opacityLevel,
+    "f"
+  );
+}
 
 // ////////////////////////////////////////////////////
 // CUSTOMIZABLE SECTION - END: ENTER OUR CODE HERE
@@ -841,6 +932,7 @@ function turnLayerOff(layer) {}
 //   ***********************************************************************
 // NUMBER OF USERS POLL: Functions
 //   ***********************************************************************
+
 function setupNumberOfUsersPoll() {
   socket = io.connect(HOST);
   socket.on("numberOfUsers", updateNumberOfUsers);

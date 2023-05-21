@@ -127,7 +127,7 @@ function rulesRightColumn() {
 
     // let imageY = currentIndex * windowHeight - 100; // Calculate the
     title = textSize(18);
-    title = text(headingArr[i], windowWidth / 2 - 90, titleHeight);
+    title = text(headingArr[i], width / 2 - 90, titleHeight);
     titleHeight += 100;
   }
 
@@ -137,7 +137,7 @@ function rulesRightColumn() {
 
     // let imageY = currentIndex * windowHeight - 100; // Calculate the
     subtitle = textSize(14);
-    subtitle = text(subHeadingArr[i], windowWidth / 2 - 90, subtitleHeight);
+    subtitle = text(subHeadingArr[i], width / 2 - 90, subtitleHeight);
     subtitleHeight += 100;
   }
 

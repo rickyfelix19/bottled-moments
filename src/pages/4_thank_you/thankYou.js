@@ -18,8 +18,6 @@ function setup() {
   // page buttons
   let like = followButton();
   let selectOther = otherArtifact();
-
-  console.log(userSelection);
 }
 
 function draw() {
