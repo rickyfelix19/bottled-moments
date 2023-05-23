@@ -38,11 +38,11 @@ function draw() {
   // }
 
   fill("#A0A0A0");
-  textSize(14);
+  textSize(windowHeight / 64);
   text(
     "Bottled Moments uses cookie for the best experience.",
     width / 2,
-    height / 1.42
+    height / 1.63
   );
 
   // image(iconsArr[1], width / 2, height / 2);
@@ -73,23 +73,23 @@ function storeData(data) {
 
 function rulesLeftColumn() {
   let images;
-  let imageYPos = 40;
+  let imageYPos = 25;
 
   for (let i = 0; i < iconArr.length; i++) {
     // image(iconArr[i], i * 200, 0, 600 / 3, 450 / 3);
     images = image(
       iconArr[i],
-      windowWidth / 2 - 170,
+      windowWidth / 2.5 - 120,
       imageYPos,
-      64,
-      64,
+      windowWidth / 7,
+      windowHeight / 12,
       0,
       0,
       width,
       height,
       CONTAIN
     );
-    imageYPos += 100;
+    imageYPos += windowHeight / 9;
   }
 
   // image.size(64, 64);
@@ -117,8 +117,8 @@ function rulesRightColumn() {
   // let PosY = (i - currentIndex) * (windowHeight / 2) + carouselHeight; // Calculate the Y-coordinate of each item
 
   // let y = 80;
-  let titleHeight = 60;
-  let subtitleHeight = 85;
+  let titleHeight = windowHeight / 15;
+  let subtitleHeight = windowHeight / 10;
   let title, subtitle;
 
   for (let i = 0; i < headingArr.length; i++) {
@@ -126,9 +126,9 @@ function rulesRightColumn() {
     textAlign(LEFT);
 
     // let imageY = currentIndex * windowHeight - 100; // Calculate the
-    title = textSize(18);
+    title = textSize(windowWidth / 24);
     title = text(headingArr[i], width / 2 - 90, titleHeight);
-    titleHeight += 100;
+    titleHeight += 75;
   }
 
   for (let i = 0; i < subHeadingArr.length; i++) {
@@ -136,9 +136,9 @@ function rulesRightColumn() {
     textAlign(LEFT);
 
     // let imageY = currentIndex * windowHeight - 100; // Calculate the
-    subtitle = textSize(14);
+    subtitle = textSize(windowWidth / 28);
     subtitle = text(subHeadingArr[i], width / 2 - 90, subtitleHeight);
-    subtitleHeight += 100;
+    subtitleHeight += 75;
   }
 
   /* 
@@ -184,7 +184,7 @@ function productPageButton() {
   productPage = new Button({
     content: "Accept and Continue",
     x: width / 2,
-    y: height / 1.3,
+    y: height / 1.48,
     width: width / 1.2,
     height: 55,
     align_x: 0,

@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////
+//FIXED SECTION - END: DO NOT CHANGE THESE VARIABLES
+////////////////////////////////////////////////////////
+
 // Fixed variables
 var HOST = window.location.origin;
 let xmlHttpRequest = new XMLHttpRequest();
@@ -9,11 +13,8 @@ let lastTimeNumberOfUsersPolled;
 let intervalToPollNumberOfUsers = 5000;
 let currentNumberOfUsers = 1;
 
-////////////////////////////////////////////////////////
-//FIXED SECTION - END: DO NOT CHANGE THESE VARIABLES
-////////////////////////////////////////////////////////
-
 // constructor to be sent over ( Maybe should used TS or PropTypes)
+/*
 // function UserSelection(userID, artifactID, wallSelection) {
 //   this.userID = userID;
 //   this.artifactID = artifactID;
@@ -26,12 +27,13 @@ let currentNumberOfUsers = 1;
 //   artifactID: '',
 //   wallSelection: ''
 // }];
-
 // let userSelection = [];
+*/
 
 // KEEP IT SUPER SIMPLE -> REDUCE SPACE AND TIME COMPLEXITY
 let userProductSelection; // productID put into the DOM
 let userWallSelection; // wall choice
+let meltColumn; // output to allow more users to play
 
 ////////////////////////////////////////////////////
 // CUSTOMIZABLE SECTION - BEGIN: ENTER OUR CODE HERE
@@ -44,6 +46,13 @@ let messageField, title, subtitle, UIText1, UIText2, UIText3;
 let currentMode = 0;
 let totalMode = 4;
 
+// loading screen
+const loadingTimeout = setTimeout(() => {
+  if (currentMode < totalMode) {
+    currentMode++;
+  }
+}, 1500);
+
 // JSON Array
 let artifactJSON = []; // load from product.json
 let artifactsArr = []; // this comes from preload of product.json
@@ -54,16 +63,10 @@ let artifactURL = [];
 let artifactImage = [];
 
 let currentIndex = 0; // Current index of the displayed
-let carouselPrev, carouselNext;
+// let carouselPrev, carouselNext;
 
-let lastFrameCountUpdate;
-let updateRateInFrames = 5;
-
-// for loading screen
-var angle = 0; // initialize angle variable
-var scalar = 50; // set the radius of circle
-var startX = 100; // set the x-coordinate for the circle center
-var startY = 100; // set the y-coordinate for the circle center
+// let lastFrameCountUpdate;
+// let updateRateInFrames = 5;
 
 ///////////////////////////////////////////
 // PRELOAD FUNCTION
@@ -82,7 +85,8 @@ function preload() {
   //   loadingLottie = loadJSON(
   //     "https://assets9.lottiefiles.com/datafiles/QeC7XD39x4C1CIj/data.json"
   // 	);
-  loadingGIF = createImg("../../assets/gif/Loading.gif");
+  // loadingGIF = createImg("../../assets/gif/Loading.gif");
+
   leftWall = loadImage("../../assets/images-webp/Left.webp");
   rightWall = loadImage("../../assets/images-webp/Right.webp");
 }
@@ -126,21 +130,21 @@ function storeData(data) {
 function setup() {
   p5 = createCanvas(windowWidth, windowHeight);
   p5.parent("container-p5"); // div
-  angleMode(DEGREES); // change the angle mode from radians to degrees
+  // angleMode(DEGREES); // change the angle mode from radians to degrees
 
   // server connections
   // NUMBER OF USERS POLL: Initialise
-  userSessionId = int(random(100000));
+  // userSessionId = int(random(100000));
 
   // userID saved as a Int inside an UserSelection Object Array
   // userSelection.push({ userID: userSessionId });
 
   // //userSelection[0] = { userID: userSessionId }; // this push the variable into the array of the user session
 
-  lastFrameCountUpdate = frameCount;
+  // lastFrameCountUpdate = frameCount;
 
-  lastTimeNumberOfUsersPolled = millis();
-  setupNumberOfUsersPoll();
+  // lastTimeNumberOfUsersPolled = millis();
+  // setupNumberOfUsersPoll();
 
   // run Resolume
   initialiseResolume();
@@ -148,6 +152,8 @@ function setup() {
   // buttons
   let saveMessage = saveMessageButton();
   let skipMessage = skipMessageButton();
+  let prevArtifact = carouselPrevious();
+  let nextArtifact = carouselNext();
   let selectArtifact = carouselSelect();
   let selectLeft = selectLeftWall();
   let selectRight = selectRightWall();
@@ -174,37 +180,46 @@ function draw() {
   pop();
 
   //   NUMBER OF USERS POLL: Update
-  if (millis() - lastTimeNumberOfUsersPolled > intervalToPollNumberOfUsers) {
-    lastTimeNumberOfUsersPolled = millis();
-    getNumberOfUsers();
-  }
+  // if (millis() - lastTimeNumberOfUsersPolled > intervalToPollNumberOfUsers) {
+  //   lastTimeNumberOfUsersPolled = millis();
+  //   getNumberOfUsers();
+  // }
 
   // seperate into components -- for easier debugging
   // screen_1();
   // screen_2();
   // screen_3();
   // loadingScreen();
+  // messageField.hide();
+  // skeletonLoading();
+
+  messageField.hide();
 
   if (currentMode === 0) {
+    skeletonLoading();
+  } else if (currentMode === 1) {
+    messageField.show();
     screen_1();
     screen1_UI();
-  } else if (currentMode === 1) {
+  } else if (currentMode === 2) {
     messageField.hide();
     // input.hide();
     removeElements();
     clear();
     screen_2();
     screen2_UI();
-  } else if (currentMode === 2) {
+  } else if (currentMode === 3) {
     clear();
     removeElements();
     screen_3();
     screen3_UI();
-  } else if (currentMode === 3) {
-    clear();
-    removeElements();
-    loadingScreen();
   }
+
+  // else if (currentMode === 3) {
+  // clear();
+  // removeElements();
+  // loadingScreen();
+  // }
 }
 
 ///////////////////////////////////////////
@@ -216,117 +231,138 @@ function windowResized() {
 }
 
 ///////////////////////////////////////////
-// LOADING SECTION
-///////////////////////////////////////////
-function skeletonLoading() {
-  // make rectangle that goes from left to right
-
-  // textSize(16);
-  fill("#A199FF");
-  ellipse(65, 65, 20, 20);
-  stroke("#A0A0A0");
-  line(75, 65, width / 2 - 10, 65);
-  noStroke();
-  rect(65, 95, 16);
-  // UIText1 = text("Write Message", 65, 95);
-
-  noFill();
-  stroke("#A0A0A0");
-  ellipse(width / 2, 65, 20, 20);
-  line(width / 2 + 9, 65, width - 90, 65);
-  noStroke();
-  fill("#A0A0A0");
-  rect(width / 2, 95, 16);
-  // UIText2 = text("Select Object", width / 2, 95);
-
-  noFill();
-  stroke("#A0A0A0");
-  ellipse(width - 80, 65, 20, 20);
-  noStroke();
-  fill("#A0A0A0");
-  rect(width - 85, 95, 16);
-  // UIText3 = text("Send Bottle", width - 85, 95);
-}
-
-///////////////////////////////////////////
 // SCREEN_STEPPER UI
 ///////////////////////////////////////////
 
 function screen1_UI() {
-  textSize(16);
+  textSize(windowWidth / 24);
   fill("#A199FF");
-  ellipse(65, 65, 20, 20);
+  ellipse(35, 35, 20, 20);
   stroke("#A0A0A0");
-  line(75, 65, width / 2 - 10, 65);
+  line(35, 35, width / 2 - 28, 35);
   noStroke();
-  UIText1 = text("Write Message", 65, 95);
+  UIText1 = text("Write Message", 65, 65);
 
   noFill();
   stroke("#A0A0A0");
-  ellipse(width / 2, 65, 20, 20);
-  line(width / 2 + 9, 65, width - 90, 65);
+  ellipse(width / 2.2, 35, 20, 20);
+  line(width / 2 - 8, 35, width - 90, 35);
   noStroke();
   fill("#A0A0A0");
-  UIText2 = text("Select Object", width / 2, 95);
+  UIText2 = text("Select Object", width / 2, 65);
 
   noFill();
   stroke("#A0A0A0");
-  ellipse(width - 80, 65, 20, 20);
+  ellipse(width - 80, 35, 20, 20);
   noStroke();
   fill("#A0A0A0");
-  UIText3 = text("Send Bottle", width - 85, 95);
+  UIText3 = text("Send Bottle", width - 85, 65);
 }
 
 function screen2_UI() {
   textSize(16);
   stroke("#A199FF");
   fill("#A199FF");
-  ellipse(65, 65, 20, 20);
-  line(75, 65, width / 2 - 10, 65);
+  ellipse(35, 35, 20, 20);
+  line(35, 35, width / 2 - 28, 35);
   noStroke();
-  UIText1 = text("Write Message", 65, 95);
+  UIText1 = text("Write Message", 65, 65);
 
   stroke("#A199FF");
   fill("#A199FF");
-  ellipse(width / 2, 65, 20, 20);
+  ellipse(width / 2.2, 35, 20, 20);
   noStroke();
-  UIText2 = text("Select Object", width / 2, 95);
+  UIText2 = text("Select Object", width / 2, 65);
   stroke("#A0A0A0");
-  line(width / 2 + 9, 65, width - 90, 65);
+  line(width / 2 - 8, 35, width - 90, 35);
   noStroke();
 
   noFill();
   stroke("#A0A0A0");
-  ellipse(width - 80, 65, 20, 20);
+  ellipse(width - 80, 35, 20, 20);
   noStroke();
   fill("#A0A0A0");
-  UIText3 = text("Send Bottle", width - 85, 95);
+  UIText3 = text("Send Bottle", width - 85, 65);
 }
 
 function screen3_UI() {
-  textSize(16);
+  textSize(windowWidth / 16);
   stroke("#A199FF");
   fill("#A199FF");
-  ellipse(65, 65, 20, 20);
-  line(75, 65, width / 2 - 10, 65);
+  ellipse(35, 35, 20, 20);
+  line(35, 35, width / 2 - 28, 35);
   noStroke();
-  UIText1 = text("Write Message", 65, 95);
+  UIText1 = text("Write Message", 65, 65);
 
   // noFill();
   stroke("#A199FF");
-  ellipse(width / 2, 65, 20, 20);
-  line(width / 2 + 9, 65, width - 90, 65);
+  ellipse(width / 2.2, 35, 20, 20);
+  line(width / 2 - 8, 35, width - 90, 35);
   noStroke();
   fill("#A199FF");
-  UIText2 = text("Select Object", width / 2, 95);
+  UIText2 = text("Select Object", width / 2, 65);
 
   // noFill();
   stroke("#A199FF");
-  ellipse(width - 80, 65, 20, 20);
+  ellipse(width - 80, 35, 20, 20);
   noStroke();
   fill("#A199FF");
-  UIText3 = text("Send Bottle", width - 85, 95);
+  UIText3 = text("Send Bottle", width - 85, 65);
   noStroke();
+}
+
+///////////////////////////////////////////
+// LOADING SECTION
+///////////////////////////////////////////
+function skeletonLoading() {
+  let from = color("#d6d6d6");
+  let to = color("#555555");
+
+  // fill(230, 100, 60);
+  // let i = 0;
+  let gradient = lerpColor(from, to, 0.4);
+  // fill(gradient);
+
+  var colorMap = random(0.72, 0.74);
+  let gradientMap = lerpColor(from, to, colorMap);
+  fill(gradientMap);
+
+  //   messageField.position(45, height / 3);
+  // messageField.size(width - 95, height / 2);
+
+  // fill("#52d2e3");
+
+  // make rectangle that goes from left to right
+
+  // rect(x, y, w, [h], [tl], [tr], [br], [bl]);
+  let messageSkeleton = rect(
+    45,
+    height / 3,
+    width - 95,
+    height / 3,
+    25,
+    25,
+    25,
+    25
+  );
+  let buttonSkeleton = rect(25, height - 105, width / 1.2, 55, 55, 55, 55, 55);
+
+  stroke("#A0A0A0");
+  ellipse(35, 35, 20, 20);
+  line(35, 35, width / 2 - 28, 35);
+  noStroke();
+  rect(40, 65, 45, 15);
+
+  stroke("#A0A0A0");
+  ellipse(width / 2.2, 35, 20, 20);
+  line(width / 2 - 8, 35, width - 90, 35);
+  noStroke();
+  rect(width / 2.3, 65, 45, 15);
+
+  stroke("#A0A0A0");
+  ellipse(width - 80, 35, 20, 20);
+  noStroke();
+  rect(width - 85, 65, 45, 15);
 }
 
 ///////////////////////////////////////////
@@ -334,21 +370,19 @@ function screen3_UI() {
 ///////////////////////////////////////////
 
 function screen_1() {
-  currentMillis = millis();
-
   // buttons
   saveMessage.draw();
   skipMessage.draw();
 
   // title
   fill("#383838");
-  textSize(29);
-  title = text("Share your thoughts", width / 2, 150);
+  textSize(windowWidth / 15);
+  title = text("Share your thoughts", width / 2, 110);
 
   // subheading
   fill("#A0A0A0");
-  textSize(18);
-  subtitle = text("Your message will not be saved", width / 2, 180);
+  textSize(windowWidth / 25);
+  subtitle = text("Your message will not be saved", width / 2, 135);
 }
 
 function messageBox() {
@@ -384,7 +418,7 @@ function saveMessageButton() {
     height: 55,
     align_x: 0,
     align_y: 0,
-    content: "Next Page",
+    content: "Next Step",
     on_mouse_enter() {
       cursor("pointer");
     },
@@ -442,19 +476,20 @@ function screen_2() {
   // selectArtifact.draw();
   productCarousel();
 
-  prevProduct();
-  nextProduct();
+  // buttons
+  prevArtifact.draw();
+  nextArtifact.draw();
   selectArtifact.draw();
 
   // title
   fill("#383838");
-  textSize(29);
-  title = text("Select your artifacts", width / 2, 150);
+  textSize(windowWidth / 15);
+  title = text("Select your artifacts", width / 2, 110);
 
   // subheading
   fill("#A0A0A0");
-  textSize(18);
-  subtitle = text("Each artifact has different animations", width / 2, 180);
+  textSize(windowWidth / 25);
+  subtitle = text("Each artifact has different animations", width / 2, 135);
 }
 
 function productCarousel() {
@@ -544,22 +579,72 @@ function productCarousel() {
   // selectArtifact.draw();
 }
 
-function prevProduct() {
-  carouselPrev = createButton("&#8592;");
-  carouselPrev.position(70, height / 2);
-  carouselPrev.mousePressed(prevProduct);
+function carouselPrevious() {
+  prevArtifact = new Button({
+    x: 35,
+    y: height / 2,
+    width: 30,
+    height: 30,
+    align_x: 0,
+    align_y: 0,
+    content: "<-",
+    on_mouse_enter() {
+      cursor("pointer");
+    },
+    on_mouse_exit() {
+      cursor(ARROW);
+    },
+    on_release() {
+      cursor(ARROW);
 
-  currentIndex = (currentIndex - 1 + artifactsArr.length) % artifactsArr.length;
+      prevArtifact;
+      currentIndex =
+        (currentIndex - 1 + artifactsArr.length) % artifactsArr.length;
+    },
+  });
 }
 
-function nextProduct() {
-  // Button for next slide
-  let nextButton = createButton("&#8594;");
-  nextButton.position(width - 100, height / 2);
-  nextButton.mousePressed(nextProduct);
-
-  currentIndex = (currentIndex + 1) % artifactsArr.length;
+function carouselNext() {
+  nextArtifact = new Button({
+    x: width - 55,
+    y: height / 2,
+    width: 30,
+    height: 30,
+    align_x: 0,
+    align_y: 0,
+    content: "->",
+    on_mouse_enter() {
+      cursor("pointer");
+    },
+    on_mouse_exit() {
+      cursor(ARROW);
+    },
+    on_release() {
+      cursor(ARROW);
+      nextArtifact;
+      currentIndex = (currentIndex + 1) % artifactsArr.length;
+    },
+  });
 }
+
+/*
+// function prevProduct() {
+//   carouselPrev = createButton("&#8592;");
+//   carouselPrev.position(70, height / 2);
+//   carouselPrev.mousePressed(prevProduct);
+
+//   currentIndex = (currentIndex - 1 + artifactsArr.length) % artifactsArr.length;
+// }
+
+// function nextProduct() {
+//   // Button for next slide
+//   let nextButton = createButton("&#8594;");
+//   nextButton.position(width - 100, height / 2);
+//   nextButton.mousePressed(nextProduct);
+
+//   currentIndex = (currentIndex + 1) % artifactsArr.length;
+// }
+*/
 
 function carouselSelect() {
   selectArtifact = new Button({
@@ -605,7 +690,7 @@ function screen_3() {
     15,
     130,
     width / 2 - 30,
-    height / 2,
+    height / 2.3,
     0,
     0,
     leftWall.width,
@@ -617,7 +702,7 @@ function screen_3() {
     width / 2 + 5,
     130,
     width / 2 - 30,
-    height / 2,
+    height / 2.3,
     0,
     0,
     rightWall.width,
@@ -626,14 +711,16 @@ function screen_3() {
 
   // title
   fill("#383838");
-  textSize(20);
+  textSize(windowWidth / 18);
+
   title = text("Choose the walls you would", width / 2, height / 1.45);
   fill("#383838");
-  textSize(20);
+
+  textSize(windowWidth / 18);
   title = text("like to send your bottle", width / 2, height / 1.4);
   // subheading
   fill("#A0A0A0");
-  textSize(18);
+  textSize(windowWidth / 30);
   subtitle = text(
     "This won't affect your animations",
     width / 2,
@@ -648,7 +735,7 @@ function screen_3() {
 function selectLeftWall() {
   selectLeft = new Button({
     x: width / 2,
-    y: height - 145,
+    y: height - 120,
     width: width / 1.2,
     height: 55,
     align_x: 0,
@@ -671,11 +758,18 @@ function selectLeftWall() {
       // or set timeOut
 
       // window.open("../4_thank_you/thankYou.html", "_parent");
-      if (currentMode < totalMode) {
-        // console.log(userSelection);
-        userWallSelection = 3;
-        currentMode++;
+      // if (currentMode < totalMode) {
+      // console.log(userSelection);
+      // userWallSelection = 3;
+      // currentMode++;
+      // }
+      if (updateResolumeState()) {
+        userWallSelection = 2;
+        meltColumn = userProductSelection * 0 + 5;
+
+        // currentMode++;
       }
+      window.open("../4_thank_you/thankYou.html", "_parent");
     },
   });
 }
@@ -701,65 +795,24 @@ function selectRightWall() {
       // userSelection.wall = "Right";
       // window.open("../4_thank_you/thankYou.html", "_parent");
 
-      if (currentMode < totalMode) {
-        // console.log(userSelection);
-        userWallSelection = 5;
-      }
+      // if (currentMode < totalMode) {
+      //   // console.log(userSelection);
+      //   userWallSelection = 5;
+      // }
       if (updateResolumeState()) {
-        currentMode++;
+        userWallSelection = 4;
+        meltColumn = userProductSelection * 0 + 5;
+
+        // currentMode++;
       }
+      window.open("../4_thank_you/thankYou.html", "_parent");
     },
   });
 }
 
 ///////////////////////////////////////////
-// SCREEN_4 FUNCTION
-///////////////////////////////////////////
-
-function loadingScreen() {
-  // https://editor.p5js.org/kchung/sketches/SJkdHhWUQ
-
-  //   loadingLottie;
-  //   lottie.position(0, 0);
-
-  // loadingGIF.size(width, height);
-  // loadingGIF.position(width / 3, height / 2);
-
-  var x = startX + scalar * cos(angle);
-  var y = startY + scalar * sin(angle);
-
-  fill("#A199FF");
-  // noStroke();
-  ellipse(x + width / 2.5, y + height / 3.5, 30);
-  angle++; // increment angle for the next frame
-
-  fill("#222222");
-  textAlign(CENTER);
-
-  textSize(24);
-  text("Sending your Bottled Moments", width / 2, 100);
-
-  textSize(18);
-  text("Please do not leave or refresh your page", width / 2, height / 1.33);
-
-  textSize(18);
-  text("while we are preparing your message,", width / 2, height / 1.4);
-
-  newMillis = millis();
-  // after 2 seconds -> go to thankyou page
-  console.log(currentMillis);
-  if (newMillis / currentMillis < 20000) {
-    window.open("../4_thank_you/thankYou.html", "_parent");
-  }
-
-  // let newMillis.mult(2, currentMillis);
-
-  // if (currentMillis == newMillis) {
-  // }
-}
-
-///////////////////////////////////////////
 // RESOLUME
+// this part does not check number of users
 ///////////////////////////////////////////
 
 //   ***********************************************************************
@@ -769,8 +822,8 @@ function loadingScreen() {
 // it runs only once, when the website is loaded.
 //   ***********************************************************************
 function initialiseResolume() {
-  // lake background
   loadClip(1, 1); // lake passive background
+  loadClip(6, 1); // sun layer background (float: 0.14)
 }
 
 //   ***********************************************************************
@@ -781,7 +834,9 @@ function initialiseResolume() {
 // every frame, to avoid too many OSC messages being sent to Resolume.
 //   ************************************************************************
 function updateResolumeState() {
-  /* 
+  // send artifacts
+
+  /*
     * STRUCTURE 1: If no wall:
       * Which artifact 
       * Play animation
@@ -827,66 +882,23 @@ function updateResolumeState() {
     * SYNTAX: loadClip(layer, clip)
     * loadClip(Left or Right, artifactNumber)
     
-    * (X) LEFT: 3; RIGHT: 5
-    * (Y) PRODUCT: 1,2,3,4
-    * MELT-LEFT: 4,5
-    * MELT-RIGHT: 6,5
+    * ARTIFACT (X) LEFT: 2; RIGHT: 5
+    * ARTIFACT (Y) PRODUCT: 1,2,3,4
+    * MELT-LEFT: 3,5
+    * MELT-RIGHT: 5,5
+    * BACKGROUND: 1,2,3,4,5 ( Passive, 1++ ); 
 	----------------------------------------------------------------
   */
-  loadClip(userWallSelection, userProductSelection);
-  loadClip(userWallSelection + 1, userProductSelection);
-}
 
-//   ***********************************************************************
-// redrawResolumeComponents()
-//
-// This is like "draw", but applied to Resolume. In other words,
-// it runs over and over, every frame, after the website is loaded.
-//   ***********************************************************************
+  // if wall is left play below and then melt
+  // if wall is right play below and then melt
 
-function redrawResolumeComponents() {
-  /*
-   * Change background color: 
+  loadClip(1, 1); // play single user mode
+  loadClip(userWallSelection, userProductSelection); // play artifact
+  loadClip(userWallSelection + 1, meltColumn); // play melt animation
+  setLayerOpacity(6, 1); // make sun brigher
 
-    * if no users
-      * Passive
-    * if one users
-      * Passive then 1
-    * if two users -> 2 then 2
-      * 1 then 2
-    * if three users -> 3 then 3, more than 3
-      * 2 then 3
-        * Always loop 3 times then goes from current back to passive
-    
-    * Random Pattern:
-
-    * 1) Sun -> Currently Static
-    * 2) Building -> Cannot
-    * 3) Cloud
-   */
-  /*
-		Animation Triggers:
-	
-	  * Passive: (1,1) -> Default
-	  * 1 User:  (1,2)
-	  * 2 Users:  (1,3)
-	  * 3 Users:  (1,4)
-	  * 4 Users:  (1,5)
-	  * Long: (1,7) -> all of the above
-    
-    * Check how many active layers are running at a time and triggers the video
-      * Loading -> 2s
-      * Total: 
-        * Left Product -> 3s
-        * Left Melt -> 2s 
-
-      * Loading -> 2s
-      * Total: 
-        * Right Product -> 3s
-        * Right Melt -> 2s
-      * 
-    * So in total, there are 4 users that can play at a time
-	*/
+  // after animation return sun to normal
 }
 
 //   ***********************************************************************
@@ -925,30 +937,30 @@ function setLayerOpacity(layer, opacityLevel) {
   );
 }
 
-// ////////////////////////////////////////////////////
-// CUSTOMIZABLE SECTION - END: ENTER OUR CODE HERE
-// ////////////////////////////////////////////////////
-
 //   ***********************************************************************
 // NUMBER OF USERS POLL: Functions
 //   ***********************************************************************
 
-function setupNumberOfUsersPoll() {
-  socket = io.connect(HOST);
-  socket.on("numberOfUsers", updateNumberOfUsers);
-}
+// function setupNumberOfUsersPoll() {
+//   socket = io.connect(HOST);
+//   socket.on("numberOfUsers", updateNumberOfUsers);
+// }
 
-function updateNumberOfUsers(numberOfUsers) {
-  currentNumberOfUsers = numberOfUsers;
-}
+// function updateNumberOfUsers(numberOfUsers) {
+//   currentNumberOfUsers = numberOfUsers;
+// }
 
-function getNumberOfUsers() {
-  let postData = JSON.stringify({ id: userSessionId });
+// function getNumberOfUsers() {
+//   let postData = JSON.stringify({ id: userSessionId });
 
-  xmlHttpRequest.open("POST", HOST + "/getNumberOfUsers", false);
-  xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
-  xmlHttpRequest.send(postData);
-}
+//   xmlHttpRequest.open("POST", HOST + "/getNumberOfUsers", false);
+//   xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
+//   xmlHttpRequest.send(postData);
+// }
+
+// ////////////////////////////////////////////////////
+// CUSTOMIZABLE SECTION - END: ENTER OUR CODE HERE
+// ////////////////////////////////////////////////////
 
 // ***********************************************************************
 //     === PLEASE DO NOT CHANGE OR DELETE THIS SECTION ===

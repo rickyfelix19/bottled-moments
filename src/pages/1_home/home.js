@@ -38,7 +38,7 @@ function draw() {
     0,
     50,
     width,
-    height / 1.8,
+    height / 2.3,
     0,
     0,
     bottle.width,
@@ -108,7 +108,7 @@ function nextPageButton() {
   nextPage = new Button({
     content: "Start Playing",
     x: width / 2,
-    y: height / 1.4,
+    y: height / 1.6,
     width: width / 1.2,
     height: 55,
     align_x: 0,
