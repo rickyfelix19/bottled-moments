@@ -1,6 +1,6 @@
 // Global Variables
 
-let rulesJSO = [];
+let rulesJSON = [];
 let headingArr = [];
 let subHeadingArr = [];
 let iconArr = [];

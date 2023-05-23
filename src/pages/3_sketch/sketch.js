@@ -15,6 +15,7 @@ let currentNumberOfUsers = 1;
 
 let lastFrameCountUpdate;
 let updateRateInFrames = 5;
+
 // constructor to be sent over ( Maybe should used TS or PropTypes)
 /*
 // function UserSelection(userID, artifactID, wallSelection) {
@@ -765,13 +766,25 @@ function selectLeftWall() {
       // userWallSelection = 3;
       // currentMode++;
       // }
-      if (updateResolumeState()) {
+
+      //       if (updateResolumeState()) {
+      //         meltColumn = userProductSelection * 0 + 5;
+
+      //         // currentMode++;
+      //       }
+      //       window.open("../4_thank_you/thankYou.html", "_parent");
+
+      if (currentNumberOfUsers > 2) {
+        setTimeout(() => {
+          userWallSelection = 2;
+          meltColumn = userProductSelection * 0 + 5;
+        }, 1000);
+      } else {
         userWallSelection = 2;
         meltColumn = userProductSelection * 0 + 5;
-
-        // currentMode++;
       }
       window.open("../4_thank_you/thankYou.html", "_parent");
+      // currentMode++;
     },
   });
 }
@@ -801,13 +814,26 @@ function selectRightWall() {
       //   // console.log(userSelection);
       //   userWallSelection = 5;
       // }
-      if (updateResolumeState()) {
+
+      //       if (updateResolumeState()) {
+      //         meltColumn = userProductSelection * 0 + 5;
+
+      //         // currentMode++;
+      //       }
+      //       window.open("../4_thank_you/thankYou.html", "_parent");
+
+      if (currentNumberOfUsers > 2) {
+        setTimeout(() => {
+          userWallSelection = 4;
+
+          meltColumn = userProductSelection * 0 + 5;
+        }, 1000);
+      } else {
         userWallSelection = 4;
         meltColumn = userProductSelection * 0 + 5;
-
-        // currentMode++;
       }
       window.open("../4_thank_you/thankYou.html", "_parent");
+      // currentMode++;
     },
   });
 }
@@ -826,6 +852,7 @@ function selectRightWall() {
 function initialiseResolume() {
   loadClip(1, 1); // lake passive background
   loadClip(6, 1); // sun layer background (float: 0.14)
+  setLayerOpacity(6, 0.4);
 }
 
 //   ***********************************************************************
@@ -889,18 +916,28 @@ function updateResolumeState() {
     * MELT-LEFT: 3,5
     * MELT-RIGHT: 5,5
     * BACKGROUND: 1,2,3,4,5 ( Passive, 1++ ); 
+    * SUN: 6,1
 	----------------------------------------------------------------
   */
 
   // if wall is left play below and then melt
   // if wall is right play below and then melt
 
-  loadClip(1, 1); // play single user mode
-  loadClip(userWallSelection, userProductSelection); // play artifact
-  loadClip(userWallSelection + 1, meltColumn); // play melt animation
-  setLayerOpacity(6, 1); // make sun brigher
+  if (userWallSelection == 2) {
+    loadClip(1, 1); // play single user mode
+    setLayerOpacity(6, 1); // make sun brigher
+    loadClip(userWallSelection, userProductSelection); // play artifact
+    loadClip(userWallSelection + 1, meltColumn); // play melt animation
+    // initialiseResolume();
+  } else if (userWallSelection == 4) {
+    loadClip(1, 1); // play s`ingle user mode
+    setLayerOpacity(6, 1); // make sun brigher
+    loadClip(userWallSelection, userProductSelection); // play artifact
+    loadClip(userWallSelection + 1, meltColumn); // play melt animation
+    // initialiseResolume();`
+  } // after animation return sun to normal
 
-  // after animation return sun to normal
+  initialiseResolume();
 }
 
 //   ***********************************************************************
@@ -943,22 +980,22 @@ function setLayerOpacity(layer, opacityLevel) {
 // NUMBER OF USERS POLL: Functions
 //   ***********************************************************************
 
-// function setupNumberOfUsersPoll() {
-//   socket = io.connect(HOST);
-//   socket.on("numberOfUsers", updateNumberOfUsers);
-// }
+function setupNumberOfUsersPoll() {
+  socket = io.connect(HOST);
+  socket.on("numberOfUsers", updateNumberOfUsers);
+}
 
-// function updateNumberOfUsers(numberOfUsers) {
-//   currentNumberOfUsers = numberOfUsers;
-// }
+function updateNumberOfUsers(numberOfUsers) {
+  currentNumberOfUsers = numberOfUsers;
+}
 
-// function getNumberOfUsers() {
-//   let postData = JSON.stringify({ id: userSessionId });
+function getNumberOfUsers() {
+  let postData = JSON.stringify({ id: userSessionId });
 
-//   xmlHttpRequest.open("POST", HOST + "/getNumberOfUsers", false);
-//   xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
-//   xmlHttpRequest.send(postData);
-// }
+  xmlHttpRequest.open("POST", HOST + "/getNumberOfUsers", false);
+  xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
+  xmlHttpRequest.send(postData);
+}
 
 // ////////////////////////////////////////////////////
 // CUSTOMIZABLE SECTION - END: ENTER OUR CODE HERE

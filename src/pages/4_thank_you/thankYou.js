@@ -20,7 +20,7 @@ let shadow;
 
 // NUMBER OF USERS POLL: Variables
 let lastTimeNumberOfUsersPolled;
-let intervalToPollNumberOfUsers = 5000;
+let intervalToPollNumberOfUsers = 4000; // 4 second
 let currentNumberOfUsers = 1;
 
 let lastFrameCountUpdate;
@@ -294,14 +294,21 @@ function otherArtifact() {
   });
 }
 
-//   ***********************************************************************
-// redrawResolumeComponents()
-//
-// This is like "draw", but applied to Resolume. In other words,
-// it runs over and over, every frame, after the website is loaded.
-//   ***********************************************************************
+function resetResolume() {
+  loadClip(1, 1); // lake passive background
+  loadClip(6, 1); // sun layer background (float: 0.14)
+  setLayerOpacity(6, 0.4);
+}
 
-function redrawResolumeComponents() {
+//   ***********************************************************************
+// updateResolumeState()
+//
+// This function is invoked occasionally, based on certain conditions,
+// tested within "draw". However, the steps included here should not be run
+// every frame, to avoid too many OSC messages being sent to Resolume.
+//   ************************************************************************
+
+function updateResolumeState() {
   // change background colors
   /*
    * Change background color: 
@@ -345,6 +352,34 @@ function redrawResolumeComponents() {
       * 
     * So in total, there are 4 users that can play at a time
 	*/
+
+  // can also use promise await
+  let userNum = getNumberofUsers();
+
+  if (userNum == 2) {
+    loadClip(1, 2);
+    loadClip(1, 3);
+    loadClip(6, 1); // sun layer background (float: 0.14)
+    setLayerOpacity(6, 1);
+  } else if (userNum == 3) {
+    loadClip(1, 2);
+    loadClip(1, 3);
+    loadClip(1, 4);
+    loadClip(6, 1); // sun layer background (float: 0.14)
+    setLayerOpacity(6, 1);
+  } else if (userNum == 4 || userNum > 4) {
+    loadClip(1, 2);
+    loadClip(1, 3);
+    loadClip(1, 4);
+    loadClip(1, 5);
+    loadClip(6, 1); // sun layer background (float: 0.14)
+    setLayerOpacity(6, 1);
+  } else {
+    loadClip(1, 1); // lake passive background
+    loadClip(6, 1); // sun layer background (float: 0.14)
+    setLayerOpacity(6, 0.4);
+  }
+  resetResolume();
 }
 
 //   ***********************************************************************
