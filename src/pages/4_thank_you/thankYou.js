@@ -8,11 +8,6 @@ let xmlHttpRequest = new XMLHttpRequest();
 var socket;
 let userSessionId;
 
-// NUMBER OF USERS POLL: Variables
-let lastTimeNumberOfUsersPolled;
-let intervalToPollNumberOfUsers = 5000;
-let currentNumberOfUsers = 1;
-
 ////////////////////////////////////////////////////
 // CUSTOMIZABLE SECTION - BEGIN: ENTER OUR CODE HERE
 ////////////////////////////////////////////////////
@@ -22,6 +17,14 @@ var offset = 2;
 var strum = 3;
 let link;
 let shadow;
+
+// NUMBER OF USERS POLL: Variables
+let lastTimeNumberOfUsersPolled;
+let intervalToPollNumberOfUsers = 5000;
+let currentNumberOfUsers = 1;
+
+let lastFrameCountUpdate;
+let updateRateInFrames = 5;
 
 // GIF --  loading screen
 // var angle = 0; // initialize angle variable
@@ -56,11 +59,8 @@ function setup() {
   p5 = createCanvas(windowWidth, windowHeight);
   p5.parent("container-p5"); // div
 
-  // server connections
+  // NUMBER OF USERS POLL: Initialise
   userSessionId = int(random(100000));
-  lastFrameCountUpdate = frameCount;
-  console.log("user id: " + userSessionId);
-
   lastTimeNumberOfUsersPolled = millis();
   setupNumberOfUsersPoll();
 
@@ -408,15 +408,15 @@ function getNumberOfUsers() {
   xmlHttpRequest.send(postData);
 }
 
-// // ***********************************************************************
-// //     === PLEASE DO NOT CHANGE OR DELETE THIS SECTION ===
-// //     This function sends a OSC message to server
+// ***********************************************************************
+//     === PLEASE DO NOT CHANGE OR DELETE THIS SECTION ===
+//     This function sends a OSC message to server
 
-// //     Parameters:
-// //       - address: the OSC message address pattern string
-// //       - value: single value as message payload
-// //       - type: type of the value passed as message payload
-// //   ***********************************************************************
+//     Parameters:
+//       - address: the OSC message address pattern string
+//       - value: single value as message payload
+//       - type: type of the value passed as message payload
+//   ***********************************************************************
 
 function sendMessage(address, value, type) {
   let postData = JSON.stringify({

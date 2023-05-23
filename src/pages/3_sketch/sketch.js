@@ -13,6 +13,8 @@ let lastTimeNumberOfUsersPolled;
 let intervalToPollNumberOfUsers = 5000;
 let currentNumberOfUsers = 1;
 
+let lastFrameCountUpdate;
+let updateRateInFrames = 5;
 // constructor to be sent over ( Maybe should used TS or PropTypes)
 /*
 // function UserSelection(userID, artifactID, wallSelection) {
