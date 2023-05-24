@@ -22,7 +22,7 @@ let userNum;
 
 // NUMBER OF USERS POLL: Variables
 let lastTimeNumberOfUsersPolled;
-let intervalToPollNumberOfUsers = 4000; // 4 second
+let intervalToPollNumberOfUsers = 2000; // 4 second
 let currentNumberOfUsers = 1;
 
 let lastFrameCountUpdate;
@@ -81,8 +81,6 @@ function setup() {
   // page buttons
   let likeWebsite = followButton();
   let selectOther = otherArtifact();
-
-  updateResolumeState();
 }
 
 function draw() {
@@ -97,6 +95,7 @@ function draw() {
     loadingScreen();
   } else if (currentMode === 1) {
     playLottie.hide();
+    updateResolumeState();
     waveBackground();
     thankYouPage();
     likeWebsite.draw();
@@ -354,14 +353,14 @@ function updateResolumeState() {
 
   // can also use promise await
 
-  if ((userNum = 2)) {
+  if ((currentNumberOfUsers = 2)) {
     loadClip(1, 3); // sun layer background (float: 0.14)
     setLayerOpacity(6, 1);
-  } else if ((userNum = 3)) {
+  } else if ((currentNumberOfUsers = 3)) {
     loadClip(1, 4);
     loadClip(6, 1); // sun layer background (float: 0.14)
     setLayerOpacity(6, 1);
-  } else if ((userNum = 4 || userNum > 4)) {
+  } else if ((currentNumberOfUsers = 4 || currentNumberOfUsers > 4)) {
     loadClip(1, 5);
     loadClip(6, 1); // sun layer background (float: 0.14)
     setLayerOpacity(6, 1);
