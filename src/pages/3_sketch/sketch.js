@@ -510,12 +510,13 @@ function productCarousel() {
     artifactsArr[currentIndex].artifactURL,
     width / 4,
     height / 4,
-    width / 2.3,
+    width / 2,
     height / 2,
     0,
     0,
     artifactsArr.width,
-    artifactsArr.height
+    artifactsArr.height,
+    CONTAIN
   );
 
   // image(
