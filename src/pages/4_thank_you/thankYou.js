@@ -22,7 +22,7 @@ let userNum;
 
 // NUMBER OF USERS POLL: Variables
 let lastTimeNumberOfUsersPolled;
-let intervalToPollNumberOfUsers = 2000; // 4 second
+let intervalToPollNumberOfUsers = 4000; // 4 second
 let currentNumberOfUsers = 1;
 
 let lastFrameCountUpdate;
