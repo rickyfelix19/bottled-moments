@@ -47,6 +47,7 @@ The uses of those specific assets file formats are meant to reduce storage and w
 To run application:
 
 ```
+run `npm install` if you have not already.
 run `node server.cjs`
 go to your browser and open http://localhost:5200/ (if desktop)
 
@@ -56,7 +57,8 @@ go to your browser and open http://localhost:5200/ (if desktop)
 Alternatively, you can also run the localhost via [Vite.js](https://vitejs.dev/)
 
 ```
-By running `npx dev:frontend`.
+run `npm install` if you have not already.
+then run `npx dev:frontend`.
 go to your browser and open http://localhost:3030/ (if desktop)
 
 Although Vite can also be used to connect directly to our API server and Resolume, the setup has yet to be done. Vite is also used as an alternative to Create-React-App by Meta
