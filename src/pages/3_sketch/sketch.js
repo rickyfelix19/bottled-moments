@@ -869,6 +869,12 @@ function initialiseResolume() {
 // tested within "draw". However, the steps included here should not be run
 // every frame, to avoid too many OSC messages being sent to Resolume.
 //   ************************************************************************
+
+// async function updateMelt() {
+//   console.log("initiating async functions");
+//   const meltArtifact = await loadClip(userWallSelection + 1, meltColumn); // play melt animation
+// }
+
 function updateResolumeState() {
   // send artifacts
 
@@ -927,14 +933,11 @@ function updateResolumeState() {
 	----------------------------------------------------------------
   */
 
-  // if wall is left play below and then melt
-  // if wall is right play below and then melt
-
   loadClip(1, 1); // play single user mode
   setLayerOpacity(6, 1); // make sun brigher
   loadClip(userWallSelection, userProductSelection); // play artifact
-  loadClip(userWallSelection + 1, meltColumn); // play melt animation
 
+  //   loadClip(userWallSelection + 1, meltColumn); // play melt animation
   // initialiseResolume();
 
   //   loadClip(1, 1); // play s`ingle user mode
@@ -942,8 +945,6 @@ function updateResolumeState() {
   //   loadClip(userWallSelection, userProductSelection); // play artifact
   //   loadClip(userWallSelection + 1, meltColumn); // play melt animation
   //   initialiseResolume();
-
-  // initialiseResolume();
 }
 
 //   ***********************************************************************

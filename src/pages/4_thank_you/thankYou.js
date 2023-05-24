@@ -306,6 +306,15 @@ function otherArtifact() {
 // every frame, to avoid too many OSC messages being sent to Resolume.
 //   ************************************************************************
 
+// await until update is finished then reset
+// async function initializeResolume() {
+
+function initializeResolume() {
+  loadClip(1, 1); // lake passive background
+  loadClip(6, 1); // sun layer background (float: 0.14)
+  setLayerOpacity(6, 0.4);
+}
+
 function updateResolumeState() {
   // change background colors
   /*
@@ -354,29 +363,26 @@ function updateResolumeState() {
   // can also use promise await
 
   if ((currentNumberOfUsers = 2)) {
+    loadClip(3, 5); // melt artifact
     loadClip(1, 3); // sun layer background (float: 0.14)
     setLayerOpacity(6, 1);
   } else if ((currentNumberOfUsers = 3)) {
+    loadClip(3, 5); // melt artifact
     loadClip(1, 4);
     loadClip(6, 1); // sun layer background (float: 0.14)
     setLayerOpacity(6, 1);
   } else if ((currentNumberOfUsers = 4 || currentNumberOfUsers > 4)) {
+    loadClip(3, 5); // melt artifact
     loadClip(1, 5);
     loadClip(6, 1); // sun layer background (float: 0.14)
     setLayerOpacity(6, 1);
   } else {
+    loadClip(3, 5); // melt artifact
     loadClip(1, 1); // lake passive background
     loadClip(6, 1); // sun layer background (float: 0.14)
     setLayerOpacity(6, 0.4);
   }
   // resetResolume();
-}
-
-function resetResolume() {
-  // just initialize resolume but named differently
-  loadClip(1, 1); // lake passive background
-  loadClip(6, 1); // sun layer background (float: 0.14)
-  setLayerOpacity(6, 0.4);
 }
 
 //   ***********************************************************************
