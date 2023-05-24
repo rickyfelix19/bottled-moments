@@ -11,7 +11,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "commonjs",
   },
-  plugins: ["prettier", "mocha/recommended"],
+  plugins: ["prettier"],
   rules: {
     "prettier/prettier": "error",
   },
