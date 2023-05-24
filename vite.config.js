@@ -22,6 +22,18 @@ export default defineConfig({
   preview: {
     port: 8080,
   },
+  build: {
+    rollupOptions: {
+      input: {
+        main: "./src/index.html",
+        onboarding: "./src/pages/2_onboarding/onboarding.html",
+        sketch: "./src/pages/3_sketch/sketch.html",
+        thank_you: "./src/pages/4_thank_you/thankYou.html",
+        error: "./src/404.html",
+        // List all files you want in your build
+      },
+    },
+  },
 });
 
 // async function createServer() {
