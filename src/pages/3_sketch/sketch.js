@@ -238,18 +238,18 @@ function windowResized() {
 ///////////////////////////////////////////
 
 function screen1_UI() {
-  textSize(windowWidth / 24);
+  textSize(16);
   fill("#A199FF");
   ellipse(35, 35, 20, 20);
   stroke("#A0A0A0");
-  line(35, 35, width / 2 - 28, 35);
+  line(35, 35, width / 2 - 10, 35);
   noStroke();
   UIText1 = text("Write Message", 65, 65);
 
   noFill();
   stroke("#A0A0A0");
-  ellipse(width / 2.2, 35, 20, 20);
-  line(width / 2 - 8, 35, width - 90, 35);
+  ellipse(width / 2, 35, 20, 20);
+  line(width / 2 + 9, 35, width - 90, 35);
   noStroke();
   fill("#A0A0A0");
   UIText2 = text("Select Object", width / 2, 65);
@@ -267,17 +267,17 @@ function screen2_UI() {
   stroke("#A199FF");
   fill("#A199FF");
   ellipse(35, 35, 20, 20);
-  line(35, 35, width / 2 - 28, 35);
+  line(35, 35, width / 2 - 10, 35);
   noStroke();
   UIText1 = text("Write Message", 65, 65);
 
   stroke("#A199FF");
   fill("#A199FF");
-  ellipse(width / 2.2, 35, 20, 20);
+  ellipse(width / 2, 35, 20, 20);
   noStroke();
   UIText2 = text("Select Object", width / 2, 65);
   stroke("#A0A0A0");
-  line(width / 2 - 8, 35, width - 90, 35);
+  line(width / 2 + 9, 35, width - 90, 35);
   noStroke();
 
   noFill();
@@ -289,18 +289,18 @@ function screen2_UI() {
 }
 
 function screen3_UI() {
-  textSize(windowWidth / 16);
+  textSize(16);
   stroke("#A199FF");
   fill("#A199FF");
   ellipse(35, 35, 20, 20);
-  line(35, 35, width / 2 - 28, 35);
+  line(35, 35, width / 2 - 10, 35);
   noStroke();
   UIText1 = text("Write Message", 65, 65);
 
   // noFill();
   stroke("#A199FF");
-  ellipse(width / 2.2, 35, 20, 20);
-  line(width / 2 - 8, 35, width - 90, 35);
+  ellipse(width / 2, 35, 20, 20);
+  line(width / 2 + 9, 35, width - 90, 35);
   noStroke();
   fill("#A199FF");
   UIText2 = text("Select Object", width / 2, 65);
@@ -348,19 +348,19 @@ function skeletonLoading() {
     25,
     25
   );
-  let buttonSkeleton = rect(25, height - 105, width / 1.2, 55, 55, 55, 55, 55);
+  let buttonSkeleton = rect(75, height - 105, width - 175, 55, 55, 55, 55, 55);
 
   stroke("#A0A0A0");
   ellipse(35, 35, 20, 20);
-  line(35, 35, width / 2 - 28, 35);
+  line(35, 35, width / 2 - 10, 35);
   noStroke();
   rect(40, 65, 45, 15);
 
   stroke("#A0A0A0");
-  ellipse(width / 2.2, 35, 20, 20);
-  line(width / 2 - 8, 35, width - 90, 35);
+  ellipse(width / 2, 35, 20, 20);
+  line(width / 2 + 9, 35, width - 90, 35);
   noStroke();
-  rect(width / 2.3, 65, 45, 15);
+  rect(width / 2 - 20, 65, 45, 15);
 
   stroke("#A0A0A0");
   ellipse(width - 80, 35, 20, 20);
@@ -379,12 +379,12 @@ function screen_1() {
 
   // title
   fill("#383838");
-  textSize(windowWidth / 15);
+  textSize(29);
   title = text("Share your thoughts", width / 2, 110);
 
   // subheading
   fill("#A0A0A0");
-  textSize(windowWidth / 25);
+  textSize(18);
   subtitle = text("Your message will not be saved", width / 2, 135);
 }
 
@@ -486,12 +486,12 @@ function screen_2() {
 
   // title
   fill("#383838");
-  textSize(windowWidth / 15);
+  textSize(29);
   title = text("Select your artifacts", width / 2, 110);
 
   // subheading
   fill("#A0A0A0");
-  textSize(windowWidth / 25);
+  textSize(18);
   subtitle = text("Each artifact has different animations", width / 2, 135);
 }
 
@@ -669,6 +669,7 @@ function carouselSelect() {
       if (currentMode < totalMode) {
         // console.log(userSelection);
         userProductSelection = currentIndex;
+        userProductSelection++;
         console.log(userProductSelection);
         currentMode++;
       }
@@ -714,16 +715,17 @@ function screen_3() {
 
   // title
   fill("#383838");
-  textSize(windowWidth / 18);
 
+  textSize(29);
   title = text("Choose the walls you would", width / 2, height / 1.45);
   fill("#383838");
 
-  textSize(windowWidth / 18);
+  textSize(29);
   title = text("like to send your bottle", width / 2, height / 1.4);
+
   // subheading
   fill("#A0A0A0");
-  textSize(windowWidth / 30);
+  textSize(18);
   subtitle = text(
     "This won't affect your animations",
     width / 2,
@@ -750,6 +752,9 @@ function selectLeftWall() {
     on_mouse_exit() {
       cursor(ARROW);
     },
+    on_press() {
+      cursor("progress");
+    },
     on_release() {
       cursor(ARROW);
       // go to loading screen
@@ -774,18 +779,19 @@ function selectLeftWall() {
       //       }
       //       window.open("../4_thank_you/thankYou.html", "_parent");
 
-      if (currentNumberOfUsers > 2) {
-        setTimeout(() => {
-          userWallSelection = 2;
-          meltColumn = userProductSelection * 0 + 5;
-        }, 1000);
-      } else {
+      if (currentMode < totalMode) {
         userWallSelection = 2;
         meltColumn = userProductSelection * 0 + 5;
+        updateResolumeState();
       }
-      window.open("../4_thank_you/thankYou.html", "_parent");
-      // currentMode++;
+
+      // meltColumn = userProductSelection * 0 + 3;
+
+      setTimeout(() => {
+        window.open("../4_thank_you/thankYou.html", "_parent");
+      }, 1500);
     },
+    // currentMode++;
   });
 }
 
@@ -803,6 +809,9 @@ function selectRightWall() {
     },
     on_mouse_exit() {
       cursor(ARROW);
+    },
+    on_press() {
+      cursor("progress");
     },
     on_release() {
       cursor(ARROW);
@@ -822,17 +831,15 @@ function selectRightWall() {
       //       }
       //       window.open("../4_thank_you/thankYou.html", "_parent");
 
-      if (currentNumberOfUsers > 2) {
-        setTimeout(() => {
-          userWallSelection = 4;
-
-          meltColumn = userProductSelection * 0 + 5;
-        }, 1000);
-      } else {
+      if (currentMode < totalMode) {
         userWallSelection = 4;
         meltColumn = userProductSelection * 0 + 5;
+        updateResolumeState();
       }
-      window.open("../4_thank_you/thankYou.html", "_parent");
+
+      setTimeout(() => {
+        window.open("../4_thank_you/thankYou.html", "_parent");
+      }, 1500);
       // currentMode++;
     },
   });
@@ -923,21 +930,20 @@ function updateResolumeState() {
   // if wall is left play below and then melt
   // if wall is right play below and then melt
 
-  if (userWallSelection == 2) {
-    loadClip(1, 1); // play single user mode
-    setLayerOpacity(6, 1); // make sun brigher
-    loadClip(userWallSelection, userProductSelection); // play artifact
-    loadClip(userWallSelection + 1, meltColumn); // play melt animation
-    // initialiseResolume();
-  } else if (userWallSelection == 4) {
-    loadClip(1, 1); // play s`ingle user mode
-    setLayerOpacity(6, 1); // make sun brigher
-    loadClip(userWallSelection, userProductSelection); // play artifact
-    loadClip(userWallSelection + 1, meltColumn); // play melt animation
-    // initialiseResolume();`
-  } // after animation return sun to normal
+  loadClip(1, 1); // play single user mode
+  setLayerOpacity(6, 1); // make sun brigher
+  loadClip(userWallSelection, userProductSelection); // play artifact
+  loadClip(userWallSelection + 1, meltColumn); // play melt animation
 
-  initialiseResolume();
+  // initialiseResolume();
+
+  //   loadClip(1, 1); // play s`ingle user mode
+  //   setLayerOpacity(6, 1); // make sun brigher
+  //   loadClip(userWallSelection, userProductSelection); // play artifact
+  //   loadClip(userWallSelection + 1, meltColumn); // play melt animation
+  //   initialiseResolume();
+
+  // initialiseResolume();
 }
 
 //   ***********************************************************************

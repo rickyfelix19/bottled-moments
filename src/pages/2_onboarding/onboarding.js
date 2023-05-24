@@ -42,7 +42,7 @@ function draw() {
   text(
     "Bottled Moments uses cookie for the best experience.",
     width / 2,
-    height / 1.63
+    height / 1.5
   );
 
   // image(iconsArr[1], width / 2, height / 2);
@@ -73,7 +73,7 @@ function storeData(data) {
 
 function rulesLeftColumn() {
   let images;
-  let imageYPos = 25;
+  let imageYPos = 15;
 
   for (let i = 0; i < iconArr.length; i++) {
     // image(iconArr[i], i * 200, 0, 600 / 3, 450 / 3);
@@ -81,15 +81,15 @@ function rulesLeftColumn() {
       iconArr[i],
       windowWidth / 2.5 - 120,
       imageYPos,
-      windowWidth / 7,
-      windowHeight / 12,
+      windowWidth / 6,
+      windowHeight / 15,
       0,
       0,
       width,
       height,
       CONTAIN
     );
-    imageYPos += windowHeight / 9;
+    imageYPos += 95;
   }
 
   // image.size(64, 64);
@@ -117,28 +117,28 @@ function rulesRightColumn() {
   // let PosY = (i - currentIndex) * (windowHeight / 2) + carouselHeight; // Calculate the Y-coordinate of each item
 
   // let y = 80;
-  let titleHeight = windowHeight / 15;
-  let subtitleHeight = windowHeight / 10;
+  let titleHeight = windowHeight / 23;
+  let subtitleHeight = windowHeight / 16;
   let title, subtitle;
 
+  title = textSize(18);
   for (let i = 0; i < headingArr.length; i++) {
     fill("#4456F5");
     textAlign(LEFT);
 
     // let imageY = currentIndex * windowHeight - 100; // Calculate the
-    title = textSize(windowWidth / 24);
     title = text(headingArr[i], width / 2 - 90, titleHeight);
-    titleHeight += 75;
+    titleHeight += 95;
   }
 
+  subtitle = textSize(14);
   for (let i = 0; i < subHeadingArr.length; i++) {
     fill("#222222");
     textAlign(LEFT);
 
     // let imageY = currentIndex * windowHeight - 100; // Calculate the
-    subtitle = textSize(windowWidth / 28);
     subtitle = text(subHeadingArr[i], width / 2 - 90, subtitleHeight);
-    subtitleHeight += 75;
+    subtitleHeight += 95;
   }
 
   /* 
@@ -184,7 +184,7 @@ function productPageButton() {
   productPage = new Button({
     content: "Accept and Continue",
     x: width / 2,
-    y: height / 1.48,
+    y: height / 1.4,
     width: width / 1.2,
     height: 55,
     align_x: 0,

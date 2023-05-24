@@ -18,6 +18,8 @@ var strum = 3;
 let link;
 let shadow;
 
+let userNum;
+
 // NUMBER OF USERS POLL: Variables
 let lastTimeNumberOfUsersPolled;
 let intervalToPollNumberOfUsers = 4000; // 4 second
@@ -68,17 +70,19 @@ function setup() {
   playLottie = createDiv();
   let params = {
     container: playLottie.elt,
-    loop: true,
     autoplay: true,
     animationData: loadingLottie,
     renderer: "svg",
   };
   anim = bodymovin.loadAnimation(params);
-  playLottie.position(0, height / 5);
+  playLottie.size(window / 2, height / 2);
+  playLottie.center();
 
   // page buttons
   let likeWebsite = followButton();
   let selectOther = otherArtifact();
+
+  updateResolumeState();
 }
 
 function draw() {
@@ -130,14 +134,15 @@ function loadingScreen() {
   textAlign(CENTER);
 
   fill("#000000");
-  textSize(windowWidth / 18);
+
+  textSize(29);
   text("Sending your Bottled Moments", width / 2, 100);
 
   fill("#222222");
-  textSize(windowWidth / 24);
+  textSize(18);
   text("Please do not leave or refresh your page", width / 2, height / 1.4);
 
-  textSize(windowWidth / 24);
+  textSize(18);
   text("while we are sending your message.", width / 2, height / 1.33);
 
   // window.open("../4_thank_you/thankYou.html", "_parent");
@@ -224,11 +229,11 @@ function thankYouPage() {
   textAlign(CENTER);
   fill("#383838");
 
-  textSize(windowWidth / 18);
+  textSize(32);
   text("Your Bottle Is Now Drifting", width / 2, height / 1.85);
   text("Through The Sea", width / 2, height / 1.75);
 
-  textSize(windowWidth / 28);
+  textSize(16);
   fill("#A0A0A0");
   text("PLEASE FIND YOUR DRIFT BOTTLE", width / 2, height / 1.6);
   text("IN THE SCREEN", width / 2, height / 1.55);
@@ -294,12 +299,6 @@ function otherArtifact() {
   });
 }
 
-function resetResolume() {
-  loadClip(1, 1); // lake passive background
-  loadClip(6, 1); // sun layer background (float: 0.14)
-  setLayerOpacity(6, 0.4);
-}
-
 //   ***********************************************************************
 // updateResolumeState()
 //
@@ -354,23 +353,15 @@ function updateResolumeState() {
 	*/
 
   // can also use promise await
-  let userNum = getNumberofUsers();
 
-  if (userNum == 2) {
-    loadClip(1, 2);
-    loadClip(1, 3);
-    loadClip(6, 1); // sun layer background (float: 0.14)
+  if ((userNum = 2)) {
+    loadClip(1, 3); // sun layer background (float: 0.14)
     setLayerOpacity(6, 1);
-  } else if (userNum == 3) {
-    loadClip(1, 2);
-    loadClip(1, 3);
+  } else if ((userNum = 3)) {
     loadClip(1, 4);
     loadClip(6, 1); // sun layer background (float: 0.14)
     setLayerOpacity(6, 1);
-  } else if (userNum == 4 || userNum > 4) {
-    loadClip(1, 2);
-    loadClip(1, 3);
-    loadClip(1, 4);
+  } else if ((userNum = 4 || userNum > 4)) {
     loadClip(1, 5);
     loadClip(6, 1); // sun layer background (float: 0.14)
     setLayerOpacity(6, 1);
@@ -379,7 +370,14 @@ function updateResolumeState() {
     loadClip(6, 1); // sun layer background (float: 0.14)
     setLayerOpacity(6, 0.4);
   }
-  resetResolume();
+  // resetResolume();
+}
+
+function resetResolume() {
+  // just initialize resolume but named differently
+  loadClip(1, 1); // lake passive background
+  loadClip(6, 1); // sun layer background (float: 0.14)
+  setLayerOpacity(6, 0.4);
 }
 
 //   ***********************************************************************

@@ -1,5 +1,6 @@
 // Port for the Express web server
 var PORT = 5200;
+
 ///////////////////////////////////////////////////////////
 // UNCOMMENT THIS SECTION IF RUNNING FROM DESKTOP - BEGIN
 // Remember to use http:// to start the URL in your browser
@@ -11,7 +12,6 @@ var app = express();
 var server = app.listen(PORT);
 app.use(express.static("src"));
 // // app.use(express.static("public"));
-// console.log("Node.js Express HTTP server running on port " + PORT);
 ///////////////////////////////////////////////////////////
 // UNCOMMENT THIS SECTION IF RUNNING FROM DESKTOP - END
 ///////////////////////////////////////////////////////////
@@ -44,6 +44,7 @@ app.use(express.static("src"));
 ///////////////////////////////////////////////////////////
 // UNCOMMENT THIS SECTION IF RUNNING FROM MOBILE - END
 ///////////////////////////////////////////////////////////
+console.log("Node.js Express HTTP server running on port " + PORT);
 
 //SERVER VARIABLES
 var userSessionIds = new Map();
